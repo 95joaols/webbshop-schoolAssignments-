@@ -15,7 +15,7 @@ function App() {
   return (
     <div className="App">
         <Menu />
-      <HomePage onClick={ addToCart} />
+      <HomePage onAddToCart={ addToCart} />
     </div>
   );
 }
