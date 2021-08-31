@@ -4,7 +4,8 @@ import { ProductComponent } from "./ProductComponent";
 
 const useStyles = makeStyles({
   root: {
-    display:"flex",
+        display: "flex",
+      justifyContent: "center"
   },
 
 });
