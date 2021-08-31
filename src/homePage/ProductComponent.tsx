@@ -1,9 +1,7 @@
 import { Product } from "../entity/Product";
-import React from "react";
+import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
-import CardActionArea from "@material-ui/core/CardActionArea";
-import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import Button from "@material-ui/core/Button";
@@ -12,31 +10,38 @@ import TextField from "@material-ui/core/TextField";
 
 const useStyles = makeStyles({
   root: {
-    maxWidth: 300,
-    display: "flex",
+    maxWidth: 144,
+    margin:10
   },
   media: {
-    height: 140,
-    width: 140,
+    width: 144,
+    height:120
   },
   Content: {
-    display: "flex",
-    justifyContent: "space-around",
-    alignItems: "center"
+    paddingBottom: 0
     
   },
   details: {
-    display: "flex",
-    flexDirection: "column",
   },
+  input: {
+  
+  }
 });
+
 
 interface props {
   product: Product;
+  onClick: (product: Product,nr: number) => void;
 }
 
-export const ProductComponent: React.FC<props> = ({ product }) => {
+export const ProductComponent: React.FC<props> = ({ product,onClick }) => {
   const classes = useStyles();
+
+  const [nr, setNr] = useState(1);
+  const changeNr = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newValue = (e.target.value as unknown)as number
+    setNr(newValue < 1 ? 1 : newValue);
+  };
 
   return (
     <Card className={classes.root}>
@@ -47,10 +52,13 @@ export const ProductComponent: React.FC<props> = ({ product }) => {
       />
       <div className={classes.details}>
         <CardContent className={classes.Content}>
-          <Typography gutterBottom variant="h5" component="h2">
+          <Typography gutterBottom component="p">
             {product.Name}
           </Typography>
+         
+        
           <Typography
+            
             gutterBottom
             variant="body2"
             color="textSecondary"
@@ -58,8 +66,6 @@ export const ProductComponent: React.FC<props> = ({ product }) => {
           >
             {product.price}kr
           </Typography>
-        </CardContent>
-        <CardActions>
           <TextField
             id="outlined-number"
             label="Number"
@@ -70,12 +76,18 @@ export const ProductComponent: React.FC<props> = ({ product }) => {
               shrink: true,
             }}
             variant="outlined"
-            defaultValue={1}
+            value={nr}
+            onChange={changeNr}
+            className={classes.input}
           />
-          <Button size="small" color="primary">
-            Add
+          <Button
+            variant="contained"
+            size="small"
+            color="primary"
+            onClick={() => { onClick(product,nr)}}>
+            Add To Cart
           </Button>
-        </CardActions>
+        </CardContent>
       </div>
     </Card>
   );
