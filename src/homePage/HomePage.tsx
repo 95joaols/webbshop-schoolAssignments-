@@ -1,21 +1,28 @@
 import React from 'react';
 import { Product } from '../entity/Product';
 import { ProductComponent } from './ProductComponent';
+import { ProductList } from './ProductList';
 
- const temp: Product = {
+ const temp: Product[] = [{
     Id: 0,
     Name: "Temp Product",
     price: 9,
     description:"null",
     imageUrl:"https://via.placeholder.com/144x120"
-  }
+  },{
+    Id: 1,
+    Name: "Tbvncct",
+    price: 476,
+    description:"null",
+    imageUrl:"https://via.placeholder.com/144x120"
+  }]
 
 interface props {
-  onClick: (product: Product,nr: number) => void;
+  onAddToCart: (product: Product,nr: number) => void;
 }
 export default class HomePage extends React.Component<props>{
     render() {
-        return  <><ProductComponent product={temp} onClick={this.props.onClick} /></>
+        return  <><ProductList products={temp} onAddToCart={this.props.onAddToCart} /></>
 
     }
 }
