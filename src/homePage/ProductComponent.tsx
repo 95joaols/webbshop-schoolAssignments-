@@ -68,7 +68,7 @@ export const ProductComponent: React.FC<props> = ({ product,onClick }) => {
           </Typography>
           <TextField
             id="outlined-number"
-            label="Number"
+            label="Quantity"
             type="number"
             margin="dense"
             size="small"
