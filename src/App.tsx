@@ -1,24 +1,25 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
+import HomePage from './homePage/HomePage';
+import { Menu } from './component/Menu';
+import { ProductComponent } from './component/ProductComponent';
+import { Product } from './entity/Product';
 
 function App() {
+  const tempprodyct: Product = {
+    Id: 0,
+    Name: "Temp",
+    price: 9,
+    description:"null",
+    imageUrl:"https://via.placeholder.com/300x140"
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+        <Menu />
+      <HomePage />
+      <ProductComponent product={ tempprodyct} />
     </div>
   );
 }
