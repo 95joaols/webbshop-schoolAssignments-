@@ -11,6 +11,7 @@ import TextField from "@material-ui/core/TextField";
 const useStyles = makeStyles({
   root: {
     maxWidth: 144,
+    margin:10
   },
   media: {
     width: 144,
