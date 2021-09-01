@@ -20,7 +20,6 @@ const useStyles = makeStyles({
   Content: {
     paddingBottom: 0,
   },
-  details: {},
   link: {
     textDecoration: "none",
     color: "black",
@@ -44,25 +43,23 @@ export const ProductComponent: React.FC<props> = ({ product }) => {
           title={product.Name}
         />
       </Link>
-      <div className={classes.details}>
-        <CardContent className={classes.Content}>
-          <Link to={url} className={classes.link}>
-            <Typography gutterBottom component="p">
-              {product.Name}
-            </Typography>
-          </Link>
-
-          <Typography
-            gutterBottom
-            variant="body2"
-            color="textSecondary"
-            component="p"
-          >
-            {product.price}kr
+      <CardContent className={classes.Content}>
+        <Link to={url} className={classes.link}>
+          <Typography gutterBottom component="p">
+            {product.Name}
           </Typography>
-          <AddProductToCart product={product} />
-        </CardContent>
-      </div>
+        </Link>
+
+        <Typography
+          gutterBottom
+          variant="body2"
+          color="textSecondary"
+          component="p"
+        >
+          {product.price}kr
+        </Typography>
+        <AddProductToCart product={product} />
+      </CardContent>
     </Card>
   );
 };
