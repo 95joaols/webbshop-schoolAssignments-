@@ -4,10 +4,9 @@ import { ProductComponent } from "./ProductComponent";
 
 const useStyles = makeStyles({
   root: {
-        display: "flex",
-      justifyContent: "center"
+    display: "flex",
+    justifyContent: "center",
   },
-
 });
 
 interface props {
@@ -15,8 +14,12 @@ interface props {
 }
 
 export const ProductList: React.FC<props> = ({ products }) => {
-    const classes = useStyles();
-    return (<div className={classes.root}>
-        {products.map((product) => <ProductComponent key={product.Id} product={product} />)}
-    </div>)
- }
+  const classes = useStyles();
+  return (
+    <div className={classes.root}>
+      {products.map((product) => (
+        <ProductComponent key={product.Id} product={product} />
+      ))}
+    </div>
+  );
+};
