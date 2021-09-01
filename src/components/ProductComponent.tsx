@@ -43,9 +43,11 @@ export const ProductComponent: React.FC<props> = ({ product }) => {
       </Link>
       <div className={classes.details}>
         <CardContent className={classes.Content}>
-          <Typography gutterBottom component="p">
-            {product.Name}
-          </Typography>
+          <Link to={url}>
+            <Typography gutterBottom component="p">
+              {product.Name}
+            </Typography>
+          </Link>
 
           <Typography
             gutterBottom
