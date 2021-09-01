@@ -29,11 +29,9 @@ const useStyles = makeStyles({
 
 
 interface props {
-  product: Product;
-  onClick: (product: Product,nr: number) => void;
-}
+  product: Product;}
 
-export const ProductComponent: React.FC<props> = ({ product,onClick }) => {
+export const ProductComponent: React.FC<props> = ({ product }) => {
   const classes = useStyles();
 
   

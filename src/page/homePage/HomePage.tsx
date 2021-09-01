@@ -17,11 +17,10 @@ import { ProductList } from '../../components/ProductList';
   }]
 
 interface props {
-  onAddToCart: (product: Product,nr: number) => void;
 }
 export default class HomePage extends React.Component<props>{
     render() {
-        return  <><ProductList products={temp} onAddToCart={this.props.onAddToCart} /></>
+        return  <><ProductList products={temp} /></>
 
     }
 }

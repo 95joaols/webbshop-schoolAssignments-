@@ -12,12 +12,11 @@ const useStyles = makeStyles({
 
 interface props {
   products: Product[];
-  onAddToCart: (product: Product,nr: number) => void;
 }
 
-export const ProductList: React.FC<props> = ({ products, onAddToCart }) => {
+export const ProductList: React.FC<props> = ({ products }) => {
     const classes = useStyles();
     return (<div className={classes.root}>
-        {products.map((product) => <ProductComponent key={product.Id} product={product} onClick={onAddToCart}/>)}
+        {products.map((product) => <ProductComponent key={product.Id} product={product} />)}
     </div>)
  }
