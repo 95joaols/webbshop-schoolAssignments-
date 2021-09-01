@@ -43,20 +43,18 @@ export const ProductComponent: React.FC<props> = ({ product }) => {
       </Link>
       <div className={classes.details}>
         <CardContent className={classes.Content}>
-          <Link to={url}>
-            <Typography gutterBottom component="p">
-              {product.Name}
-            </Typography>
+          <Typography gutterBottom component="p">
+            {product.Name}
+          </Typography>
 
-            <Typography
-              gutterBottom
-              variant="body2"
-              color="textSecondary"
-              component="p"
-            >
-              {product.price}kr
-            </Typography>
-          </Link>
+          <Typography
+            gutterBottom
+            variant="body2"
+            color="textSecondary"
+            component="p"
+          >
+            {product.price}kr
+          </Typography>
           <AddProductToCart />
         </CardContent>
       </div>
