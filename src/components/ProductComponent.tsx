@@ -60,7 +60,7 @@ export const ProductComponent: React.FC<props> = ({ product }) => {
           >
             {product.price}kr
           </Typography>
-          <AddProductToCart />
+          <AddProductToCart product={product} />
         </CardContent>
       </div>
     </Card>
