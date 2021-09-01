@@ -1,21 +1,10 @@
 import './App.css';
-import HomePage from './homePage/HomePage';
-import { Menu } from './component/Menu';
-import { ProductComponent } from './homePage/ProductComponent';
-import { Product } from './entity/Product';
+import { Layout } from './component/layout';
 
 function App() {
- 
-  const addToCart =(product: Product,nr: number) =>
-  {
-    console.log("product",product,"nr", nr);
-    
-  }
-
-  return (
+   return (
     <div className="App">
-        <Menu />
-      <HomePage onAddToCart={ addToCart} />
+        <Layout/>
     </div>
   );
 }

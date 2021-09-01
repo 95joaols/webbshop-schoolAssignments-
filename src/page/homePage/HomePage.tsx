@@ -1,6 +1,6 @@
 import React from 'react';
-import { Product } from '../entity/Product';
-import { ProductComponent } from './ProductComponent';
+import { Product } from '../../entity/Product';
+import { ProductComponent } from '../../component/ProductComponent';
 import { ProductList } from './ProductList';
 
  const temp: Product[] = [{
