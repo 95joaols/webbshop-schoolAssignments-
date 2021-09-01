@@ -4,15 +4,21 @@ import { ProductList } from "../../components/ProductList";
 
 const temp: Product[] = [
   {
-    Id: 0,
+    Id: 1,
     Name: "Temp Product",
+    year: 1995,
+    genre: "horro",
+    rating: 5,
     price: 9,
     description: "null",
     imageUrl: "https://via.placeholder.com/144x120",
   },
   {
-    Id: 1,
+    Id: 2,
     Name: "Tbvncct",
+    year: 1995,
+    genre: "horro",
+    rating: 5,
     price: 476,
     description: "null",
     imageUrl: "https://via.placeholder.com/144x120",
