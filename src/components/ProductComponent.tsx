@@ -21,7 +21,10 @@ const useStyles = makeStyles({
     paddingBottom: 0,
   },
   details: {},
-  input: {},
+  link: {
+    textDecoration: "none",
+    color: "black",
+  },
 });
 
 interface props {
@@ -34,7 +37,7 @@ export const ProductComponent: React.FC<props> = ({ product }) => {
 
   return (
     <Card className={classes.root}>
-      <Link to={url}>
+      <Link to={url} className={classes.link}>
         <CardMedia
           className={classes.media}
           image={product.imageUrl}
@@ -43,7 +46,7 @@ export const ProductComponent: React.FC<props> = ({ product }) => {
       </Link>
       <div className={classes.details}>
         <CardContent className={classes.Content}>
-          <Link to={url}>
+          <Link to={url} className={classes.link}>
             <Typography gutterBottom component="p">
               {product.Name}
             </Typography>
