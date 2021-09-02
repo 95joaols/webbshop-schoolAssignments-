@@ -1,6 +1,6 @@
 import React from "react";
 import { Product } from "../../entity/Product";
-import { ProductList } from "../../components/ProductList";
+import { ProductCardList } from "../../components/ProductCardList";
 
 const temp: Product[] = [
   {
@@ -30,7 +30,7 @@ export default class HomePage extends React.Component<props> {
   render() {
     return (
       <>
-        <ProductList products={temp} />
+        <ProductCardList products={temp} />
       </>
     );
   }
