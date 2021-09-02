@@ -10,11 +10,14 @@ import { Link } from "react-router-dom";
 
 const useStyles = makeStyles({
   root: {
-    maxWidth: 144,
+    maxWidth: 300,
     margin: 10,
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "space-between",
   },
   media: {
-    width: 144,
+    width: 300,
     height: 120,
   },
   Content: {
@@ -49,7 +52,8 @@ export const ProductCard: React.FC<props> = ({ product }) => {
             {product.Name}
           </Typography>
         </Link>
-
+      </CardContent>
+      <CardContent className={classes.Content}>
         <Typography
           gutterBottom
           variant="body2"
