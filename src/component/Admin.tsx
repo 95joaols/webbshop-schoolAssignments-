@@ -50,67 +50,66 @@ export const AdminComponent: React.FC<props> = ({product}) => {
     setOpen(true);
     setSelectedProduct(product);
     console.log(product.Id);
-  }
+  };
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    console.log('submit! ', event);
+    console.log('Submit selectedProduct: ', selectedProduct);
   };
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    console.log('target: ', event.target);
-    console.log('input: ', event);
-    console.log('value: ', event.target.value);
     setSelectedProduct({
       ...selectedProduct,
-      Name: event.target.value 
+      [event.target.name]: event.target.value 
     })
-    console.log('after: ', selectedProduct);
-  }
+    console.log('handleChange: ', selectedProduct);
+  };
 
   const handleClose = () => {
     setOpen(false);
   };
 
-  const body = (
-  <div style={modalStyle} className={classes.modal}>
-    <h2 id="simple-modal-title">Text in a modal!</h2>
-    <p id="simple-modal-description">
+  const handleDelete = () => {
+    console.log('handleDelete');
+  };
 
+  const handleAddNew = () => {
+    console.log('handleAddNew');
+  };
+
+  const modalBody = (
+  <div style={modalStyle} className={classes.modal}>
     <form onSubmit={handleSubmit}>
-      <input type="text" value={selectedProduct.Name} onChange={handleChange} />
+      <input type="number" name="Id" value={selectedProduct.Id} disabled />
+      <input type="text" name="Name" value={selectedProduct.Name} onChange={handleChange} />
+      <input type="number" name="price" value={selectedProduct.price} onChange={handleChange} />
+      <input type="text" name="description" value={selectedProduct.description} onChange={handleChange} />
+      <input type="url" name="imageUrl" value={selectedProduct.imageUrl} onChange={handleChange} />
       <Button variant="contained" color="primary" type="submit">
         Submit
       </Button>
     </form>
-
-    { selectedProduct.Id }
-    { selectedProduct.Name }
-    { selectedProduct.price }
-    { selectedProduct.description }
-    </p>
   </div>
   );
 
   return (
     <div className={classes.root}>
-    <List component="nav" aria-label="main mailbox folders">
-    { product.map((p) => (
-      <ListItem button onClick={() => handleOpen(p)}>
-        <ListItemText primary={p.Id} />
-        <ListItemText primary={p.Name} />
-        <ListItemText primary={p.description} />
-        <ListItemText primary={p.price} />
-      </ListItem>
-    ))}
-    </List>
-    <Modal
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="simple-modal-title"
-        aria-describedby="simple-modal-description"
-      >
-        {body}
+      <List component="nav">
+      { product.map((p) => (
+        <div>
+          <ListItem button onClick={() => handleOpen(p)}>
+            <ListItemText primary={p.Id} />
+            <ListItemText primary={p.Name} />
+            <ListItemText primary={p.description} />
+            <ListItemText primary={p.price} />
+          </ListItem>
+            <Button onClick={handleDelete}>Delete</Button>
+        </div>
+      ))}
+        <Button onClick={handleAddNew}>Add new</Button>
+      </List>
+      <Modal open={open} onClose={handleClose}>
+        {modalBody}
       </Modal>
     </div>
   );
