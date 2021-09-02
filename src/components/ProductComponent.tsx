@@ -6,65 +6,60 @@ import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import Typography from "@material-ui/core/Typography";
 import { AddProductToCart } from "./AddProductToCart";
+import { Link } from "react-router-dom";
 
 const useStyles = makeStyles({
   root: {
     maxWidth: 144,
-    margin:10
+    margin: 10,
   },
   media: {
     width: 144,
-    height:120
+    height: 120,
   },
   Content: {
-    paddingBottom: 0
-    
+    paddingBottom: 0,
   },
-  details: {
+  link: {
+    textDecoration: "none",
+    color: "black",
   },
-  input: {
-  
-  }
 });
-
 
 interface props {
   product: Product;
-  onClick: (product: Product,nr: number) => void;
 }
 
-export const ProductComponent: React.FC<props> = ({ product,onClick }) => {
+export const ProductComponent: React.FC<props> = ({ product }) => {
   const classes = useStyles();
-
-  
-  
+  const url = `/detail/${product.Id}`;
 
   return (
     <Card className={classes.root}>
-      <CardMedia
-        className={classes.media}
-        image={product.imageUrl}
-        title={product.Name}
-      />
-      <div className={classes.details}>
-        <CardContent className={classes.Content}>
+      <Link to={url} className={classes.link}>
+        <CardMedia
+          className={classes.media}
+          image={product.imageUrl}
+          title={product.Name}
+        />
+      </Link>
+      <CardContent className={classes.Content}>
+        <Link to={url} className={classes.link}>
           <Typography gutterBottom component="p">
             {product.Name}
           </Typography>
-         
-        
-          <Typography
-            
-            gutterBottom
-            variant="body2"
-            color="textSecondary"
-            component="p"
-          >
-            {product.price}kr
-          </Typography>
-          <AddProductToCart/>
-        </CardContent>
-      </div>
+        </Link>
+
+        <Typography
+          gutterBottom
+          variant="body2"
+          color="textSecondary"
+          component="p"
+        >
+          {product.price}kr
+        </Typography>
+        <AddProductToCart product={product} />
+      </CardContent>
     </Card>
   );
 };
