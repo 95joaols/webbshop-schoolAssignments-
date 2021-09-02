@@ -32,7 +32,7 @@ interface props {
 
 export const ProductCard: React.FC<props> = ({ product }) => {
   const classes = useStyles();
-  const url = `/detail/${product.Id}`;
+  const url = `/detail/${product.id}`;
 
   return (
     <Card className={classes.root}>
@@ -40,13 +40,13 @@ export const ProductCard: React.FC<props> = ({ product }) => {
         <CardMedia
           className={classes.media}
           image={product.imageUrl}
-          title={product.Name}
+          title={product.name}
         />
       </Link>
       <CardContent className={classes.Content}>
         <Link to={url} className={classes.link}>
           <Typography gutterBottom component="p">
-            {product.Name}
+            {product.name}
           </Typography>
         </Link>
 
