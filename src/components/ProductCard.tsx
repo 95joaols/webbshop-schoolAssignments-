@@ -10,14 +10,14 @@ import { Link } from "react-router-dom";
 
 const useStyles = makeStyles({
   root: {
-    maxWidth: 300,
+    maxWidth: 200,
     margin: 10,
     display: "flex",
     flexDirection: "column",
     justifyContent: "space-between",
   },
   media: {
-    width: 300,
+    width: 200,
     height: 120,
   },
   Content: {
