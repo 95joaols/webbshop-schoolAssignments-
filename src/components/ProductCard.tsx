@@ -30,7 +30,7 @@ interface props {
   product: Product;
 }
 
-export const ProductComponent: React.FC<props> = ({ product }) => {
+export const ProductCard: React.FC<props> = ({ product }) => {
   const classes = useStyles();
   const url = `/detail/${product.Id}`;
 
