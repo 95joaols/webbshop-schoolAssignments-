@@ -5,7 +5,7 @@ import { ProductCard } from "./ProductCard";
 const useStyles = makeStyles({
   root: {
     display: "flex",
-    flexwrap: "wrap",
+    flexWrap:"wrap",
     justifyContent: "center",
   },
 });

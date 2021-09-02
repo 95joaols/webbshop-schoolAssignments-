@@ -45,8 +45,17 @@ export const ProductCard: React.FC<props> = ({ product }) => {
       </Link>
       <CardContent className={classes.Content}>
         <Link to={url} className={classes.link}>
-          <Typography gutterBottom component="p">
+          <Typography noWrap gutterBottom component="p">
             {product.name}
+          </Typography>
+          <Typography variant="body2" component="p">
+            Year: {product.year}
+          </Typography>
+          <Typography variant="body2" component="p">
+            Genre: {product.genre}
+          </Typography>
+          <Typography gutterBottom variant="body2" component="p">
+            Rating: {product.rating}
           </Typography>
         </Link>
 
