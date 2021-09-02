@@ -9,42 +9,16 @@ import Divider from '@material-ui/core/Divider';
 import InboxIcon from '@material-ui/icons/Inbox';
 import DraftsIcon from '@material-ui/icons/Drafts';
 import Modal from '@material-ui/core/Modal';
-
-// const useStyles = makeStyles((theme: Theme) =>
-//   createStyles({
-//     root: {
-//       width: '100%',
-//       maxWidth: 360,
-//       backgroundColor: theme.palette.background.paper,
-//     },
-//   }),
-// );
+import { FormHelperText, FormControl, Input, InputLabel, Button } from '@material-ui/core';
 
 interface props {
   product: Product[];
 }
 
-// function ListItemLink(props: ListItemProps<'a', { button?: true }>) {
-//   return <ListItem button component="a" {...props} />;
-// }
-
-// export default function SimpleList() {
-
-// export const Menu: React.FC = () => {
-// export const AdminComponent = () => {
-
-function rand() {
-  return Math.round(Math.random() * 20) - 10;
-}
-
 function getModalStyle() {
-  const top = 50 + rand();
-  const left = 50 + rand();
-
   return {
-    top: `${top}%`,
-    left: `${left}%`,
-    transform: `translate(-${top}%, -${left}%)`,
+    top: 50,
+    left: 50,
   };
 }
 
@@ -53,12 +27,12 @@ const useStyles = makeStyles((theme: Theme) =>
     root: {
       width: '100%',
       maxWidth: 360,
-      backgroundColor: theme.palette.background.paper,
+      backgroundColor: '#d71f5f',
     },
-    paper: {
+    modal: {
       position: 'absolute',
       width: 400,
-      backgroundColor: theme.palette.background.paper,
+      backgroundColor: '#bf95d4',
       border: '2px solid #000',
       boxShadow: theme.shadows[5],
       padding: theme.spacing(2, 4, 3),
@@ -72,20 +46,48 @@ export const AdminComponent: React.FC<props> = ({product}) => {
   const [open, setOpen] = React.useState(false);
   const [selectedProduct, setSelectedProduct] = React.useState<Product>(product[0]);    // TODO
 
-  const handleOpen = () => {
+  const handleOpen = (product: Product) => {
     setOpen(true);
-    setSelectedProduct(product[0]);       // TODO
+    setSelectedProduct(product);
+    console.log(product.Id);
+  }
+
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    console.log('submit! ', event);
   };
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    console.log('target: ', event.target);
+    console.log('input: ', event);
+    console.log('value: ', event.target.value);
+    setSelectedProduct({
+      ...selectedProduct,
+      Name: event.target.value 
+    })
+    console.log('after: ', selectedProduct);
+  }
 
   const handleClose = () => {
     setOpen(false);
   };
 
- const body = (
-  <div style={modalStyle} className={classes.paper}>
-    <h2 id="simple-modal-title">Text in a modal</h2>
+  const body = (
+  <div style={modalStyle} className={classes.modal}>
+    <h2 id="simple-modal-title">Text in a modal!</h2>
     <p id="simple-modal-description">
+
+    <form onSubmit={handleSubmit}>
+      <input type="text" value={selectedProduct.Name} onChange={handleChange} />
+      <Button variant="contained" color="primary" type="submit">
+        Submit
+      </Button>
+    </form>
+
+    { selectedProduct.Id }
     { selectedProduct.Name }
+    { selectedProduct.price }
+    { selectedProduct.description }
     </p>
   </div>
   );
@@ -94,7 +96,7 @@ export const AdminComponent: React.FC<props> = ({product}) => {
     <div className={classes.root}>
     <List component="nav" aria-label="main mailbox folders">
     { product.map((p) => (
-      <ListItem button onClick={handleOpen}>
+      <ListItem button onClick={() => handleOpen(p)}>
         <ListItemText primary={p.Id} />
         <ListItemText primary={p.Name} />
         <ListItemText primary={p.description} />
@@ -111,39 +113,5 @@ export const AdminComponent: React.FC<props> = ({product}) => {
         {body}
       </Modal>
     </div>
-
-
-
-
-    // <div className={classes.root}>
-    //   <List component="nav" aria-label="main mailbox folders">
-    //     <ListItem button>
-    //       <ListItemText primary={product.Name} />
-    //       <ListItemText primary={product.description} />
-    //     </ListItem>
-    //     <ListItem button>
-    //       <ListItemText primary="Drafts" />
-    //     </ListItem>
-    //   </List>
-    //   <Divider />
-    //   <List component="nav" aria-label="secondary mailbox folders">
-    //     <ListItem button>
-    //       <ListItemText primary="Trash" />
-    //     </ListItem>
-    //     <ListItemLink href="#simple-list">
-    //       <ListItemText primary="Spam" />
-    //     </ListItemLink>
-    //   </List>
-    // </div>
   );
 };
-
-
-
-
-
-// export const AdminComponent = () => {
-//   return (
-//     <p>LISTA MED PRODUKTER</p>
-//   );
-// };
