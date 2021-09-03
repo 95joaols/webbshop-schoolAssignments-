@@ -8,6 +8,7 @@ import { Context } from './AdminContext';
 
 interface props {
   isOpen: boolean;
+  setOpenHook: any;
 }
 
 function getModalStyle() {
@@ -35,13 +36,14 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-export const AdminModal: React.FC<props> = ({isOpen}) => {
+export const AdminModal: React.FC<props> = ({isOpen, setOpenHook}) => {
   const classes = useStyles();
   const [modalStyle] = React.useState(getModalStyle);
   const [context, setContext] = React.useContext(Context);
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    setContext(context);
     console.log('Submit selectedProduct: ', context);
   };
 
@@ -53,7 +55,7 @@ export const AdminModal: React.FC<props> = ({isOpen}) => {
     console.log('handleChange: ', context);
   };
 
-  const modalBodyEdit = (
+  const modalBodyEditProduct = (
   <div style={modalStyle} className={classes.modal}>
     <form onSubmit={handleSubmit}>
       <input type="number" name="Id" value={context.Id} disabled />
@@ -68,9 +70,23 @@ export const AdminModal: React.FC<props> = ({isOpen}) => {
   </div>
   );
 
+  const modalBodyNewProduct = (
+  <div style={modalStyle} className={classes.modal}>
+    <form onSubmit={handleSubmit}>
+      <input type="text" name="Name" onChange={handleChange} />
+      <input type="number" name="price" onChange={handleChange} />
+      <input type="text" name="description" onChange={handleChange} />
+      <input type="url" name="imageUrl"  onChange={handleChange} />
+      <Button variant="contained" color="primary" type="submit">
+        Submit
+      </Button>
+    </form>
+  </div>
+  );
+
   return(
-    <Modal open={isOpen} onClose={() => isOpen = false}>
-      {modalBodyEdit}
+    <Modal open={isOpen} onClose={() => setOpenHook(false)}>
+      {context.Id >= 0 ? modalBodyEditProduct : modalBodyNewProduct}
     </Modal>
   );
 };

@@ -33,13 +33,9 @@ export const AdminComponent: React.FC<props> = ({product}) => {
   const [context, setContext] = React.useContext(Context);
 
   const handleOpen = (product: Product) => {
-    setOpen(true);
     setContext(product);
+    setOpen(true);
     console.log('handleOpen');
-  };
-
-  const handleClose = () => {
-    setOpen(false);
   };
 
   const handleDelete = (id: number) => {
@@ -47,6 +43,8 @@ export const AdminComponent: React.FC<props> = ({product}) => {
   };
 
   const handleAddNew = () => {
+    setContext({Id: -1, Name: '', price: -1, description: '', imageUrl: ''});
+    setOpen(true);
     console.log('handleAddNew');
   };
 
@@ -67,7 +65,7 @@ export const AdminComponent: React.FC<props> = ({product}) => {
         <Button onClick={handleAddNew}>Add new</Button>
       </List>
       <Context.Provider value={[context, setContext]}>
-        <AdminModal isOpen={open} />
+        <AdminModal isOpen={open} setOpenHook={setOpen} />
       </Context.Provider>
     </div>
   );
