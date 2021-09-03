@@ -3,6 +3,10 @@ import { FC, useState } from "react";
 import { Product } from "../entity/Product";
 
 const useStyles = makeStyles({
+  root: {
+    display: "flex",
+    flexDirection:"column",
+  },
   input: {},
 });
 
@@ -19,7 +23,7 @@ export const AddProductToCart: FC<props> = ({ product }) => {
     setNr(newValue < 1 ? 1 : newValue);
   };
   return (
-    <>
+    <div className={classes.root}>
       <TextField
         id="outlined-number"
         label="Quantity"
@@ -42,6 +46,6 @@ export const AddProductToCart: FC<props> = ({ product }) => {
       >
         Add To Cart
       </Button>
-    </>
+    </div>
   );
 };
