@@ -43,7 +43,7 @@ export const ProductCard: React.FC<props> = ({ product, timeToShow }) => {
   }, timeToShow);
 
   const classes = useStyles();
-  const url = `/detail/${product.id}`;
+  const url = `/product/${product.id}`;
 
   return (
     <Zoom in={show}>
@@ -62,7 +62,7 @@ export const ProductCard: React.FC<props> = ({ product, timeToShow }) => {
                 {product.name}
               </Typography>
             </Tooltip>
-            <Typography variant="body2" component="p">
+            {/* <Typography variant="body2" component="p">
               Year: {product.year}
             </Typography>
             <Typography variant="body2" component="p">
@@ -70,7 +70,7 @@ export const ProductCard: React.FC<props> = ({ product, timeToShow }) => {
             </Typography>
             <Typography gutterBottom variant="body2" component="p">
               Rating: {product.rating}
-            </Typography>
+            </Typography> */}
           </Link>
         </CardContent>
         <CardContent className={classes.Content}>
