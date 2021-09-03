@@ -18,32 +18,21 @@ import Button from "@material-ui/core/Button";
 import DeleteForeverOutlinedIcon from "@material-ui/icons/DeleteForeverOutlined";
 import { useState } from "react";
 import { useEffect } from "react";
+import { Link } from "react-router-dom";
 
 //TODO: Mockdata. Ska bort senare -->
 type ShoppingCartItem = { product: Product; quantity: number };
-const addedproduct: Product = {
-  Id: 1,
-  Name: "shoes",
-  price: 500,
-  description: "blaa",
-  imageUrl: "blaa",
-};
-const addedproduct2: Product = {
-    Id: 2,
-    Name: "gloves",
-    price: 150,
-    description: "blaa",
-    imageUrl: "blaa",
-  };
+const addedproduct: Product = {} as Product;
+const addedproduct2: Product = {} as Product;
 const shoppingCart: ShoppingCartItem[] = [
   {
     product: addedproduct,
     quantity: 2,
   },
   {
-      product: addedproduct2,
-      quantity: 5,
-  }
+    product: addedproduct2,
+    quantity: 5,
+  },
 ];
 //
 
@@ -52,7 +41,7 @@ export const CheckoutPage: React.FC = () => {
   let [shoppingCartItems, setShoppingCartItems] = useState<ShoppingCartItem[]>(
     []
   );
-  let [customer, setCustomer] = useState<Customer>({} as Customer)
+  let [customer, setCustomer] = useState<Customer>({} as Customer);
 
   function calculateTotal() {
     let sum: number = 0;
@@ -63,14 +52,16 @@ export const CheckoutPage: React.FC = () => {
   }
 
   function deleteItem(shoppingCartItem: ShoppingCartItem) {
-    const modifiedShoppingCart = shoppingCartItems.filter((item) => item.product.Id !== shoppingCartItem.product.Id);
+    const modifiedShoppingCart = shoppingCartItems.filter(
+      (item) => item.product.id !== shoppingCartItem.product.id
+    );
     setShoppingCartItems(modifiedShoppingCart);
   }
 
   function adjustQuantity(shoppingCartItem: ShoppingCartItem) {
-      if(shoppingCartItem.quantity <= 0) shoppingCartItem.quantity = 1;
+    if (shoppingCartItem.quantity <= 0) shoppingCartItem.quantity = 1;
     const indexToReplace = shoppingCartItems.findIndex(
-      (item) => item.product.Id === shoppingCartItem.product.Id
+      (item) => item.product.id === shoppingCartItem.product.id
     );
     if (indexToReplace >= 0) {
       shoppingCartItems[indexToReplace] = shoppingCartItem;
@@ -78,17 +69,18 @@ export const CheckoutPage: React.FC = () => {
     calculateTotal();
   }
 
-  function updateCustomer(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
-        setCustomer({
-            ...customer,                                                                                                                                                                                                                                              
-            [e.target.name]: e.target.value                                                                                                                                                                                                                           
-          }) 
+  function updateCustomer(
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) {
+    setCustomer({
+      ...customer,
+      [e.target.name]: e.target.value,
+    });
   }
 
+  //TODO??
   function placeOrder() {
-      console.log(customer)
     setCustomer(customer);
-    console.log(customer)
   }
 
   useEffect(() => {
@@ -97,17 +89,16 @@ export const CheckoutPage: React.FC = () => {
 
   //TODO: Används för att sätta statet initialt. Ska bort när ett riktigt state finns -->
   useEffect(() => {
-      if (shoppingCartItems.length === 0) 
-      {
-          setShoppingCartItems(shoppingCart);
-      }
-    
+    if (shoppingCartItems.length === 0) {
+      setShoppingCartItems(shoppingCart);
+    }
   }, [shoppingCartItems]);
   //
 
   const useStyles = makeStyles((theme) => ({
     productTable: {
-      margin: 24,
+      marginTop: 24,
+      marginBottom: 24,
     },
     tableHead: {
       fontWeight: 700,
@@ -115,9 +106,14 @@ export const CheckoutPage: React.FC = () => {
     tableName: {
       width: "100%",
     },
+    buttonCell: {
+      display: "flex",
+      justifyContent: "center",
+    },
     button: {
+      display: "inherit",
+      justifyContent: "inherit",
       width: "50%",
-      alignItems: "center",
     },
     quantityCell: {
       display: "flex",
@@ -133,7 +129,7 @@ export const CheckoutPage: React.FC = () => {
 
   return (
     <div>
-      <div className={classes.productTable}>
+      <Container maxWidth="md" className={classes.productTable}>
         <TableContainer component={Paper}>
           <Table>
             <TableHead>
@@ -163,9 +159,9 @@ export const CheckoutPage: React.FC = () => {
             </TableHead>
             <TableBody>
               {shoppingCartItems.map((item) => (
-                <TableRow key={item.product.Name}>
+                <TableRow key={item.product.name}>
                   <TableCell component="th" scope="row">
-                    {item.product.Name}
+                    {item.product.name}
                   </TableCell>
                   <TableCell style={{ width: 160 }} align="right">
                     {item.product.price}
@@ -216,7 +212,7 @@ export const CheckoutPage: React.FC = () => {
             </TableFooter>
           </Table>
         </TableContainer>
-      </div>
+      </Container>
 
       <Container maxWidth="md">
         <Typography variant="h6" gutterBottom>
@@ -295,15 +291,17 @@ export const CheckoutPage: React.FC = () => {
               autoComplete="shipping country"
             />
           </Grid>
-          <Grid item xs={12}>
-            <Button
-              className={classes.button}
-              variant="contained"
-              color="primary"
-              onClick={() => placeOrder()}
-            >
-              Skicka
-            </Button>
+          <Grid item xs={12} className={classes.buttonCell}>
+            <Link to="/summary" className={classes.button}>
+              <Button
+                className={classes.button}
+                variant="contained"
+                color="primary"
+                onClick={() => placeOrder()}
+              >
+                Skicka
+              </Button>
+            </Link>
           </Grid>
         </Grid>
       </Container>
