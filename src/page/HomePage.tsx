@@ -1,6 +1,6 @@
 import React from "react";
-import { ProductCardList } from "../../components/ProductCardList";
-import { allProducts } from "../../entity/Product";
+import { ProductCardList } from "../components/ProductCardList";
+import { allProducts } from "../entity/Product";
 
 interface props {}
 
