@@ -17,8 +17,8 @@ const useStyles = makeStyles({
     justifyContent: "space-between",
   },
   media: {
-    width: 200,
-    height: 120,
+    height: 300,
+    backgroundSize: "contain",
   },
   Content: {
     paddingBottom: 0,
