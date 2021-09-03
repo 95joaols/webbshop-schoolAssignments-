@@ -1,17 +1,14 @@
-import { TextField, Button, makeStyles } from "@material-ui/core"
-import { FC, useState } from "react"
+import { TextField, Button, makeStyles } from "@material-ui/core";
+import { FC, useState } from "react";
 import { Product } from "../entity/Product";
 
 const useStyles = makeStyles({
-  input: {
-  
-  }
+  input: {},
 });
 
 interface props {
-  product: Product
+  product: Product;
 }
-
 
 export const AddProductToCart: FC<props> = ({ product }) => {
   const classes = useStyles();
