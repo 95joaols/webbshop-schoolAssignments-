@@ -103,9 +103,6 @@ export const CheckoutPage: React.FC = () => {
     tableHead: {
       fontWeight: 700,
     },
-    tableName: {
-      width: "100%",
-    },
     buttonCell: {
       display: "flex",
       justifyContent: "center",
@@ -228,7 +225,7 @@ export const CheckoutPage: React.FC = () => {
               value={customer.firstName}
               onChange={(e) => updateCustomer(e)}
               fullWidth
-              autoComplete="given-name"
+              autoComplete="shipping given-name"
             />
           </Grid>
           <Grid item xs={12} sm={6}>
@@ -240,7 +237,7 @@ export const CheckoutPage: React.FC = () => {
               value={customer.lastName}
               onChange={(e) => updateCustomer(e)}
               fullWidth
-              autoComplete="family-name"
+              autoComplete="shipping family-name"
             />
           </Grid>
           <Grid item xs={12}>
