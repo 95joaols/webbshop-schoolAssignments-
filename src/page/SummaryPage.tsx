@@ -9,69 +9,14 @@ import TableCell from "@material-ui/core/TableCell";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Typography from "@material-ui/core/Typography";
-import { useEffect } from "react";
-import { useState } from "react";
-import { Consumer } from "react";
+import { useContext } from "react";
 import { Link } from "react-router-dom";
-import { Customer } from "../entity/Customer";
-import { Product } from "../entity/Product";
-
-//TODO: Mockdata. Ska bort senare -->
-type ShoppingCartItem = { product: Product; quantity: number };
-const addedproduct: Product = {
-  id: 1,
-  name: "aaa",
-  year: 2000,
-  genre: "bbb",
-  rating: 2,
-  price: 87,
-  description: "ccc",
-  imageUrl: "ddd",
-};
-const addedproduct2: Product = {
-  id: 2,
-  name: "aaa",
-  year: 2000,
-  genre: "bbb",
-  rating: 2,
-  price: 88,
-  description: "ccc",
-  imageUrl: "ddd",
-};
-const shoppingCart: ShoppingCartItem[] = [
-  {
-    product: addedproduct,
-    quantity: 2,
-  },
-  {
-    product: addedproduct2,
-    quantity: 5,
-  },
-];
-const mockCustomer: Customer = {
-  id: 1,
-  firstName: "Rikard",
-  lastName: "Friberg",
-  address: "Turbingatan 16",
-  zip: "511 53",
-  city: "Kinna",
-  country: "SE",
-};
-//
+import { CustomerContext } from "../contexts/CustomerContext";
+import { ShoppingCartContext } from "../contexts/ShoppingCartContext";
 
 export const SummaryPage: React.FC = () => {
-  let [shoppingCartItems, setShoppingCartItems] = useState<ShoppingCartItem[]>(
-    []
-  );
-  let [customer, setCustomer] = useState<Customer>(mockCustomer);
-
-  //TODO: Används för att sätta statet initialt. Ska bort när ett riktigt state finns -->
-  useEffect(() => {
-    if (shoppingCartItems.length === 0) {
-      setShoppingCartItems(shoppingCart);
-    }
-  }, [shoppingCartItems]);
-  //
+  const { shoppingCartItems } = useContext(ShoppingCartContext);
+  const { customer } = useContext(CustomerContext);
 
   function calculateTotal() {
     let sum = 0;
@@ -81,7 +26,7 @@ export const SummaryPage: React.FC = () => {
     return sum;
   }
 
-  const useStyles = makeStyles((theme) => ({
+  const useStyles = makeStyles(() => ({
     productTable: {
       marginTop: 24,
       marginBottom: 24,
@@ -109,10 +54,6 @@ export const SummaryPage: React.FC = () => {
       paddingTop: 8,
       paddingRight: 8,
       textAlign: "left",
-    },
-    buttonCell: {
-      display: "flex",
-      justifyContent: "center",
     },
     button: {
       display: "inherit",

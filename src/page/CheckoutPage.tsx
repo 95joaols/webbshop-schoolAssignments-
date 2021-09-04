@@ -12,36 +12,19 @@ import TableFooter from "@material-ui/core/TableFooter";
 import Paper from "@material-ui/core/Paper";
 import TableHead from "@material-ui/core/TableHead";
 import { makeStyles } from "@material-ui/core/styles";
-import { Product } from "../entity/Product";
-import { Customer } from "../entity/Customer";
 import Button from "@material-ui/core/Button";
 import DeleteForeverOutlinedIcon from "@material-ui/icons/DeleteForeverOutlined";
-import { useState } from "react";
-import { useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
-
-//TODO: Mockdata. Ska bort senare -->
-type ShoppingCartItem = { product: Product; quantity: number };
-const addedproduct: Product = {} as Product;
-const addedproduct2: Product = {} as Product;
-const shoppingCart: ShoppingCartItem[] = [
-  {
-    product: addedproduct,
-    quantity: 2,
-  },
-  {
-    product: addedproduct2,
-    quantity: 5,
-  },
-];
-//
+import { ShoppingCartContext } from "../contexts/ShoppingCartContext";
+import { CustomerContext } from "../contexts/CustomerContext";
+import { ShoppingCartItem } from "../entity/ShoppingCartItem";
 
 export const CheckoutPage: React.FC = () => {
   let [totalPrice, setTotalPrice] = useState<number>(0);
-  let [shoppingCartItems, setShoppingCartItems] = useState<ShoppingCartItem[]>(
-    []
-  );
-  let [customer, setCustomer] = useState<Customer>({} as Customer);
+  const { shoppingCartItems, updateShoppingCart } =
+    useContext(ShoppingCartContext);
+  const { customer, updateCustomer } = useContext(CustomerContext);
 
   function calculateTotal() {
     let sum: number = 0;
@@ -55,7 +38,7 @@ export const CheckoutPage: React.FC = () => {
     const modifiedShoppingCart = shoppingCartItems.filter(
       (item) => item.product.id !== shoppingCartItem.product.id
     );
-    setShoppingCartItems(modifiedShoppingCart);
+    updateShoppingCart(modifiedShoppingCart);
   }
 
   function adjustQuantity(shoppingCartItem: ShoppingCartItem) {
@@ -69,31 +52,19 @@ export const CheckoutPage: React.FC = () => {
     calculateTotal();
   }
 
-  function updateCustomer(
+  function addCustomerProperty(
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) {
-    setCustomer({
+    updateCustomer({
       ...customer,
       [e.target.name]: e.target.value,
     });
   }
 
-  //TODO??
-  function placeOrder() {
-    setCustomer(customer);
-  }
-
+  //TODO: Eventuellt behövs deps [calculateTotal, totalPrice]
   useEffect(() => {
     calculateTotal();
-  }, [calculateTotal, totalPrice]);
-
-  //TODO: Används för att sätta statet initialt. Ska bort när ett riktigt state finns -->
-  useEffect(() => {
-    if (shoppingCartItems.length === 0) {
-      setShoppingCartItems(shoppingCart);
-    }
-  }, [shoppingCartItems]);
-  //
+  });
 
   const useStyles = makeStyles((theme) => ({
     productTable: {
@@ -223,7 +194,7 @@ export const CheckoutPage: React.FC = () => {
               name="firstName"
               label="Förnamn"
               value={customer.firstName}
-              onChange={(e) => updateCustomer(e)}
+              onChange={(e) => addCustomerProperty(e)}
               fullWidth
               autoComplete="shipping given-name"
             />
@@ -235,7 +206,7 @@ export const CheckoutPage: React.FC = () => {
               name="lastName"
               label="Efternamn"
               value={customer.lastName}
-              onChange={(e) => updateCustomer(e)}
+              onChange={(e) => addCustomerProperty(e)}
               fullWidth
               autoComplete="shipping family-name"
             />
@@ -247,7 +218,7 @@ export const CheckoutPage: React.FC = () => {
               name="address"
               label="Adress"
               value={customer.address}
-              onChange={(e) => updateCustomer(e)}
+              onChange={(e) => addCustomerProperty(e)}
               fullWidth
               autoComplete="shipping address-line1"
             />
@@ -259,7 +230,7 @@ export const CheckoutPage: React.FC = () => {
               name="zip"
               label="Postnummer"
               value={customer.zip}
-              onChange={(e) => updateCustomer(e)}
+              onChange={(e) => addCustomerProperty(e)}
               fullWidth
               autoComplete="shipping postal-code"
             />
@@ -271,7 +242,7 @@ export const CheckoutPage: React.FC = () => {
               name="city"
               label="Stad"
               value={customer.city}
-              onChange={(e) => updateCustomer(e)}
+              onChange={(e) => addCustomerProperty(e)}
               fullWidth
               autoComplete="shipping address-level2"
             />
@@ -283,7 +254,7 @@ export const CheckoutPage: React.FC = () => {
               name="country"
               label="Land"
               value={customer.country}
-              onChange={(e) => updateCustomer(e)}
+              onChange={(e) => addCustomerProperty(e)}
               fullWidth
               autoComplete="shipping country"
             />
@@ -294,7 +265,6 @@ export const CheckoutPage: React.FC = () => {
                 className={classes.button}
                 variant="contained"
                 color="primary"
-                onClick={() => placeOrder()}
               >
                 Skicka
               </Button>
