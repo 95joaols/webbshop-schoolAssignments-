@@ -8,36 +8,31 @@ import { Product } from "../entity/Product";
 const useStyles = makeStyles({
     root: {
       display: "flex",
-    //   flexWrap: "wrap",
-      padding: "1rem 10rem",
+      padding: "1rem 5rem",
       justifyContent: "center",
-    },
-    
+    },    
     content1: {
         display: "flex",
         flexDirection: "column",
         justifyContent: "center",
-        maxWidth: "80%",
-        minWidth: "60%",
-        padding: "1rem",
-        
+        maxWidth: "40rem",
       },
-      img: {
-        width: "90%",
+    img: {
+        width: "20rem",
         height: "auto",
     },
     content2: {
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-        minWidth: "25%",
-        maxWidth: "40%",
+        maxWidth: "20rem",
       },
     pricebox: {
         display: "flex",
         background: "red",
         padding: "0.5rem",
         marginTop: "5rem",
+        marginBottom: "1rem",
         height: "3rem",
         justifyContent: "center",
         alignItems: "center",
@@ -46,13 +41,11 @@ const useStyles = makeStyles({
     sidebox: {
         display: "flex",
         flexDirection: "column",
-        marginTop: "1rem",
-        padding: "1rem",
+        paddingLeft: "3rem",
     },
     boxcontent: {
         display: "flex",        
         alignItems: "center",
-        
     }
   });
 
@@ -60,15 +53,14 @@ interface Props extends RouteComponentProps<{ id: string }> {}
 
 export default function ProductDetail({match}: Props) {
     const movie: Product = allProducts.find((item) => item.id == ((match.params.id as unknown) as number) )!;
-        // console.log("movie",match.params.id,movie);
-
+        
         const classes = useStyles();        
 
     return (
         <div className={classes.root}>
             <div className={classes.content1}>
                 <h1>{movie?.name}</h1>
-                <img className={classes.img} src={movie?.imageUrl} alt={movie?.name} width="500" height="600"></img>
+                    <img className={classes.img} src={movie?.imageUrl} alt={movie?.name}></img>
             </div>
             <div className={classes.content2}>
                 <div className={classes.pricebox}>
