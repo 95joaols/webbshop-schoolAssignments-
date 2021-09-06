@@ -20,7 +20,7 @@ import { ShoppingCartContext } from "../contexts/ShoppingCartContext";
 import { CustomerContext } from "../contexts/CustomerContext";
 import { ShoppingCartItem } from "../entity/ShoppingCartItem";
 
-export const CheckoutPage: React.FC = () => {
+const CheckoutPage: React.FC = () => {
   let [totalPrice, setTotalPrice] = useState<number>(0);
   const { shoppingCartItems, updateShoppingCart } =
     useContext(ShoppingCartContext);
@@ -275,3 +275,5 @@ export const CheckoutPage: React.FC = () => {
     </div>
   );
 };
+
+export default CheckoutPage;
