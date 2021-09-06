@@ -7,7 +7,9 @@ import { makeStyles } from "@material-ui/core/styles";
 // import MenuIcon from "@material-ui/icons/Menu";
 // import SearchIcon from "@material-ui/icons/Search";
 // import MoreIcon from "@material-ui/icons/MoreVert";
-import Button from '@material-ui/core/Button';
+import Button from "@material-ui/core/Button";
+import { CheckoutPage } from "../page/CheckoutPage";
+import { Link } from "react-router-dom";
 
 export const Menu: React.FC = () => {
   const useStyles = makeStyles((theme) => ({
@@ -21,17 +23,16 @@ export const Menu: React.FC = () => {
       minHeight: 128,
       paddingTop: theme.spacing(1),
       paddingBottom: theme.spacing(2),
-      flexDirection: "column"
+      flexDirection: "column",
     },
-    title: {
-    },
+    title: {},
     buttoncontainer: {
       width: "100%",
       display: "flex",
       flexGrow: 1,
       justifyContent: "space-between",
-      alignItems: "flex-end"
-    }
+      alignItems: "flex-end",
+    },
   }));
 
   const classes = useStyles();
@@ -45,12 +46,16 @@ export const Menu: React.FC = () => {
           </Typography>
           <div className={classes.buttoncontainer}>
             <div>
-              <Button className={classes.button} variant="outlined">
-                Start
-              </Button>
-              <Button className={classes.button} variant="outlined">
-                Kundvagn
-              </Button>
+              <Link to="/">
+                <Button className={classes.button} variant="outlined">
+                  Start
+                </Button>
+              </Link>
+              <Link to="/shoppingcart">
+                <Button className={classes.button} variant="outlined">
+                  Kundvagn
+                </Button>
+              </Link>
             </div>
             <div>
               <Button className={classes.button} variant="outlined">
