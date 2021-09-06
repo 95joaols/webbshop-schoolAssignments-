@@ -59,8 +59,8 @@ const useStyles = makeStyles({
 interface Props extends RouteComponentProps<{ id: string }> {}
 
 export default function ProductDetail({match}: Props) {
-    const movie = allProducts.find((item) => item.id == ((match.params.id as unknown) as number) )
-        console.log("movie",match.params.id,movie);
+    const movie: Product = allProducts.find((item) => item.id == ((match.params.id as unknown) as number) )!;
+        // console.log("movie",match.params.id,movie);
 
         const classes = useStyles();        
 
@@ -73,6 +73,9 @@ export default function ProductDetail({match}: Props) {
             <div className={classes.content2}>
                 <div className={classes.pricebox}>
                     <h1>{movie?.price}kr</h1>
+                </div>
+                <div>
+                    <AddProductToCart product={movie} />
                 </div>
                 <div className={classes.sidebox}>
                     <div className={classes.boxcontent}>
@@ -87,7 +90,6 @@ export default function ProductDetail({match}: Props) {
                     <div className={classes.boxcontent}>                        
                         <p>"{movie?.description}"</p>
                     </div>
-                    {/* <AddProductToCart product={movie} /> */}
                 </div>
             </div>
         </div>
