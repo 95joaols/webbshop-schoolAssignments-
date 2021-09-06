@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import { BrowserRouter } from "react-router-dom";
 import { Layout } from "./components/Layout";
 import CustomerProvider from "./contexts/CustomerContext";
@@ -9,7 +10,9 @@ function App() {
       <BrowserRouter>
         <ShoppingCartProvider>
           <CustomerProvider>
-            <Layout />
+            <Suspense fallback={"<p>loading</p>"}>
+              <Layout />
+            </Suspense>
           </CustomerProvider>
         </ShoppingCartProvider>
       </BrowserRouter>

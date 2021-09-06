@@ -14,7 +14,7 @@ import { Link } from "react-router-dom";
 import { CustomerContext } from "../contexts/CustomerContext";
 import { ShoppingCartContext } from "../contexts/ShoppingCartContext";
 
-export const SummaryPage: React.FC = () => {
+const SummaryPage: React.FC = () => {
   const { shoppingCartItems } = useContext(ShoppingCartContext);
   const { customer } = useContext(CustomerContext);
 
@@ -164,3 +164,5 @@ export const SummaryPage: React.FC = () => {
     </div>
   );
 };
+
+export default SummaryPage;
