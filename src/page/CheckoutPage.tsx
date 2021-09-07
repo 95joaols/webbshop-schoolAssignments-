@@ -91,6 +91,10 @@ const CheckoutPage: React.FC = () => {
     deleteIcon: {
       cursor: "pointer",
     },
+    link: {
+      textDecoration: "none",
+      color: "black",
+    },
   }));
 
   const classes = useStyles();
@@ -129,7 +133,12 @@ const CheckoutPage: React.FC = () => {
               {shoppingCartItems.map((item) => (
                 <TableRow key={item.product.name}>
                   <TableCell component="th" scope="row">
-                    {item.product.name}
+                    <Link
+                      to={`/product/${item.product.id}`}
+                      className={classes.link}
+                    >
+                      {item.product.name}
+                    </Link>
                   </TableCell>
                   <TableCell style={{ width: 160 }} align="right">
                     {item.product.price}
