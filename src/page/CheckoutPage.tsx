@@ -11,9 +11,6 @@ import CustomerInput from "../components/CustomerInput";
 const CheckoutPage: React.FC = () => {
   const [disabled, setDisabled] = useState<boolean>(false);
   const [totalPrice, setTotalPrice] = useState<number>(0);
-  useEffect(() => {
-    disableIfError();
-  });
 
   function disableIfError() {
     if (Object.values(customerErrors).includes(true) || totalPrice === 0)
