@@ -19,12 +19,20 @@ import { Link } from "react-router-dom";
 import { ShoppingCartContext } from "../contexts/ShoppingCartContext";
 import { CustomerContext } from "../contexts/CustomerContext";
 import { ShoppingCartItem } from "../entity/ShoppingCartItem";
+import { CustomerValidation, customerErrors } from "../entity/CustomerValidation";
 
 const CheckoutPage: React.FC = () => {
-  let [totalPrice, setTotalPrice] = useState<number>(0);
+  const [totalPrice, setTotalPrice] = useState<number>(0);
   const { shoppingCartItems, updateShoppingCart } =
     useContext(ShoppingCartContext);
   const { customer, updateCustomer } = useContext(CustomerContext);
+
+  //TODO: Kolla att denn funkar när man kan lägga till produkter
+  let noProductsMessage: string = "";
+
+  function disableIfError() {
+    if(Object.values(customerErrors).includes(true) || totalPrice === 0) return true;
+  };
 
   function calculateTotal() {
     let sum: number = 0;
@@ -32,6 +40,8 @@ const CheckoutPage: React.FC = () => {
       (product) => (sum += product.product.price * product.quantity)
     );
     setTotalPrice(sum);
+    if (totalPrice === 0) noProductsMessage = 'Det finnns inga produkter i varukorgen';
+    else noProductsMessage = "";
   }
 
   function deleteItem(shoppingCartItem: ShoppingCartItem) {
@@ -91,6 +101,9 @@ const CheckoutPage: React.FC = () => {
     deleteIcon: {
       cursor: "pointer",
     },
+    errorText: {
+      color: "red",
+    }
   }));
 
   const classes = useStyles();
@@ -175,7 +188,12 @@ const CheckoutPage: React.FC = () => {
                 >
                   {totalPrice}
                 </TableCell>
-                <TableCell style={{ width: 160 }}></TableCell>
+                <TableCell 
+                className={classes.errorText} 
+                align="right"
+                style={{ width: 160 }}>
+                  {noProductsMessage}
+                  </TableCell>
               </TableRow>
             </TableFooter>
           </Table>
@@ -194,9 +212,13 @@ const CheckoutPage: React.FC = () => {
               name="firstName"
               label="Förnamn"
               value={customer.firstName}
-              onChange={(e) => addCustomerProperty(e)}
+              onChange={(e) => {
+                CustomerValidation('firstName', e.target.value);
+                addCustomerProperty(e);
+              }}
               fullWidth
               autoComplete="shipping given-name"
+              error={customerErrors.firstName}
             />
           </Grid>
           <Grid item xs={12} sm={6}>
@@ -206,9 +228,13 @@ const CheckoutPage: React.FC = () => {
               name="lastName"
               label="Efternamn"
               value={customer.lastName}
-              onChange={(e) => addCustomerProperty(e)}
+              onChange={(e) => {
+                CustomerValidation('lastName', e.target.value);
+                addCustomerProperty(e)
+              }}
               fullWidth
               autoComplete="shipping family-name"
+              error={customerErrors.lastName}
             />
           </Grid>
           <Grid item xs={12}>
@@ -218,9 +244,13 @@ const CheckoutPage: React.FC = () => {
               name="address"
               label="Adress"
               value={customer.address}
-              onChange={(e) => addCustomerProperty(e)}
+              onChange={(e) => {
+                CustomerValidation('address', e.target.value);
+                addCustomerProperty(e);
+              }}
               fullWidth
               autoComplete="shipping address-line1"
+              error={customerErrors.address}
             />
           </Grid>
           <Grid item xs={12} sm={6}>
@@ -230,9 +260,13 @@ const CheckoutPage: React.FC = () => {
               name="zip"
               label="Postnummer"
               value={customer.zip}
-              onChange={(e) => addCustomerProperty(e)}
+              onChange={(e) => {
+                CustomerValidation('zip', e.target.value);
+                addCustomerProperty(e);
+              }}
               fullWidth
               autoComplete="shipping postal-code"
+              error={customerErrors.zip}
             />
           </Grid>
           <Grid item xs={12} sm={6}>
@@ -242,9 +276,13 @@ const CheckoutPage: React.FC = () => {
               name="city"
               label="Stad"
               value={customer.city}
-              onChange={(e) => addCustomerProperty(e)}
+              onChange={(e) => {
+                CustomerValidation('city', e.target.value);
+                addCustomerProperty(e);
+              }}
               fullWidth
               autoComplete="shipping address-level2"
+              error={customerErrors.city}
             />
           </Grid>
           <Grid item xs={12}>
@@ -254,21 +292,25 @@ const CheckoutPage: React.FC = () => {
               name="country"
               label="Land"
               value={customer.country}
-              onChange={(e) => addCustomerProperty(e)}
+              onChange={(e) => {
+                CustomerValidation('country', e.target.value);
+                addCustomerProperty(e);
+              }}
               fullWidth
               autoComplete="shipping country"
+              error={customerErrors.country}
             />
           </Grid>
           <Grid item xs={12} className={classes.buttonCell}>
-            <Link to="/summary" className={classes.button}>
               <Button
                 className={classes.button}
+                component={Link} to="/summary"
                 variant="contained"
                 color="primary"
+                disabled={disableIfError()}
               >
                 Skicka
               </Button>
-            </Link>
           </Grid>
         </Grid>
       </Container>
