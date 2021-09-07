@@ -10,7 +10,11 @@ import {
   customerErrors,
 } from "../entity/CustomerValidation";
 
-const CustomerInput: React.FC = () => {
+interface Props {
+  onSetCustomer: () => void;
+}
+
+const CustomerInput: React.FC<Props> = ({onSetCustomer}) => {
   const { customer, updateCustomer } = useContext(CustomerContext);
 
   function addCustomerProperty(
@@ -20,6 +24,7 @@ const CustomerInput: React.FC = () => {
       ...customer,
       [e.target.name]: e.target.value,
     });
+    onSetCustomer();
   }
 
   return (

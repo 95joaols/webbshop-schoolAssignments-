@@ -1,5 +1,5 @@
 import Grid from "@material-ui/core/Grid";
-import React from "react";
+import React, { useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import { useState } from "react";
@@ -9,11 +9,18 @@ import ShoppingCartTable from "../components/ShoppingCartTable";
 import CustomerInput from "../components/CustomerInput";
 
 const CheckoutPage: React.FC = () => {
+  const [disabled, setDisabled] = useState<boolean>(false);
   const [totalPrice, setTotalPrice] = useState<number>(0);
+  useEffect(() => {
+    disableIfError();
+  });
 
   function disableIfError() {
     if (Object.values(customerErrors).includes(true) || totalPrice === 0)
-      return true;
+    {
+      setDisabled(true);
+    }
+      else setDisabled(false);
   }
 
   const useStyles = makeStyles((theme) => ({
@@ -41,9 +48,14 @@ const CheckoutPage: React.FC = () => {
         totalPrice={totalPrice}
         onSetPrice={(price) => {
           setTotalPrice(price);
+          disableIfError();
         }}
       />
-      <CustomerInput />
+      <CustomerInput
+        onSetCustomer={() => {
+          disableIfError();
+        }} 
+      />
       <Grid item xs={12} className={classes.buttonCell}>
         <Button
           className={classes.button}
@@ -51,7 +63,7 @@ const CheckoutPage: React.FC = () => {
           to="/summary"
           variant="contained"
           color="primary"
-          disabled={disableIfError()}
+          disabled={disabled}
         >
           Skicka
         </Button>
