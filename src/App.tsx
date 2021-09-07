@@ -2,6 +2,7 @@ import { BrowserRouter } from "react-router-dom";
 import { Layout } from "./components/Layout";
 import CustomerProvider from "./contexts/CustomerContext";
 import ShoppingCartProvider from "./contexts/ShoppingCartContext";
+import ProductProvider from "./contexts/ProductContext";
 
 function App() {
   return (
@@ -9,7 +10,9 @@ function App() {
       <BrowserRouter>
         <ShoppingCartProvider>
           <CustomerProvider>
-            <Layout />
+            <ProductProvider>
+              <Layout />
+            </ProductProvider>
           </CustomerProvider>
         </ShoppingCartProvider>
       </BrowserRouter>

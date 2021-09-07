@@ -58,9 +58,11 @@ export const Menu: React.FC = () => {
               </Link>
             </div>
             <div>
+              <Link to="/admin">
               <Button className={classes.button} variant="outlined">
                 Admin
               </Button>
+              </Link>
             </div>
           </div>
         </Toolbar>
