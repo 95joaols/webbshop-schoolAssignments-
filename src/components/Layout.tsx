@@ -13,7 +13,7 @@ export const Layout: FC = () => {
   return (
     <>
       <Menu />
-      <Suspense fallback={"<p>loading</p>"}>
+      <Suspense fallback={(<p>loading</p>)}>
         <Switch>
           <Route path="/summary">
               <SummaryPage />
