@@ -7,12 +7,13 @@ import { allProducts } from "../entity/Product";
 const useStyles = makeStyles({
   root: {
     display: "flex",
-    justifyContent: "center",
+    alignItems: "center",
     flexDirection: "column",
   },
   content:{
     display: "flex",
     flexWrap: "wrap",
+    justifyContent: "center",
   },
   contentimg: {
     display: "flex",
@@ -57,8 +58,8 @@ export default function ProductDetail({ match }: Props) {
   const classes = useStyles();
 
   return (
-    <Container className={classes.root}>
-      <Box paddingLeft="1rem">
+    <Container className={classes.root} maxWidth="lg">
+      <Box>
           <h1>{movie.name}</h1>
       </Box>
       <Container className={classes.content}>
