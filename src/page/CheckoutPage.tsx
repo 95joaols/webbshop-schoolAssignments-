@@ -27,6 +27,10 @@ const CheckoutPage: React.FC = () => {
       justifyContent: "inherit",
       width: "30%",
     },
+    link: {
+      textDecoration: "none",
+      color: "black",
+    },
   }));
 
   const classes = useStyles();
