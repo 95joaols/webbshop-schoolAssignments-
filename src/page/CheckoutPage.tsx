@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 import { customerErrors } from "../entity/CustomerValidation";
 import ShoppingCartTable from "../components/ShoppingCartTable";
 import CustomerInput from "../components/CustomerInput";
+import ErrorBoundary from "../components/ErrorBoundary";
 
 const CheckoutPage: React.FC = () => {
   const [disabled, setDisabled] = useState<boolean>(false);
@@ -39,13 +40,15 @@ const CheckoutPage: React.FC = () => {
 
   return (
     <div>
-      <ShoppingCartTable
-        totalPrice={totalPrice}
-        onSetPrice={(price) => {
-          setTotalPrice(price);
-          disableIfError();
-        }}
-      />
+      <ErrorBoundary>
+        <ShoppingCartTable
+          totalPrice={totalPrice}
+          onSetPrice={(price) => {
+            setTotalPrice(price);
+            disableIfError();
+          }}
+        />
+      </ErrorBoundary>
       <CustomerInput
         onSetCustomer={() => {
           disableIfError();
