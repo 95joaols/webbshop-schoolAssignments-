@@ -45,6 +45,10 @@ export const ProductCard: React.FC<props> = ({ product, timeToShow }) => {
   const classes = useStyles();
   const url = `/product/${product.id}`;
 
+  if (Math.floor(Math.random() * 6) === 0) {
+    ([] as any).hej();
+  }
+
   return (
     <Zoom in={show}>
       <Card className={classes.root}>
