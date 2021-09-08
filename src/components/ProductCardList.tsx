@@ -8,7 +8,6 @@ const useStyles = makeStyles({
     display: "flex",
     flexWrap: "wrap",
     justifyContent: "center",
-    // alignItems: "strech",
   },
 });
 

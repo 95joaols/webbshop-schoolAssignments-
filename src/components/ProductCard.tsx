@@ -16,7 +16,7 @@ const useStyles = makeStyles({
     display: "flex",
     flexDirection: "column",
     justifyContent: "space-between",
-    // alignItems: "strech",
+    alignItems: "stretch",
   },
   media: {
     height: 300,
@@ -57,7 +57,6 @@ export const ProductCard: React.FC<props> = ({ product, timeToShow }) => {
             title={product.name}
           />
         </Link>
-        {/* <Box height="40px"> */}
         <CardContent className={classes.Content}>
           <Link to={url} className={classes.link}>
             <Tooltip title={product.name} aria-label="add">
@@ -67,7 +66,6 @@ export const ProductCard: React.FC<props> = ({ product, timeToShow }) => {
             </Tooltip>
           </Link>
         </CardContent>
-        {/* </Box> */}
         <CardContent className={classes.Content}>
           <Typography
             gutterBottom
