@@ -10,7 +10,7 @@ const useStyles = makeStyles({
     alignItems: "center",
     flexDirection: "column",
   },
-  content:{
+  content: {
     display: "flex",
     flexWrap: "wrap",
     justifyContent: "center",
@@ -53,18 +53,23 @@ interface Props extends RouteComponentProps<{ id: string }> {}
 
 export default function ProductDetail({ match }: Props) {
   const movie = allProducts.find(
-    (item) => item.id == (match.params.id as unknown as number))!;
+    (item) => item.id === +(match.params.id as unknown as number)
+  )!;
 
   const classes = useStyles();
 
   return (
     <Container className={classes.root} maxWidth="lg">
       <Box>
-          <h1>{movie.name}</h1>
+        <h1>{movie.name}</h1>
       </Box>
       <Container className={classes.content}>
         <Box className={classes.contentimg}>
-          <img className={classes.img} src={movie.imageUrl} alt={movie.name}></img>
+          <img
+            className={classes.img}
+            src={movie.imageUrl}
+            alt={movie.name}
+          ></img>
         </Box>
         <Box className={classes.content2}>
           <Box className={classes.pricebox}>
@@ -75,10 +80,14 @@ export default function ProductDetail({ match }: Props) {
           </Box>
           <Container className={classes.infobox}>
             <Box>
-              <h4>Released <em>{movie.year}</em> </h4>
+              <h4>
+                Released <em>{movie.year}</em>{" "}
+              </h4>
             </Box>
             <Box>
-              <h4>Rated <em>{movie.rating}</em> on IMDB</h4>
+              <h4>
+                Rated <em>{movie.rating}</em> on IMDB
+              </h4>
             </Box>
             <Box>
               <h4>{movie.genre}</h4>
