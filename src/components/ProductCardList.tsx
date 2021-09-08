@@ -1,5 +1,6 @@
 import { makeStyles } from "@material-ui/core/styles";
 import { Product } from "../entity/Product";
+import ErrorBoundary from "./ErrorBoundary";
 import { ProductCard } from "./ProductCard";
 
 const useStyles = makeStyles({
@@ -19,11 +20,13 @@ export const ProductCardList: React.FC<props> = ({ products }) => {
   return (
     <div className={classes.root}>
       {products.map((product, index) => (
-        <ProductCard
-          key={product.id}
-          product={product}
-          timeToShow={index * 150}
-        />
+        <ErrorBoundary>
+          <ProductCard
+            key={product.id}
+            product={product}
+            timeToShow={index * 150}
+          />
+        </ErrorBoundary>
       ))}
     </div>
   );
