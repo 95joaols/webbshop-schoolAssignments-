@@ -22,8 +22,6 @@ export const Menu: React.FC = () => {
       },
     },
     button: {
-      // margin: "1rem",
-      // borderRadius: "25px",
       backgroundColor: "none",
       color: "white",
     },
@@ -76,7 +74,7 @@ export const Menu: React.FC = () => {
     <div className={classes.root}>
       <AppBar position="static">
         <Toolbar className={classes.toolbar}>
-          <h1>En liten Webshop</h1>
+          <h1>Webshop</h1>
 
           <div className={classes.buttoncontainer}>
             <div className={classes.directionRow}>
