@@ -22,9 +22,10 @@ export const Menu: React.FC = () => {
       },
     },
     button: {
-      margin: "1rem",
-      borderRadius: "25px",
-      backgroundColor: "white",
+      // margin: "1rem",
+      // borderRadius: "25px",
+      backgroundColor: "none",
+      color: "white",
     },
     toolbar: {
       minHeight: 128,
@@ -35,6 +36,7 @@ export const Menu: React.FC = () => {
     buttoncontainer: {
       width: "100%",
       display: "flex",
+      flexWrap: "wrap",
       flexGrow: 1,
       justifyContent: "space-between",
       alignItems: "flex-end",
@@ -80,7 +82,7 @@ export const Menu: React.FC = () => {
             <div className={classes.directionRow}>
               <Button
                 className={classes.button}
-                variant="outlined"
+                // variant="text"
                 component={Link}
                 to="/"
               >
@@ -88,23 +90,23 @@ export const Menu: React.FC = () => {
               </Button>
               <Button
                 className={classes.button}
-                variant="outlined"
+                // variant="outlined"
                 component={Link}
                 to="/shoppingcart"
               >
-                Till kassan
+                Kassa
               </Button>
-              <DropDownCart></DropDownCart>
-            </div>
-            <div className={classes.directionRow}>
               <Button
                 className={classes.button}
-                variant="outlined"
+                // variant="outlined"
                 component={Link}
                 to="/admin"
               >
                 Admin
               </Button>
+            </div>
+            <div className={classes.directionRow}>
+              <DropDownCart></DropDownCart>
             </div>
           </div>
         </Toolbar>
