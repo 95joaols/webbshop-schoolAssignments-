@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import TextField from "@material-ui/core/TextField";
 import { Container } from "@material-ui/core";
 import TableContainer from "@material-ui/core/TableContainer";
@@ -23,9 +23,13 @@ interface Props {
 const ShoppingCartTable: React.FC<Props> = ({ totalPrice, onSetPrice }) => {
   const { shoppingCartItems, updateShoppingCart } =
     useContext(ShoppingCartContext);
+  const [noProductsError, setNoProductsMsg] = useState<string>("");
 
-  //TODO: Kolla att denna funkar när man kan lägga till produkter
-  let noProductsMessage: string = "";
+  const ifNoProductMessage = () => {
+    const noProductsMessage: string = "Varukorgen är tom";
+    if (totalPrice === 0) setNoProductsMsg(noProductsMessage);
+    else setNoProductsMsg("");
+  };
 
   function calculateTotal() {
     let sum: number = 0;
@@ -33,9 +37,7 @@ const ShoppingCartTable: React.FC<Props> = ({ totalPrice, onSetPrice }) => {
       (product) => (sum += product.product.price * product.quantity)
     );
     onSetPrice(sum);
-    if (totalPrice === 0)
-      noProductsMessage = "Det finnns inga produkter i varukorgen";
-    else noProductsMessage = "";
+    ifNoProductMessage();
   }
 
   function deleteItem(shoppingCartItem: ShoppingCartItem) {
@@ -56,7 +58,6 @@ const ShoppingCartTable: React.FC<Props> = ({ totalPrice, onSetPrice }) => {
     calculateTotal();
   }
 
-  //TODO: Eventuellt behövs deps [calculateTotal, totalPrice]
   useEffect(() => {
     calculateTotal();
   });
@@ -168,7 +169,7 @@ const ShoppingCartTable: React.FC<Props> = ({ totalPrice, onSetPrice }) => {
                 align="right"
                 style={{ width: 160 }}
               >
-                {noProductsMessage}
+                {noProductsError}
               </TableCell>
             </TableRow>
           </TableFooter>

@@ -11,6 +11,7 @@ import TableRow from "@material-ui/core/TableRow";
 import Typography from "@material-ui/core/Typography";
 import { useContext } from "react";
 import { Link } from "react-router-dom";
+import ConfirmationDialog from "../components/ConfirmationDialog";
 import { CustomerContext } from "../contexts/CustomerContext";
 import { ShoppingCartContext } from "../contexts/ShoppingCartContext";
 
@@ -42,6 +43,8 @@ const SummaryPage: React.FC = () => {
     cardRow: {
       display: "flex",
       flexDirection: "row",
+      width: "100%",
+      justifyContent: "center",
     },
     cardColumn: {
       display: "flex",
@@ -56,9 +59,7 @@ const SummaryPage: React.FC = () => {
       textAlign: "left",
     },
     button: {
-      display: "inherit",
-      justifyContent: "inherit",
-      width: "30%",
+      width: "50%",
     },
   }));
 
@@ -140,23 +141,20 @@ const SummaryPage: React.FC = () => {
           </CardContent>
         </Card>
         <div className={`${classes.cardRow} ${classes.cardEven}`}>
+          <div className={classes.cardRow}>
             <Button
               className={classes.button}
-              component={Link} to="/shoppingcart"
+              component={Link}
+              to="/shoppingcart"
               variant="contained"
               color="primary"
             >
               Gå tillbaka
             </Button>
-          {/* TODO: Lägg till modal på denna knapp --> */}
-            <Button
-              className={classes.button}
-              component={Link} to="/"
-              variant="contained"
-              color="primary"
-            >
-              Bekräfta
-            </Button>
+          </div>
+          <div className={classes.cardRow}>
+            <ConfirmationDialog />
+          </div>
         </div>
       </Container>
     </div>
