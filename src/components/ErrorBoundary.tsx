@@ -48,7 +48,7 @@ class ErrorBoundary extends Component<Props, State> {
     if (this.state.hasError) {
       var Classes = classNames(
         {
-          [this.props.classes.card]: this.props.style === "card",
+          [this.props.classes.card]: this.props.styleType === "card",
         },
         [this.props.classes.default]
       );
