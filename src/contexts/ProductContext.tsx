@@ -20,7 +20,7 @@ const ProductProvider: FC = (props) => {
   const AddOrUpdateProduct = (product: Product) => {
     if (product.id > 0) {
       const newArray: Product[] = products.filter(
-        (element) => element.id != product.id);
+        (element) => element.id !== product.id);
       const newArrayAppend: Product[] = [...newArray, product];
       setProducts(newArrayAppend);
     }
