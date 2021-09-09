@@ -7,15 +7,17 @@ import CardMedia from "@material-ui/core/CardMedia";
 import Typography from "@material-ui/core/Typography";
 import { AddProductToCart } from "./AddProductToCart";
 import { Link } from "react-router-dom";
-import { Tooltip, Zoom } from "@material-ui/core";
+import { Box, Tooltip, Zoom } from "@material-ui/core";
 
 const useStyles = makeStyles({
   root: {
     maxWidth: 200,
     margin: 10,
+    height: 590,
     display: "flex",
     flexDirection: "column",
     justifyContent: "space-between",
+    alignItems: "stretch",
   },
   media: {
     height: 300,
@@ -47,6 +49,7 @@ export const ProductCard: React.FC<props> = ({ product, timeToShow }) => {
 
   return (
     <Zoom in={show}>
+      <Box maxWidth="50%">
       <Card className={classes.root}>
         <Link to={url} className={classes.link}>
           <CardMedia
@@ -58,19 +61,10 @@ export const ProductCard: React.FC<props> = ({ product, timeToShow }) => {
         <CardContent className={classes.Content}>
           <Link to={url} className={classes.link}>
             <Tooltip title={product.name} aria-label="add">
-              <Typography noWrap gutterBottom component="p">
+              <Typography gutterBottom component="p">
                 {product.name}
               </Typography>
             </Tooltip>
-            {/* <Typography variant="body2" component="p">
-              Year: {product.year}
-            </Typography>
-            <Typography variant="body2" component="p">
-              Genre: {product.genre}
-            </Typography>
-            <Typography gutterBottom variant="body2" component="p">
-              Rating: {product.rating}
-            </Typography> */}
           </Link>
         </CardContent>
         <CardContent className={classes.Content}>
@@ -85,6 +79,7 @@ export const ProductCard: React.FC<props> = ({ product, timeToShow }) => {
           <AddProductToCart product={product} />
         </CardContent>
       </Card>
+      </Box>
     </Zoom>
   );
 };

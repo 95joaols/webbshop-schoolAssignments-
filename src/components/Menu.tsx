@@ -1,22 +1,30 @@
 import React from "react";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
-// import IconButton from "@material-ui/core/IconButton";
-import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
-// import MenuIcon from "@material-ui/icons/Menu";
-// import SearchIcon from "@material-ui/icons/Search";
-// import MoreIcon from "@material-ui/icons/MoreVert";
 import Button from "@material-ui/core/Button";
 import { Link } from "react-router-dom";
+import DropDownCart from "./DropDownCart";
 
 export const Menu: React.FC = () => {
   const useStyles = makeStyles((theme) => ({
     root: {
       flexGrow: 1,
+      "& h1": {
+        fontWeight: "lighter",
+        fontSize: 68,
+        color: "transparent",
+        position: "absolute",
+        opacity: 0,
+        marginTop: 0,
+        marginLeft: "-.5em",
+        animation: `$cinematicInOut 5s ${theme.transitions.easing.easeInOut} infinite`,
+      },
     },
     button: {
-      marginRight: theme.spacing(2),
+      margin: "1rem",
+      borderRadius: "25px",
+      backgroundColor: "white",
     },
     toolbar: {
       minHeight: 128,
@@ -24,13 +32,39 @@ export const Menu: React.FC = () => {
       paddingBottom: theme.spacing(2),
       flexDirection: "column",
     },
-    title: {},
     buttoncontainer: {
       width: "100%",
       display: "flex",
       flexGrow: 1,
       justifyContent: "space-between",
       alignItems: "flex-end",
+    },
+    directionRow: {
+      display: "flex",
+      flexDirection: "row",
+      alignItems: "center",
+    },
+    "@keyframes cinematicInOut": {
+      "0%": {
+        textShadow: "0 0 0 white",
+        opacity: 1,
+        marginLeft: 0,
+      },
+      "60%": {
+        textShadow: "0 0 0 white",
+        opacity: 1,
+        marginLeft: 0,
+      },
+      "75%": {
+        textShadow: "0 0 1rem white",
+        opacity: "0,75",
+        marginLeft: "-.5em",
+      },
+      "100%": {
+        textShadow: "0 0 0 white",
+        opacity: 1,
+        marginLeft: 0,
+      },
     },
   }));
 
@@ -40,28 +74,37 @@ export const Menu: React.FC = () => {
     <div className={classes.root}>
       <AppBar position="static">
         <Toolbar className={classes.toolbar}>
-          <Typography className={classes.title} variant="h2" noWrap>
-            Webshop
-          </Typography>
+          <h1>En liten Webshop</h1>
+
           <div className={classes.buttoncontainer}>
-            <div>
-              <Link to="/">
-                <Button className={classes.button} variant="outlined">
-                  Start
-                </Button>
-              </Link>
-              <Link to="/shoppingcart">
-                <Button className={classes.button} variant="outlined">
-                  Kundvagn
-                </Button>
-              </Link>
+            <div className={classes.directionRow}>
+              <Button
+                className={classes.button}
+                variant="outlined"
+                component={Link}
+                to="/"
+              >
+                Start
+              </Button>
+              <Button
+                className={classes.button}
+                variant="outlined"
+                component={Link}
+                to="/shoppingcart"
+              >
+                Till kassan
+              </Button>
+              <DropDownCart></DropDownCart>
             </div>
-            <div>
-              <Link to="/admin">
-              <Button className={classes.button} variant="outlined">
+            <div className={classes.directionRow}>
+              <Button
+                className={classes.button}
+                variant="outlined"
+                component={Link}
+                to="/admin"
+              >
                 Admin
               </Button>
-              </Link>
             </div>
           </div>
         </Toolbar>
