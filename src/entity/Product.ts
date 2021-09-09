@@ -123,7 +123,7 @@ export const allProducts: Product[] = [{
 },
 {
     id: 12,
-    name: "Star Wars: The Force Awakens",
+    name: "Star Wars: Episode VII - The Force Awakens",
     year: 2015,
     genre: "Action, Adventure, Fantasy",
     rating: 7.8,
@@ -133,7 +133,7 @@ export const allProducts: Product[] = [{
 },
 {
     id: 13,
-    name: "Star Wars: The Last Jedi",
+    name: "Star Wars: Episode VIII - The Last Jedi",
     year: 2017,
     genre: "Action, Adventure, Fantasy",
     rating: 7.0,
