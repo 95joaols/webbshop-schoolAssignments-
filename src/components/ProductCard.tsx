@@ -13,6 +13,7 @@ const useStyles = makeStyles({
   root: {
     maxWidth: 200,
     margin: 10,
+    height: 590,
     display: "flex",
     flexDirection: "column",
     justifyContent: "space-between",
