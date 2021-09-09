@@ -1,47 +1,41 @@
-import React, { useContext } from 'react';
-import { makeStyles, withStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
-import Menu, { MenuProps } from '@material-ui/core/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import DraftsIcon from '@material-ui/icons/Drafts';
-import SendIcon from '@material-ui/icons/Send';
-import { ShoppingCartContext } from '../contexts/ShoppingCartContext';
-import { ProductContext } from '../contexts/ProductContext';
+import React from "react";
+import { makeStyles } from "@material-ui/core/styles";
+import MenuItem from "@material-ui/core/MenuItem";
+import ListItemText from "@material-ui/core/ListItemText";
 
 interface Props {
-    imageUrl: string,
-    quantity: number,
-    title: string
+  imageUrl: string;
+  quantity: number;
+  title: string;
 }
 
 const DropDownCartItem: React.FC<Props> = ({ imageUrl, quantity, title }) => {
-
-
   const useStyles = makeStyles((theme) => ({
     image: {
-      width: "15%"
+      width: "15%",
     },
     quantity: {
-        textAlign: "right"
-    }
+      textAlign: "right",
+    },
+    title: {
+      padding: "8px",
+    },
   }));
 
   const classes = useStyles();
 
-
-
   return (
     <div>
-        <MenuItem>
-          <img className={classes.image} src={imageUrl} alt="" />
-          <ListItemText primary={title} />
-          <ListItemText className={classes.quantity} primary={quantity}/>
-        </MenuItem>
+      <MenuItem>
+        <img className={classes.image} src={imageUrl} alt="" />
+        <ListItemText className={classes.title} primary={title} />
+        <ListItemText
+          className={`${classes.quantity} ${classes.title}`}
+          primary={quantity}
+        />
+      </MenuItem>
     </div>
   );
-}
+};
 
 export default DropDownCartItem;
