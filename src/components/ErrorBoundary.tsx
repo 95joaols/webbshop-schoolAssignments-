@@ -1,4 +1,4 @@
-import { Theme, Typography } from "@material-ui/core";
+import { Typography } from "@material-ui/core";
 import { createStyles, WithStyles, withStyles } from "@material-ui/styles";
 import classNames from "classnames";
 import { Component, ErrorInfo } from "react";
@@ -22,7 +22,7 @@ const styles = () =>
 
 interface Props extends WithStyles<typeof styles> {
   message?: string;
-  style?: String;
+  styleType?: String;
 }
 interface State {
   hasError: boolean;
