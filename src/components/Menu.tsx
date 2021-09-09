@@ -5,6 +5,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import { Link } from "react-router-dom";
 import DropDownCart from "./DropDownCart";
+import { Box, Container } from "@material-ui/core";
 
 export const Menu: React.FC = () => {
   const useStyles = makeStyles((theme) => ({
@@ -74,8 +75,14 @@ export const Menu: React.FC = () => {
     <div className={classes.root}>
       <AppBar position="static">
         <Toolbar className={classes.toolbar}>
+          <Container maxWidth="md">
+          <Box display={{ xs: 'none', md: 'block'}} marginLeft="10rem">
+          <h1>Vår Lilla Webshop</h1>
+          </Box>
+          <Box display={{ xs: 'block', md: 'none'}}>
           <h1>Webshop</h1>
-
+          </Box>
+          </Container>
           <div className={classes.buttoncontainer}>
             <div className={classes.directionRow}>
               <Button
