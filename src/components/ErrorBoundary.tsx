@@ -11,9 +11,12 @@ const styles = () =>
       // height: hight,
     },
     card: {
-      width: 200,
+      width: "200px !important",
       margin: 5,
       boxShadow: "2px 2px 4px #000000",
+    },
+    default: {
+      width: "100%",
     },
   });
 
@@ -43,9 +46,12 @@ class ErrorBoundary extends Component<Props, State> {
 
   render() {
     if (this.state.hasError) {
-      var Classes = classNames({
-        [this.props.classes.card]: this.props.style === "card",
-      });
+      var Classes = classNames(
+        {
+          [this.props.classes.card]: this.props.style === "card",
+        },
+        [this.props.classes.default]
+      );
       // You can render any custom fallback UI
       return (
         <div className={Classes}>
