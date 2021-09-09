@@ -2,6 +2,7 @@ import { FC, lazy, Suspense } from "react";
 import { Switch, Route } from "react-router-dom";
 import ErrorBoundary from "./ErrorBoundary";
 import { Menu } from "./Menu";
+import { AdminComponent } from "../components/Admin";
 import { ProductCardListSkeleton } from "./skeletons/ProductCardListSkeleton";
 
 const HomePage = lazy(() => import("../page/HomePage"));
@@ -21,6 +22,7 @@ export const Layout: FC = () => {
             </Route>
             <Route path="/shoppingcart" component={CheckoutPage} />
             <Route path="/product/:id" component={ProductDetail} />
+            <Route path="/admin" component={AdminComponent} />
             <Route path="/" component={HomePage}>
               <Suspense fallback={<ProductCardListSkeleton />}>
                 <HomePage />

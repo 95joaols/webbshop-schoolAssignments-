@@ -1,5 +1,5 @@
-import { createContext, FC, useEffect, useState } from "react";
-import { Product, allProducts } from "../entity/Product";
+import { createContext, FC, useEffect, useState } from 'react';
+import { Product, allProducts } from '../entity/Product';
 
 interface ContextValue {
   products: Product[];
@@ -15,14 +15,33 @@ export const ProductContext = createContext<ContextValue>({
 
 const ProductProvider: FC = (props) => {
   const [products, setProducts] = useState<Product[]>([]);
+  const [lastId, setLastId] = useState<number>(14);
 
   const AddOrUpdateProduct = (product: Product) => {
-    const newArray: Product[] = products.filter(
-      (element) => element.id !== product.id
-    );
-    const newArrayAppend: Product[] = [...newArray, product];
+    if (product.id > 0) {
+      const newArray: Product[] = products.filter(
+        (element) => element.id !== product.id);
+      const newArrayAppend: Product[] = [...newArray, product];
+      setProducts(newArrayAppend);
+    }
 
-    setProducts(newArrayAppend);
+    else {
+      const newId: number = lastId+1;
+      setLastId(newId);
+      const productWithId: Product = {
+        id: newId,
+        name: product.name,
+        year: product.year,
+        genre: product.genre,
+        rating: product.rating,
+        price: product.price,
+        description: product.description,
+        imageUrl: product.imageUrl
+      };
+      const newArray: Product[] = [...products];
+      const newArrayAppend: Product[] = [...newArray, productWithId];
+      setProducts(newArrayAppend);
+    }
   };
 
   const deleteProduct = (id: number) => {
@@ -33,18 +52,22 @@ const ProductProvider: FC = (props) => {
     (async function () {
       try {
         const localStorageAllProducts = localStorage.getItem("allProducts");
-        if (localStorageAllProducts) {
-          const data: Product[] = await JSON.parse(localStorageAllProducts);
-          if (data.length) {
-            setProducts(data);
-          } else {
-            setProducts(allProducts);
+        const localStorageLastId = localStorage.getItem("lastId");
+        if (localStorageAllProducts && localStorageLastId) {
+          const parasedProducts: Product[] = await JSON.parse(localStorageAllProducts);
+          const parsedId: number = await JSON.parse(localStorageLastId);
+          if (parasedProducts.length) {
+            setProducts(parasedProducts);
+            setLastId(parsedId);
           }
-
-          console.log("data", data);
-        } else {
+          else {
+            setProducts(allProducts);
+            setLastId(14);
+          }
+        }
+        else {
           setProducts(allProducts);
-          console.log("allProducts", allProducts);
+          setLastId(14);
         }
       } catch (error) {}
     })();
@@ -52,7 +75,8 @@ const ProductProvider: FC = (props) => {
 
   useEffect(() => {
     localStorage.setItem("allProducts", JSON.stringify(products));
-  }, [products]);
+    localStorage.setItem("lastId", JSON.stringify(lastId));
+  }, [products, lastId]);
 
   return (
     <ProductContext.Provider
