@@ -1,5 +1,5 @@
 import { useState, useContext } from 'react';
-import { Product } from "../entity/Product";
+import { Product } from '../entity/Product';
 import { createStyles, Theme, makeStyles } from '@material-ui/core/styles';
 import { List, ListItem, ListItemText, Button, TextField } from '@material-ui/core';
 import { ProductContext } from '../contexts/ProductContext';
@@ -33,8 +33,8 @@ export const AdminComponent: React.FC = () => {
   const classes = useStyles();
   const [ open, setOpen ] = useState(false);
   const [ selectedProduct, setSelectedProduct ] = useState<Product>({
-    id: -551,
-    name: 'test',
+    id: -1,
+    name: '',
     year: -1,
     genre: '',
     rating: -1,
@@ -43,27 +43,24 @@ export const AdminComponent: React.FC = () => {
     imageUrl: ''
   });
   const { products, deleteProduct, AddOrUpdateProduct} = useContext(ProductContext);
-  const { register, handleSubmit, watch, formState: { errors }, getValues, setValue, unregister } = useForm<Product>();
+  const { register, handleSubmit, unregister } = useForm<Product>();
 
   const onSubmit: SubmitHandler<Product> = (data) => {
-    console.log('SubmitHandler: ', data )
+    AddOrUpdateProduct(data);
   };
 
   const handleOpen = (product: Product) => {
-    unregister(['name', 'year', 'genre', 'rating', 'price', 'description', 'imageUrl']);
+    unregister(['id', 'name', 'year', 'genre', 'rating', 'price', 'description', 'imageUrl']);
     setSelectedProduct(product);
     setOpen(true);
-    console.log('handleOpen');
   };
 
   const handleDelete = (id: number) => {
-    console.log('handleDelete: ', id);
     deleteProduct(id);
   };
 
   const handleAddNew = () => {
-    console.log('handleAddNew');
-    unregister(['name', 'year', 'genre', 'rating', 'price', 'description', 'imageUrl']);
+    unregister(['id', 'name', 'year', 'genre', 'rating', 'price', 'description', 'imageUrl']);
     setSelectedProduct({
       id: -1,
       name: '',
@@ -82,7 +79,9 @@ export const AdminComponent: React.FC = () => {
     <h1>Edit</h1>
       { <form onSubmit={handleSubmit(onSubmit)} style={{display: "flex", flexDirection: "row"}}>
           <div style={{display: "flex", flexDirection: "column"}}>
-            <TextField type="number" label="Id" defaultValue={selectedProduct.id} disabled />
+          <fieldset disabled>
+            <TextField type="number" label="Id" defaultValue={selectedProduct.id} {...register("id")} />
+          </fieldset>
             <TextField type="text" label="Name" defaultValue={selectedProduct.name} {...register("name")} />
             <TextField type="number" label="Year" defaultValue={selectedProduct.year} {...register("year")}/>
             <TextField type="text" label="Genre" defaultValue={selectedProduct.genre} {...register("genre")} />
@@ -105,7 +104,6 @@ export const AdminComponent: React.FC = () => {
     <h1>Create new</h1>
       { <form onSubmit={handleSubmit(onSubmit)} style={{display: "flex", flexDirection: "row"}}>
           <div style={{display: "flex", flexDirection: "column"}}>
-            <TextField type="number" label="Id" disabled />
             <TextField type="text" label="Name" {...register("name")} />
             <TextField type="number" label="Year" {...register("year")}/>
             <TextField type="text" label="Genre" {...register("genre")} />
@@ -126,7 +124,7 @@ export const AdminComponent: React.FC = () => {
   return (
     <div className={classes.root}>
       <List component="nav">
-      { products.map((p) => (
+      { products.sort((a, b) => a.id - b.id).map((p) => (
         <div key={p.id} style={{backgroundColor: "#3f51b5", marginTop: "1rem", borderRadius: "1rem"}}>
           <ListItem button onClick={() => handleOpen(p)}>
             <ListItemText primary={p.name} />
@@ -140,7 +138,7 @@ export const AdminComponent: React.FC = () => {
         <Button onClick={handleAddNew}>Add new</Button>
       </List>
       <Modal open={open} onClose={() => {setOpen(false)}}>
-        {selectedProduct.id >= 0 ? modalBodyEditProduct : modalBodyNewProduct}
+        {selectedProduct.id > 0 ? modalBodyEditProduct : modalBodyNewProduct}
       </Modal>
     </div>
   );
