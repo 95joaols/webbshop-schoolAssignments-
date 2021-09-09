@@ -9,8 +9,11 @@ import { makeStyles } from "@material-ui/core/styles";
 // import MoreIcon from "@material-ui/icons/MoreVert";
 import Button from "@material-ui/core/Button";
 import { Link } from "react-router-dom";
+import DropDownCart from "./DropDownCart";
 
 export const Menu: React.FC = () => {
+
+
   const useStyles = makeStyles((theme) => ({
     root: {
       flexGrow: 1,
@@ -45,16 +48,21 @@ export const Menu: React.FC = () => {
           </Typography>
           <div className={classes.buttoncontainer}>
             <div>
-              <Link to="/">
-                <Button className={classes.button} variant="outlined">
+                <Button 
+                className={classes.button} 
+                variant="outlined"
+                component={Link}
+                to="/">
                   Start
                 </Button>
-              </Link>
-              <Link to="/shoppingcart">
-                <Button className={classes.button} variant="outlined">
-                  Kundvagn
+                <Button 
+                className={classes.button} 
+                variant="outlined"
+                component={Link}
+                to="/shoppingcart">
+                  Till kundvagnen
                 </Button>
-              </Link>
+                <DropDownCart></DropDownCart>
             </div>
             <div>
               <Button className={classes.button} variant="outlined">

@@ -1,5 +1,5 @@
 import Grid from "@material-ui/core/Grid";
-import React, { useEffect } from "react";
+import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import { useState } from "react";
@@ -13,11 +13,9 @@ const CheckoutPage: React.FC = () => {
   const [totalPrice, setTotalPrice] = useState<number>(0);
 
   function disableIfError() {
-    if (Object.values(customerErrors).includes(true) || totalPrice === 0)
-    {
+    if (Object.values(customerErrors).includes(true) || totalPrice === 0) {
       setDisabled(true);
-    }
-      else setDisabled(false);
+    } else setDisabled(false);
   }
 
   const useStyles = makeStyles((theme) => ({
@@ -51,7 +49,7 @@ const CheckoutPage: React.FC = () => {
       <CustomerInput
         onSetCustomer={() => {
           disableIfError();
-        }} 
+        }}
       />
       <Grid item xs={12} className={classes.buttonCell}>
         <Button
