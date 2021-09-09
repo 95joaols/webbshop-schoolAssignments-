@@ -77,7 +77,7 @@ export const Menu: React.FC = () => {
         <Toolbar className={classes.toolbar}>
           <Container maxWidth="md">
           <Box display={{ xs: 'none', md: 'block'}} marginLeft="10rem">
-          <h1>Vår Lilla Webshop</h1>
+          <h1>Our Awesome Webshop</h1>
           </Box>
           <Box display={{ xs: 'block', md: 'none'}}>
           <h1>Webshop</h1>
