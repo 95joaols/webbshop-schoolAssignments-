@@ -14,7 +14,7 @@ import { Link } from "react-router-dom";
 import { CustomerContext } from "../contexts/CustomerContext";
 import { ShoppingCartContext } from "../contexts/ShoppingCartContext";
 
-export const SummaryPage: React.FC = () => {
+const SummaryPage: React.FC = () => {
   const { shoppingCartItems } = useContext(ShoppingCartContext);
   const { customer } = useContext(CustomerContext);
 
@@ -58,7 +58,7 @@ export const SummaryPage: React.FC = () => {
     button: {
       display: "inherit",
       justifyContent: "inherit",
-      width: "50%",
+      width: "30%",
     },
   }));
 
@@ -140,27 +140,27 @@ export const SummaryPage: React.FC = () => {
           </CardContent>
         </Card>
         <div className={`${classes.cardRow} ${classes.cardEven}`}>
-          <Link to="/shoppingcart" className={classes.button}>
             <Button
               className={classes.button}
+              component={Link} to="/shoppingcart"
               variant="contained"
               color="primary"
             >
               Gå tillbaka
             </Button>
-          </Link>
           {/* TODO: Lägg till modal på denna knapp --> */}
-          <Link to="/" className={classes.button}>
             <Button
               className={classes.button}
+              component={Link} to="/"
               variant="contained"
               color="primary"
             >
               Bekräfta
             </Button>
-          </Link>
         </div>
       </Container>
     </div>
   );
 };
+
+export default SummaryPage;

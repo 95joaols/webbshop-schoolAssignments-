@@ -1,21 +1,27 @@
+import { Suspense } from "react";
 import { BrowserRouter } from "react-router-dom";
+import ErrorBoundary from "./components/ErrorBoundary";
 import { Layout } from "./components/Layout";
 import CustomerProvider from "./contexts/CustomerContext";
-import ShoppingCartProvider from "./contexts/ShoppingCartContext";
 import ProductProvider from "./contexts/ProductContext";
+import ShoppingCartProvider from "./contexts/ShoppingCartContext";
 
 function App() {
   return (
     <div className="App">
-      <BrowserRouter>
-        <ShoppingCartProvider>
-          <CustomerProvider>
-            <ProductProvider>
-              <Layout />
-            </ProductProvider>
-          </CustomerProvider>
-        </ShoppingCartProvider>
-      </BrowserRouter>
+      <ErrorBoundary>
+        <BrowserRouter>
+          <ShoppingCartProvider>
+            <CustomerProvider>
+              <ProductProvider>
+                <Suspense fallback={"<p>loading</p>"}>
+                  <Layout />
+                </Suspense>
+              </ProductProvider>
+            </CustomerProvider>
+          </ShoppingCartProvider>
+        </BrowserRouter>
+      </ErrorBoundary>
     </div>
   );
 }

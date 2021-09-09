@@ -1,11 +1,12 @@
 import { TextField, Button, makeStyles } from "@material-ui/core";
-import { FC, useState } from "react";
+import { FC, useContext, useState } from "react";
+import { ShoppingCartContext } from "../contexts/ShoppingCartContext";
 import { Product } from "../entity/Product";
 
 const useStyles = makeStyles({
   root: {
     display: "flex",
-    flexDirection:"column",
+    flexDirection: "column",
   },
   input: {},
 });
@@ -16,11 +17,12 @@ interface props {
 
 export const AddProductToCart: FC<props> = ({ product }) => {
   const classes = useStyles();
+  const { addToShoppingCart } = useContext(ShoppingCartContext);
 
-  const [nr, setNr] = useState(1);
+  const [quantity, setQuantity] = useState(1);
   const changeNr = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newValue = e.target.value as unknown as number;
-    setNr(newValue < 1 ? 1 : newValue);
+    setQuantity(newValue < 1 ? 1 : newValue);
   };
   return (
     <div className={classes.root}>
@@ -34,7 +36,7 @@ export const AddProductToCart: FC<props> = ({ product }) => {
           shrink: true,
         }}
         variant="outlined"
-        value={nr}
+        value={quantity}
         onChange={changeNr}
         className={classes.input}
       />
@@ -42,7 +44,9 @@ export const AddProductToCart: FC<props> = ({ product }) => {
         variant="contained"
         size="small"
         color="primary"
-        onClick={() => {}}
+        onClick={() => {
+          addToShoppingCart({ product, quantity });
+        }}
       >
         Add To Cart
       </Button>

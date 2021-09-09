@@ -1,15 +1,20 @@
 import React from "react";
+import ErrorBoundary from "../components/ErrorBoundary";
 import { ProductCardList } from "../components/ProductCardList";
-import { allProducts } from "../entity/Product";
+import { ProductContext } from "../contexts/ProductContext";
 
 interface props {}
 
 export default class HomePage extends React.Component<props> {
+  static contextType = ProductContext;
+
   render() {
     return (
-      <>
-        <ProductCardList products={allProducts} />
-      </>
+      <ErrorBoundary>
+        <ProductContext.Consumer>
+          {(value) => <ProductCardList products={value.products} />}
+        </ProductContext.Consumer>
+      </ErrorBoundary>
     );
   }
 }

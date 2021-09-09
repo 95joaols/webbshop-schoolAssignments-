@@ -8,7 +8,6 @@ import { makeStyles } from "@material-ui/core/styles";
 // import SearchIcon from "@material-ui/icons/Search";
 // import MoreIcon from "@material-ui/icons/MoreVert";
 import Button from "@material-ui/core/Button";
-import { CheckoutPage } from "../page/CheckoutPage";
 import { Link } from "react-router-dom";
 
 export const Menu: React.FC = () => {

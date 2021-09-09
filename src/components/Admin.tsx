@@ -42,7 +42,7 @@ export const AdminComponent: React.FC = () => {
     description: '',
     imageUrl: ''
   });
-  const { products, updateProduct, deleteProduct, addProduct } = useContext(ProductContext);
+  const { products, deleteProduct, AddOrUpdateProduct} = useContext(ProductContext);
   const { register, handleSubmit, watch, formState: { errors }, getValues, setValue, unregister } = useForm<Product>();
 
   const onSubmit: SubmitHandler<Product> = (data) => {
