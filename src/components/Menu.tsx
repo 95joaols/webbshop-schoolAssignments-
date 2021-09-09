@@ -48,11 +48,20 @@ export const Menu: React.FC = () => {
           </Typography>
           <div className={classes.buttoncontainer}>
             <div>
-              <Link to="/">
-                <Button className={classes.button} variant="outlined">
+                <Button 
+                className={classes.button} 
+                variant="outlined"
+                component={Link}
+                to="/">
                   Start
                 </Button>
-              </Link>
+                <Button 
+                className={classes.button} 
+                variant="outlined"
+                component={Link}
+                to="/shoppingcart">
+                  Till kundvagnen
+                </Button>
                 <DropDownCart></DropDownCart>
             </div>
             <div>

@@ -9,6 +9,10 @@ import InboxIcon from '@material-ui/icons/MoveToInbox';
 import DraftsIcon from '@material-ui/icons/Drafts';
 import SendIcon from '@material-ui/icons/Send';
 import { ShoppingCartContext } from '../contexts/ShoppingCartContext';
+import { ProductContext } from '../contexts/ProductContext';
+import DropDownCartItem from './DropDownCartItem';
+import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
+import { Badge, IconButton } from '@material-ui/core';
 
 // const StyledMenu = withStyles({
 //   paper: {
@@ -59,6 +63,9 @@ function handleClose() {
       display: "flex",
       justifyContent: "center",
     },
+    dropDownQuantity: {
+      textAlign: "right"
+    },
     button: {
       margin: "1rem",
       display: "inherit",
@@ -85,15 +92,15 @@ function handleClose() {
 
   return (
     <div>
-      <Button
+      <IconButton
         aria-controls="customized-menu"
         aria-haspopup="true"
-        variant="contained"
-        color="primary"
         onClick={handleClick}
       >
-        Open Menu
-      </Button>
+        <Badge badgeContent={shoppingCartItems.length}>
+        <ShoppingCartIcon color="secondary"/>
+        </Badge>
+      </IconButton>
       <Menu
         id="customized-menu"
         anchorEl={anchorElement}
@@ -111,24 +118,15 @@ function handleClose() {
       horizontal: 'center',
     }}
       >
-        <MenuItem onClick={handleClose}>
-          <ListItemIcon>
-            <SendIcon fontSize="small" />
-          </ListItemIcon>
-          <ListItemText primary="Sent mail" />
-        </MenuItem>
         <MenuItem>
-          <ListItemIcon>
-            <DraftsIcon fontSize="small" />
-          </ListItemIcon>
-          <ListItemText primary="Drafts" />
+        <ListItemText primary="Produkt" />
+        <ListItemText className={classes.dropDownQuantity} primary="Antal" />
         </MenuItem>
-        <MenuItem>
-          <ListItemIcon>
-            <InboxIcon fontSize="small" />
-          </ListItemIcon>
-          <ListItemText primary="Inbox" />
-        </MenuItem>
+        {
+          shoppingCartItems.map((product) => {
+            return <DropDownCartItem imageUrl={product.product.imageUrl} quantity={product.quantity} title={product.product.name}/>
+          })
+        }
       </Menu>
     </div>
   );
