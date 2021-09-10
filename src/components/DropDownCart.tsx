@@ -67,7 +67,7 @@ function handleClose() {
         onClick={handleClick}
       >
         <Badge badgeContent={shoppingCartItems.length} color="secondary">
-        <ShoppingCartIcon className={classes.icon}/>
+          <ShoppingCartIcon className={classes.icon} />
         </Badge>
       </IconButton>
       <Menu
@@ -76,26 +76,34 @@ function handleClose() {
         keepMounted
         open={Boolean(anchorElement)}
         onClose={handleClose}
-    elevation={0}
-    getContentAnchorEl={null}
-    anchorOrigin={{
-      vertical: 'bottom',
-      horizontal: 'center',
-    }}
-    transformOrigin={{
-      vertical: 'top',
-      horizontal: 'center',
-    }}
+        elevation={0}
+        getContentAnchorEl={null}
+        anchorOrigin={{
+          vertical: "bottom",
+          horizontal: "center",
+        }}
+        transformOrigin={{
+          vertical: "top",
+          horizontal: "center",
+        }}
       >
         <MenuItem>
-        <ListItemText className={classes.head} primary="Produkt" />
-        <ListItemText className={`${classes.dropDownQuantity} ${classes.head}`} primary="Antal" />
+          <ListItemText className={classes.head} primary="Produkt" />
+          <ListItemText
+            className={`${classes.dropDownQuantity} ${classes.head}`}
+            primary="Antal"
+          />
         </MenuItem>
-        {
-          shoppingCartItems.map((product) => {
-            return <DropDownCartItem imageUrl={product.product.imageUrl} quantity={product.quantity} title={product.product.name}/>
-          })
-        }
+        {shoppingCartItems.map(({ product, quantity }) => {
+          return (
+            <DropDownCartItem
+              id={product.id}
+              imageUrl={product.imageUrl}
+              quantity={quantity}
+              title={product.name}
+            />
+          );
+        })}
       </Menu>
     </div>
   );
