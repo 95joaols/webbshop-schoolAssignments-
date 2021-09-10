@@ -18,10 +18,20 @@ const ProductProvider: FC = (props) => {
   const [lastId, setLastId] = useState<number>(14);
 
   const AddOrUpdateProduct = (product: Product) => {
-    if (product.id > 0) {
+    if (+product.id > 0) {
+      const productWithTypes:Product = {
+        id: +product.id,
+        name: product.name,
+        year: +product.year,
+        genre: product.genre,
+        rating: +product.rating,
+        price: +product.price,
+        description: product.description,
+        imageUrl: product.imageUrl
+      };
       const newArray: Product[] = products.filter(
-        (element) => element.id !== product.id);
-      const newArrayAppend: Product[] = [...newArray, product];
+        (element) => element.id !== productWithTypes.id);
+      const newArrayAppend: Product[] = [...newArray, productWithTypes];
       setProducts(newArrayAppend);
     }
 
@@ -31,10 +41,10 @@ const ProductProvider: FC = (props) => {
       const productWithId: Product = {
         id: newId,
         name: product.name,
-        year: product.year,
+        year: +product.year,
         genre: product.genre,
-        rating: product.rating,
-        price: product.price,
+        rating: +product.rating,
+        price: +product.price,
         description: product.description,
         imageUrl: product.imageUrl
       };
