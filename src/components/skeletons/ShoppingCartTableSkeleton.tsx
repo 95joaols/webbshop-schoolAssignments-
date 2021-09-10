@@ -1,7 +1,7 @@
 import { Container, makeStyles } from "@material-ui/core";
 import Skeleton from "@material-ui/lab/Skeleton";
 
-const ShoppingCartTableSkeleton: React.FC = () => {
+export const ShoppingCartTableSkeleton: React.FC = () => {
   const useStyles = makeStyles((theme) => ({
     productTable: {
       marginTop: 24,
