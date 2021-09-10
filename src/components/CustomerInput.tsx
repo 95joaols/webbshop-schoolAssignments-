@@ -1,6 +1,6 @@
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
-import React from "react";
+import React, { useEffect } from "react";
 import TextField from "@material-ui/core/TextField";
 import { Container } from "@material-ui/core";
 import { useContext } from "react";
@@ -14,8 +14,12 @@ interface Props {
   onSetCustomer: () => void;
 }
 
-const CustomerInput: React.FC<Props> = ({onSetCustomer}) => {
+const CustomerInput: React.FC<Props> = ({ onSetCustomer }) => {
   const { customer, updateCustomer } = useContext(CustomerContext);
+
+  useEffect(() => {
+    onSetCustomer();
+  });
 
   function addCustomerProperty(
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
