@@ -5,6 +5,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import { Link } from "react-router-dom";
 import DropDownCart from "./DropDownCart";
+import { Box, Container } from "@material-ui/core";
 
 export const Menu: React.FC = () => {
   const useStyles = makeStyles((theme) => ({
@@ -22,9 +23,8 @@ export const Menu: React.FC = () => {
       },
     },
     button: {
-      margin: "1rem",
-      borderRadius: "25px",
-      backgroundColor: "white",
+      backgroundColor: "none",
+      color: "white",
     },
     toolbar: {
       minHeight: 128,
@@ -35,6 +35,7 @@ export const Menu: React.FC = () => {
     buttoncontainer: {
       width: "100%",
       display: "flex",
+      flexWrap: "wrap",
       flexGrow: 1,
       justifyContent: "space-between",
       alignItems: "flex-end",
@@ -74,13 +75,19 @@ export const Menu: React.FC = () => {
     <div className={classes.root}>
       <AppBar position="static">
         <Toolbar className={classes.toolbar}>
-          <h1>En liten Webshop</h1>
-
+          <Container maxWidth="md">
+          <Box display={{ xs: 'none', md: 'block'}} marginLeft="10rem">
+          <h1>Our Awesome Webshop</h1>
+          </Box>
+          <Box display={{ xs: 'block', md: 'none'}}>
+          <h1>Webshop</h1>
+          </Box>
+          </Container>
           <div className={classes.buttoncontainer}>
             <div className={classes.directionRow}>
               <Button
                 className={classes.button}
-                variant="outlined"
+                // variant="text"
                 component={Link}
                 to="/"
               >
@@ -88,23 +95,23 @@ export const Menu: React.FC = () => {
               </Button>
               <Button
                 className={classes.button}
-                variant="outlined"
+                // variant="outlined"
                 component={Link}
                 to="/shoppingcart"
               >
-                Till kassan
+                Kassa
               </Button>
-              <DropDownCart></DropDownCart>
-            </div>
-            <div className={classes.directionRow}>
               <Button
                 className={classes.button}
-                variant="outlined"
+                // variant="outlined"
                 component={Link}
                 to="/admin"
               >
                 Admin
               </Button>
+            </div>
+            <div className={classes.directionRow}>
+              <DropDownCart></DropDownCart>
             </div>
           </div>
         </Toolbar>
