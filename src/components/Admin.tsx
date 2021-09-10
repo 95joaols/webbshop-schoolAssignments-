@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme: Theme) =>
     row: {
       display: "flex",
       flexDirection: "row",
-      width: "100%"
+      width: "100%",
     },
     title: {
       paddingLeft: "16px",
@@ -68,6 +68,24 @@ const useStyles = makeStyles((theme: Theme) =>
     modalWidth: {
       width: "80%",
       padding: "16px"
+    },
+    max780Top: {
+      "@media (max-width:780px)": {
+        marginTop: 0,
+        width: "100%"
+      }
+    },
+    max780Bott: {
+      "@media (max-width:780px)": {
+        marginBottom: 0,
+        width: "100%"
+      }
+    },
+    max780Col: {
+      "@media (max-width:780px)": {
+        flexDirection: "column",
+        alignItems: "center",
+      }
     }
   }),
 );
@@ -120,14 +138,14 @@ export const AdminComponent: React.FC = () => {
   const modalBodyEditProduct = (
   <div className={`${classes.product} ${classes.modalWidth}`}>
     <h1>Edit</h1>
-      { <form className={classes.row} onSubmit={handleSubmit(onSubmit)}>
-          <div className={classes.modalCol}>
+      { <form className={`${classes.row} ${classes.max780Col}`} onSubmit={handleSubmit(onSubmit)}>
+          <div className={`${classes.modalCol} ${classes.max780Bott}`}>
             <TextField disabled type="number" label="Id" defaultValue={selectedProduct.id} {...register("id")} />
             <TextField type="text" label="Name" defaultValue={selectedProduct.name} {...register("name")} />
             <TextField type="number" label="Year" defaultValue={selectedProduct.year} {...register("year")}/>
             <TextField type="text" label="Genre" defaultValue={selectedProduct.genre} {...register("genre")} />
           </div>
-          <div className={classes.modalCol}>
+          <div className={`${classes.modalCol} ${classes.max780Top}`}>
             <TextField type="number" label="Rating" defaultValue={selectedProduct.rating} {...register("rating")} />
             <TextField type="number" label="Price" defaultValue={selectedProduct.price} {...register("price")} />
             <TextField type="text" label="Description" defaultValue={selectedProduct.description} {...register("description")} />
@@ -143,13 +161,13 @@ export const AdminComponent: React.FC = () => {
   const modalBodyNewProduct = (
     <div className={`${classes.product} ${classes.modalWidth}`}>
     <h1>Create new</h1>
-      { <form className={classes.row} onSubmit={handleSubmit(onSubmit)}>
-      <div className={classes.modalCol}>
+      { <form className={`${classes.row} ${classes.max780Col}`} onSubmit={handleSubmit(onSubmit)}>
+      <div className={`${classes.modalCol} ${classes.max780Bott}`}>
             <TextField type="text" label="Name" {...register("name")} />
             <TextField type="number" label="Year" {...register("year")}/>
             <TextField type="text" label="Genre" {...register("genre")} />
           </div>
-          <div className={classes.modalCol}>
+          <div className={`${classes.modalCol} ${classes.max780Top}`}>
             <TextField type="number" label="Rating" {...register("rating")} />
             <TextField type="number" label="Price" {...register("price")} />
             <TextField type="text" label="Description" {...register("description")} />
