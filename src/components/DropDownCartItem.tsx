@@ -2,6 +2,7 @@ import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import MenuItem from "@material-ui/core/MenuItem";
 import ListItemText from "@material-ui/core/ListItemText";
+import { Box } from "@material-ui/core";
 
 interface Props {
   imageUrl: string;
@@ -28,7 +29,9 @@ const DropDownCartItem: React.FC<Props> = ({ imageUrl, quantity, title }) => {
     <div>
       <MenuItem>
         <img className={classes.image} src={imageUrl} alt="" />
+        <Box overflow="hidden">
         <ListItemText className={classes.title} primary={title} />
+        </Box>
         <ListItemText
           className={`${classes.quantity} ${classes.title}`}
           primary={quantity}
