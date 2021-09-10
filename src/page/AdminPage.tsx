@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-export const AdminComponent: React.FC = () => {
+ const AdminPage: React.FC = () => {
   const classes = useStyles();
   const [ open, setOpen ] = useState(false);
   const [ selectedProduct, setSelectedProduct ] = useState<Product>({
@@ -143,3 +143,4 @@ export const AdminComponent: React.FC = () => {
     </div>
   );
 };
+export default AdminPage;
