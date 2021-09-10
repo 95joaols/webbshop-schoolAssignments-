@@ -30,11 +30,11 @@ const ConfirmationDialog: React.FC = () => {
     setOpen(true);
   };
 
-  const handleClose = () => {
+  const resetContexts = () => {
+      
     updateShoppingCart([]);
     updateCustomer({} as Customer);
-    setOpen(false);
-  };
+  }
 
   const useStyles = makeStyles(() => ({
     cardRow: {
@@ -59,7 +59,6 @@ const ConfirmationDialog: React.FC = () => {
         open={open}
         TransitionComponent={Transition}
         keepMounted
-        onClose={handleClose}
         aria-labelledby="alert-dialog-slide-title"
         aria-describedby="alert-dialog-slide-description"
       >
@@ -74,7 +73,7 @@ const ConfirmationDialog: React.FC = () => {
           className={classes.button} 
           variant="contained" 
           color="primary" 
-          onClick={handleClose}
+          onClick={resetContexts}
           component={ Link}
           to="/">
             Stäng
