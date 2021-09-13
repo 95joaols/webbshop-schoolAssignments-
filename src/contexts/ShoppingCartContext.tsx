@@ -30,6 +30,7 @@ const ShoppingCartProvider: FC = (props) => {
     if (CartItem) {
       //modifier the ref
       CartItem.quantity = +CartItem.quantity + +shoppingCartItem.quantity;
+      setShoppingCartItems([...shoppingCartItems]);
     } else {
       //Adding it
       setShoppingCartItems([...shoppingCartItems, shoppingCartItem]);

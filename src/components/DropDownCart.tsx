@@ -10,15 +10,19 @@ import { Badge, IconButton } from '@material-ui/core';
 
 const DropDownCart: React.FC = () => {
   const { shoppingCartItems } = useContext(ShoppingCartContext);
-  const [anchorElement, setAnchorElevation] =
+  const [anchorElement, setAnchorElement] =
   React.useState<null | HTMLElement>(null);
 
 function handleClick(event: React.MouseEvent<HTMLElement>) {
-  setAnchorElevation(event.currentTarget);
+  setAnchorElement(event.currentTarget);
 }
 
 function handleClose() {
-  setAnchorElevation(null);
+  setAnchorElement(null);
+}
+
+function badgeCounter() {
+  return shoppingCartItems.reduce((pv, cv) => { return pv + cv.quantity; }, 0);
 }
 
   const useStyles = makeStyles((theme) => ({
@@ -77,7 +81,7 @@ function handleClose() {
         aria-haspopup="true"
         onClick={handleClick}
       >
-        <Badge className={classes.badgeAnimation} badgeContent={shoppingCartItems.length} color="secondary">
+        <Badge className={classes.badgeAnimation} badgeContent={badgeCounter()} color="secondary">
           <ShoppingCartIcon className={classes.icon} />
         </Badge>
       </IconButton>
