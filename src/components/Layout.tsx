@@ -1,4 +1,3 @@
-import { StylesContext } from "@material-ui/styles";
 import { FC, lazy, Suspense } from "react";
 import { Switch, Route } from "react-router-dom";
 import ErrorBoundary from "./ErrorBoundary";
