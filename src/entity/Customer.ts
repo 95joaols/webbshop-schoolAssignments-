@@ -5,5 +5,7 @@ export type Customer = {
     address: string,
     zip: string,
     city: string,
-    country: string
+    country: string,
+    phoneNumber: string,
+    email: string
 }

@@ -137,6 +137,12 @@ const SummaryPage: React.FC = () => {
                   {customer.country}
                 </Typography>
               </div>
+              <Typography className={classes.customerDetalis} variant="body1">
+                {customer.phoneNumber}
+              </Typography>
+              <Typography className={classes.customerDetalis} variant="body1">
+                {customer.email}
+              </Typography>
             </div>
           </CardContent>
         </Card>

@@ -21,6 +21,12 @@ export const CustomerInputSkeleton: React.FC = () => {
         <Grid item xs={12} sm={6}>
           <Skeleton variant="text" />
         </Grid>
+        <Grid item xs={12} sm={6}>
+          <Skeleton variant="text" />
+        </Grid>
+        <Grid item xs={12} sm={6}>
+          <Skeleton variant="text" />
+        </Grid>
         <Grid item xs={12}>
           <Skeleton variant="text" />
         </Grid>
