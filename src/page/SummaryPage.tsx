@@ -28,6 +28,9 @@ const SummaryPage: React.FC = () => {
   }
 
   const useStyles = makeStyles(() => ({
+    root: {
+      marginTop: 170
+    },
     productTable: {
       marginTop: 24,
       marginBottom: 24,
@@ -66,7 +69,7 @@ const SummaryPage: React.FC = () => {
   const classes = useStyles();
 
   return (
-    <div>
+    <div className={classes.root}>
       <Container maxWidth="md" className={classes.productTable}>
         <Table size="small">
           <TableHead>

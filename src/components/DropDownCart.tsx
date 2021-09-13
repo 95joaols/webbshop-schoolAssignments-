@@ -52,6 +52,17 @@ function handleClose() {
     },
     head: {
       padding: "8px"
+    },
+    badgeAnimation: {
+      animation: `$badgeLoad 1s ${theme.transitions.easing.easeInOut} 1`,
+    },
+    "@keyframes badgeLoad": {
+      "0%": {
+        width: 2000,
+      },
+      "100%": {
+        width: 24
+      }
     }
   }));
 
@@ -66,7 +77,7 @@ function handleClose() {
         aria-haspopup="true"
         onClick={handleClick}
       >
-        <Badge badgeContent={shoppingCartItems.length} color="secondary">
+        <Badge className={classes.badgeAnimation} badgeContent={shoppingCartItems.length} color="secondary">
           <ShoppingCartIcon className={classes.icon} />
         </Badge>
       </IconButton>
@@ -80,11 +91,11 @@ function handleClose() {
         getContentAnchorEl={null}
         anchorOrigin={{
           vertical: "bottom",
-          horizontal: "center",
+          horizontal: "right",
         }}
         transformOrigin={{
           vertical: "top",
-          horizontal: "center",
+          horizontal: "right",
         }}
       >
         <MenuItem>

@@ -20,6 +20,9 @@ const CheckoutPage: React.FC = () => {
   }
 
   const useStyles = makeStyles((theme) => ({
+    root: {
+      marginTop: 170
+    },
     buttonCell: {
       display: "flex",
       justifyContent: "center",
@@ -39,7 +42,7 @@ const CheckoutPage: React.FC = () => {
   const classes = useStyles();
 
   return (
-    <div>
+    <div className={classes.root}>
       <ErrorBoundary>
         <ShoppingCartTable
           totalPrice={totalPrice}

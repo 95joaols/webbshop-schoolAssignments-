@@ -10,11 +10,13 @@ export default class HomePage extends React.Component<props> {
 
   render() {
     return (
-      <ErrorBoundary>
-        <ProductContext.Consumer>
-          {(value) => <ProductCardList products={value.products} />}
-        </ProductContext.Consumer>
-      </ErrorBoundary>
+      <div style={{marginTop: 170}}>
+        <ErrorBoundary>
+          <ProductContext.Consumer>
+            {(value) => <ProductCardList products={value.products} />}
+          </ProductContext.Consumer>
+        </ErrorBoundary>
+      </div>
     );
   }
 }
