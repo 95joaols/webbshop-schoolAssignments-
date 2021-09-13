@@ -20,7 +20,7 @@ const DropDownCartItem: React.FC<Props> = ({
 }) => {
   const useStyles = makeStyles((theme) => ({
     image: {
-      width: "15%",
+      width: "8%",
     },
     quantity: {
       textAlign: "right",
@@ -41,8 +41,8 @@ const DropDownCartItem: React.FC<Props> = ({
   return (
     <div>
       <MenuItem>
-        <Link to={url} className={classes.link}>
           <img className={classes.image} src={imageUrl} alt="" />
+        <Link to={url} className={classes.link}>
           <Box overflow="hidden">
             <ListItemText className={classes.title} primary={title} />
           </Box>
