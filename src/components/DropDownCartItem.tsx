@@ -41,12 +41,12 @@ const DropDownCartItem: React.FC<Props> = ({
   return (
     <div>
       <MenuItem>
-          <img className={classes.image} src={imageUrl} alt="" />
-        <Link to={url} className={classes.link}>
-          <Box overflow="hidden">
+        <img className={classes.image} src={imageUrl} alt="" />
+        <Box overflow="hidden">
+          <Link to={url} className={classes.link}>
             <ListItemText className={classes.title} primary={title} />
-          </Box>
-        </Link>
+          </Link>
+        </Box>
         <ListItemText
           className={`${classes.quantity} ${classes.title}`}
           primary={quantity}
