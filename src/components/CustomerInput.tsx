@@ -117,7 +117,7 @@ const CustomerInput: React.FC<Props> = ({ onSetCustomer }) => {
             error={customerErrors.city}
           />
         </Grid>
-        <Grid item xs={12}>
+        <Grid item xs={12} sm={6}>
           <TextField
             required
             id="country"
@@ -131,6 +131,38 @@ const CustomerInput: React.FC<Props> = ({ onSetCustomer }) => {
             fullWidth
             autoComplete="shipping country"
             error={customerErrors.country}
+          />
+        </Grid>
+        <Grid item xs={12} sm={6}>
+          <TextField
+            required
+            id="phoneNumber"
+            name="phoneNumber"
+            label="Telefonnummer"
+            value={customer.phoneNumber}
+            onChange={(e) => {
+              CustomerValidation("phoneNumber", e.target.value);
+              addCustomerProperty(e);
+            }}
+            fullWidth
+            autoComplete="shipping phone"
+            error={customerErrors.phoneNumber}
+          />
+        </Grid>
+        <Grid item xs={12}>
+          <TextField
+            required
+            id="email"
+            name="email"
+            label="Epost"
+            value={customer.email}
+            onChange={(e) => {
+              CustomerValidation("email", e.target.value);
+              addCustomerProperty(e);
+            }}
+            fullWidth
+            autoComplete="shipping email"
+            error={customerErrors.email}
           />
         </Grid>
       </Grid>
