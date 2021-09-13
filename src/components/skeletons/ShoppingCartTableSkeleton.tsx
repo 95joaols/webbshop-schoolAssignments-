@@ -4,7 +4,7 @@ import Skeleton from "@material-ui/lab/Skeleton";
 export const ShoppingCartTableSkeleton: React.FC = () => {
   const useStyles = makeStyles((theme) => ({
     productTable: {
-      marginTop: 24,
+      marginTop: 170,
       marginBottom: 24,
     },
   }));

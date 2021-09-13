@@ -9,6 +9,7 @@ const useStyles = makeStyles({
     display: "flex",
     alignItems: "center",
     flexDirection: "column",
+    marginTop: 170
   },
   content: {
     display: "flex",

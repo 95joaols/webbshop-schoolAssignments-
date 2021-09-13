@@ -16,6 +16,7 @@ const useStyles = makeStyles((theme: Theme) =>
       padding: "16px",
       color: 'black',
       backgroundColor: '#ffffff',
+      marginTop: 170
     },
     product: {
       display: "flex",
