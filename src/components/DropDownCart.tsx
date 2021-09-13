@@ -18,7 +18,6 @@ const DropDownCart: React.FC = () => {
   useEffect(() => {animateNext.current = true})
 
   function animationPreventer() {
-    console.log(shoppingCartItems)
     if (animateNext.current === true ) return classes.badgeAnimation;
     else return "";
   }
