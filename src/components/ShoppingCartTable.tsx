@@ -134,10 +134,6 @@ const ShoppingCartTable: React.FC<Props> = ({ totalPrice, onSetPrice }) => {
           <TableBody>
             {shoppingCartItems.map((item) => (
               <TableRow key={item.product.id}>
-                <Link
-                  to={`/product/${item.product.id}`}
-                  className={classes.link}
-                >
                   <TableCell
                     className={`${classes.imageCell} ${classes.center}`}
                     align="left"
@@ -150,9 +146,13 @@ const ShoppingCartTable: React.FC<Props> = ({ totalPrice, onSetPrice }) => {
                   </TableCell>
 
                   <TableCell component="th" scope="row">
+                <Link
+                  to={`/product/${item.product.id}`}
+                  className={classes.link}
+                >
                     {item.product.name}
-                  </TableCell>
                 </Link>
+                  </TableCell>
                 <TableCell className={classes.priceQuantityCell} align="right">
                   {item.product.price}
                 </TableCell>
