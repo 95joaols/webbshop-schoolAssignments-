@@ -14,6 +14,7 @@ import DeleteForeverOutlinedIcon from "@material-ui/icons/DeleteForeverOutlined"
 import { useEffect, useContext } from "react";
 import { ShoppingCartContext } from "../contexts/ShoppingCartContext";
 import { ShoppingCartItem } from "../entity/ShoppingCartItem";
+import { Link } from "react-router-dom";
 
 interface Props {
   totalPrice: number;
@@ -82,15 +83,20 @@ const ShoppingCartTable: React.FC<Props> = ({ totalPrice, onSetPrice }) => {
       color: "red",
     },
     image: {
-      maxHeight: "100px"
+      maxHeight: "100px",
     },
     imageCell: {
       width: 50,
-      padding: 8
+      padding: 8,
     },
     priceQuantityCell: {
-      width: 150
-    }
+      width: 150,
+    },
+    link: {
+      textDecoration: "none",
+      color: "black",
+      display: "flex",
+    },
   }));
 
   const classes = useStyles();
@@ -103,8 +109,7 @@ const ShoppingCartTable: React.FC<Props> = ({ totalPrice, onSetPrice }) => {
             <TableRow>
               <TableCell
                 className={`${classes.tableHead} ${classes.imageCell}`}
-              >
-              </TableCell>
+              ></TableCell>
               <TableCell
                 className={classes.tableHead}
                 component="th"
@@ -128,23 +133,30 @@ const ShoppingCartTable: React.FC<Props> = ({ totalPrice, onSetPrice }) => {
           </TableHead>
           <TableBody>
             {shoppingCartItems.map((item) => (
-              <TableRow key={item.product.name}>
-                <TableCell 
-                className={`${classes.imageCell} ${classes.center}`}
-                align="left">
-                  <img src={item.product.imageUrl} className={classes.image} alt={item.product.name}></img>
-                </TableCell>
-                <TableCell component="th" scope="row">
-                  {item.product.name}
-                </TableCell>
-                <TableCell 
-                className={classes.priceQuantityCell} 
-                align="right">
+              <TableRow key={item.product.id}>
+                <Link
+                  to={`/product/${item.product.id}`}
+                  className={classes.link}
+                >
+                  <TableCell
+                    className={`${classes.imageCell} ${classes.center}`}
+                    align="left"
+                  >
+                    <img
+                      src={item.product.imageUrl}
+                      className={classes.image}
+                      alt={item.product.name}
+                    ></img>
+                  </TableCell>
+
+                  <TableCell component="th" scope="row">
+                    {item.product.name}
+                  </TableCell>
+                </Link>
+                <TableCell className={classes.priceQuantityCell} align="right">
                   {item.product.price}
                 </TableCell>
-                <TableCell 
-                 className={classes.priceQuantityCell}
-                 align="right">
+                <TableCell className={classes.priceQuantityCell} align="right">
                   <div className={classes.center}>
                     <TextField
                       id="qantity"
@@ -171,10 +183,9 @@ const ShoppingCartTable: React.FC<Props> = ({ totalPrice, onSetPrice }) => {
           </TableBody>
           <TableFooter>
             <TableRow>
-            <TableCell
+              <TableCell
                 className={`${classes.tableHead} ${classes.imageCell}`}
-              >
-              </TableCell>
+              ></TableCell>
               <TableCell
                 className={classes.tableHead}
                 component="th"
