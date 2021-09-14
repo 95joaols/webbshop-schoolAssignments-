@@ -21,19 +21,34 @@ const ProductProvider: FC = (props) => {
   //Add or Update the product depend of if it has a id or not.
   const AddOrUpdateProduct = (product: Product) => {
     let newArray: Product[];
+    // Product with types, else we'll get one with string where it should not be strings.
+    const productWithTypes:Product = {
+      id: +product.id,
+      name: product.name,
+      year: +product.year,
+      genre: product.genre,
+      rating: +product.rating,
+      price: +product.price,
+      description: product.description,
+      imageUrl: product.imageUrl
+    };
+
+    // Edit:
     if (+product.id > 0) {
-      //remove the product that have the id of the new product
-      newArray = products.filter((element) => element.id !== product.id);
+      // Remove the product that have the id of the new product
+      newArray = products.filter((element) => element.id !== productWithTypes.id);
+      // Update the state with the updated product.
+      setProducts([...newArray, productWithTypes]);
+    // New:
     } else {
-      //Get the new id and set the id
-      product.id = lastId + 1;
-      //update the hock
-      setLastId(product.id);
-      //copy the products and do nothing
+      // Get the new id and set the id.
+      productWithTypes.id = lastId + 1;
+      // Update the hook that saved the last id.
+      setLastId(productWithTypes.id);
       newArray = [...products];
+      // Update the state with the new product.
+      setProducts([...newArray, productWithTypes]);
     }
-    //Update the Products
-    setProducts([...newArray, product]);
   };
 
   const deleteProduct = (id: number) => {
