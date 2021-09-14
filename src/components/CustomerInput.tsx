@@ -6,29 +6,22 @@ import { Container } from "@material-ui/core";
 import { useContext } from "react";
 import { CustomerContext } from "../contexts/CustomerContext";
 import { CustomerValidation } from "../entity/CustomerValidation";
-import { CustomerErrors } from "../entity/CustomerErrors";
 
-interface Props {
-  onSetCustomer: () => void;
-  validationErrors: CustomerErrors;
-  onSetValidationError: (value: React.SetStateAction<CustomerErrors>) => void;
-}
-
-const CustomerInput: React.FC<Props> = ({ onSetCustomer, validationErrors, onSetValidationError }) => {
-  const { customer, updateCustomer } = useContext(CustomerContext);
+const CustomerInput: React.FC = () => {
+  const { customer, updateCustomer, validationErrors, setValidationErrors } =
+    useContext(CustomerContext);
 
   function addCustomerProperty(
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) {
-    onSetValidationError({
+    setValidationErrors({
       ...validationErrors,
-      [e.target.name]: CustomerValidation(e.target.name, e.target.value)
-    })
+      [e.target.name]: CustomerValidation(e.target.name, e.target.value),
+    });
     updateCustomer({
       ...customer,
       [e.target.name]: e.target.value,
     });
-    onSetCustomer();
   }
 
   return (
