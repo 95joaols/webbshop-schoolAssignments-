@@ -1,13 +1,5 @@
-type CustomerErrors = {
-  firstName: boolean;
-  lastName: boolean;
-  address: boolean;
-  zip: boolean;
-  city: boolean;
-  country: boolean;
-  phoneNumber: boolean;
-  email: boolean;
-};
+import { CustomerErrors } from "./CustomerErrors";
+
 export let customerErrors: CustomerErrors = {
   firstName: true,
   lastName: true,
@@ -22,54 +14,38 @@ export let customerErrors: CustomerErrors = {
 export const CustomerValidation = (parameter: string, value: string) => {
   switch (parameter) {
     case "firstName": {
-      if (!value || value.length === 0) customerErrors.firstName = true;
-      else customerErrors.firstName = false;
-
-      break;
+      if (!value || value.length === 0) return true;
+      else return false;
     }
     case "lastName": {
-      if (!value || value.length === 0) customerErrors.lastName = true;
-      else customerErrors.lastName = false;
-
-      break;
+      if (!value || value.length === 0) return true;
+      else return false;
     }
     case "address": {
-      if (!value || value.length === 0) customerErrors.address = true;
-      else customerErrors.address = false;
-
-      break;
+      if (!value || value.length === 0) return true;
+      else return false;
     }
     case "zip": {
-      if (!value || !value.match(/^\d{5}$/)) customerErrors.zip = true;
-      else customerErrors.zip = false;
-
-      break;
+      if (!value || !value.match(/^\d{5}$/)) return true;
+      else return false;
     }
     case "city": {
-      if (!value || value.length === 0) customerErrors.city = true;
-      else customerErrors.city = false;
-
-      break;
+      if (!value || value.length === 0) return true;
+      else return false;
     }
     case "country": {
-      if (!value || value.length === 0) customerErrors.country = true;
-      else customerErrors.country = false;
-
-      break;
+      if (!value || value.length === 0) return true;
+      else return false;
     }
     case "phoneNumber": {
       if (!value || value.length === 0 || !value.match(/^\d+$/))
-        customerErrors.phoneNumber = true;
-      else customerErrors.phoneNumber = false;
-
-      break;
+        return true;
+      else return false;
     }
     case "email": {
       if (!value || value.length === 0 || !value.match(/^\S+@\S+\.\S+$/))
-        customerErrors.email = true;
-      else customerErrors.email = false;
-
-      break;
+        return true;
+      else return false;
     }
   }
 };
