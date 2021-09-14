@@ -34,7 +34,7 @@ const DropDownCart: React.FC = () => {
 
   function badgeCounter() {
     return shoppingCartItems.reduce((pv, cv) => {
-      return pv + cv.quantity;
+      return +pv + +cv.quantity;
     }, 0);
   }
 
