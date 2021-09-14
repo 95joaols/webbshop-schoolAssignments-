@@ -1,29 +1,29 @@
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
-import React, { useEffect } from "react";
+import React from "react";
 import TextField from "@material-ui/core/TextField";
 import { Container } from "@material-ui/core";
 import { useContext } from "react";
 import { CustomerContext } from "../contexts/CustomerContext";
-import {
-  CustomerValidation,
-  customerErrors,
-} from "../entity/CustomerValidation";
+import { CustomerValidation } from "../entity/CustomerValidation";
+import { CustomerErrors } from "../entity/CustomerErrors";
 
 interface Props {
   onSetCustomer: () => void;
+  validationErrors: CustomerErrors;
+  onSetValidationError: (value: React.SetStateAction<CustomerErrors>) => void;
 }
 
-const CustomerInput: React.FC<Props> = ({ onSetCustomer }) => {
+const CustomerInput: React.FC<Props> = ({ onSetCustomer, validationErrors, onSetValidationError }) => {
   const { customer, updateCustomer } = useContext(CustomerContext);
-
-  useEffect(() => {
-    onSetCustomer();
-  });
 
   function addCustomerProperty(
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) {
+    onSetValidationError({
+      ...validationErrors,
+      [e.target.name]: CustomerValidation(e.target.name, e.target.value)
+    })
     updateCustomer({
       ...customer,
       [e.target.name]: e.target.value,
@@ -45,12 +45,11 @@ const CustomerInput: React.FC<Props> = ({ onSetCustomer }) => {
             label="Förnamn"
             value={customer.firstName}
             onChange={(e) => {
-              CustomerValidation("firstName", e.target.value);
               addCustomerProperty(e);
             }}
             fullWidth
             autoComplete="shipping given-name"
-            error={customerErrors.firstName}
+            error={validationErrors.firstName}
           />
         </Grid>
         <Grid item xs={12} sm={6}>
@@ -61,12 +60,11 @@ const CustomerInput: React.FC<Props> = ({ onSetCustomer }) => {
             label="Efternamn"
             value={customer.lastName}
             onChange={(e) => {
-              CustomerValidation("lastName", e.target.value);
               addCustomerProperty(e);
             }}
             fullWidth
             autoComplete="shipping family-name"
-            error={customerErrors.lastName}
+            error={validationErrors.lastName}
           />
         </Grid>
         <Grid item xs={12}>
@@ -77,12 +75,11 @@ const CustomerInput: React.FC<Props> = ({ onSetCustomer }) => {
             label="Adress"
             value={customer.address}
             onChange={(e) => {
-              CustomerValidation("address", e.target.value);
               addCustomerProperty(e);
             }}
             fullWidth
             autoComplete="shipping address-line1"
-            error={customerErrors.address}
+            error={validationErrors.address}
           />
         </Grid>
         <Grid item xs={12} sm={6}>
@@ -93,12 +90,11 @@ const CustomerInput: React.FC<Props> = ({ onSetCustomer }) => {
             label="Postnummer"
             value={customer.zip}
             onChange={(e) => {
-              CustomerValidation("zip", e.target.value);
               addCustomerProperty(e);
             }}
             fullWidth
             autoComplete="shipping postal-code"
-            error={customerErrors.zip}
+            error={validationErrors.zip}
           />
         </Grid>
         <Grid item xs={12} sm={6}>
@@ -109,12 +105,11 @@ const CustomerInput: React.FC<Props> = ({ onSetCustomer }) => {
             label="Stad"
             value={customer.city}
             onChange={(e) => {
-              CustomerValidation("city", e.target.value);
               addCustomerProperty(e);
             }}
             fullWidth
             autoComplete="shipping address-level2"
-            error={customerErrors.city}
+            error={validationErrors.city}
           />
         </Grid>
         <Grid item xs={12} sm={6}>
@@ -125,12 +120,11 @@ const CustomerInput: React.FC<Props> = ({ onSetCustomer }) => {
             label="Land"
             value={customer.country}
             onChange={(e) => {
-              CustomerValidation("country", e.target.value);
               addCustomerProperty(e);
             }}
             fullWidth
             autoComplete="shipping country"
-            error={customerErrors.country}
+            error={validationErrors.country}
           />
         </Grid>
         <Grid item xs={12} sm={6}>
@@ -141,12 +135,11 @@ const CustomerInput: React.FC<Props> = ({ onSetCustomer }) => {
             label="Telefonnummer"
             value={customer.phoneNumber}
             onChange={(e) => {
-              CustomerValidation("phoneNumber", e.target.value);
               addCustomerProperty(e);
             }}
             fullWidth
             autoComplete="shipping phone"
-            error={customerErrors.phoneNumber}
+            error={validationErrors.phoneNumber}
           />
         </Grid>
         <Grid item xs={12}>
@@ -157,12 +150,11 @@ const CustomerInput: React.FC<Props> = ({ onSetCustomer }) => {
             label="Epost"
             value={customer.email}
             onChange={(e) => {
-              CustomerValidation("email", e.target.value);
               addCustomerProperty(e);
             }}
             fullWidth
             autoComplete="shipping email"
-            error={customerErrors.email}
+            error={validationErrors.email}
           />
         </Grid>
       </Grid>

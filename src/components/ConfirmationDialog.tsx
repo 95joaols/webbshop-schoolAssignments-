@@ -31,7 +31,6 @@ const ConfirmationDialog: React.FC = () => {
   };
 
   const resetContexts = () => {
-      
     updateShoppingCart([]);
     updateCustomer({} as Customer);
   }
