@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
- const AdminPage: React.FC = () => {
+const AdminPage: React.FC = () => {
   const classes = useStyles();
 
   const defaultProduct: Product = {
@@ -44,14 +44,13 @@ const useStyles = makeStyles((theme: Theme) =>
 
   type validationObject = {
     name: string,
-    isError: boolean,
     message: string
   }
 
   const [ open, setOpen ] = useState(false);
   const [ selectedProduct, setSelectedProduct ] = useState<Product>(defaultProduct);
   const { products, deleteProduct, AddOrUpdateProduct } = useContext(ProductContext);
-  const [ validationErrors, setValidationError ] = useState<validationObject[]>([]);
+  const [ validationErrors, setValidationErrors ] = useState<validationObject[]>([]);
 
   const handleOpen = (product: Product) => {
     setSelectedProduct(product);
@@ -60,7 +59,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
   const handleOnClose = () => {
     setOpen(false);
-    setValidationError([]);
+    setValidationErrors([]);
   }
 
   const handleDelete = (id: number) => {
@@ -75,84 +74,76 @@ const useStyles = makeStyles((theme: Theme) =>
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     let isValid:boolean = true;
-    console.log('selectedProduct (submit - before): ', selectedProduct);
 
     for (const [key, value] of Object.entries(selectedProduct)) {
-      console.log('key: ', key, ' value: ', value);
-      console.log('validationLogic call: ', validationLogic(key, String(value)));
       if(!validationLogic(key, String(value))) {
         isValid = false;
-        console.log('FALSE! isvalid (inside if): ', isValid);
       }
     }
 
-    console.log('isValid (before edit): ', isValid);
     if(isValid)
       AddOrUpdateProduct(selectedProduct);
   };
 
+  const setError = (name: string, message: string) => {
+    const newArray: validationObject[] = validationErrors.filter(
+      (element) => element.name !== name);
+    setValidationErrors([...newArray, { name: name, message: message }]);
+  }
+
   const validationLogic = (name: string, value: string): boolean => {
     let isValid: boolean = true;
-    console.log('validationLogic name: ', name, ' value: ', value);
+    const urlRegex = new RegExp('^https?://');
+    const year:number = new Date().getFullYear();
 
     if ((name === 'year' || name === 'rating' || name === 'price') && isNaN(+value)) {
-      console.log('not a number');
-      const newArray: validationObject[] = validationErrors.filter(
-        (element) => element.name !== name);
-      setValidationError([...newArray, { name: name, isError: true, message: 'Value must be a number' }]);
+      setError(name, 'Value must be a number');
       isValid = false;
     }
 
-    else if (name === 'year' && (+value < 0 || +value > 2000)) {
-      console.log('year');
-      const newArray: validationObject[] = validationErrors.filter(
-        (element) => element.name !== name);
-      setValidationError([...newArray, { name: name, isError: true, message: 'Year outside boundaries (0 to 2000)' }]);
+    else if (name === 'imageUrl' && !urlRegex.test(value)) {
+      setError(name, 'Not a valid URL');
+      isValid = false;
+    }
+
+    else if (name === 'year' && (+value < 0 || +value > year)) {
+      setError(name, 'Year outside boundaries (0 to ' + year + ')');
       isValid = false;
     }
 
     else if (name === 'rating' && (+value < 0 || +value > 10)) {
-      console.log('rating');
-      const newArray: validationObject[] = validationErrors.filter(
-        (element) => element.name !== name);
-      setValidationError([...newArray, { name: name, isError: true, message: 'Rating outside boundaries (0 and 10)' }]);
+      setError(name, 'Rating outside boundaries (0 to 10)');
       isValid = false;
     }
 
     else if (name === 'price' && (+value < 1 || +value > 5000)) {
-      console.log('price');
-      const newArray: validationObject[] = validationErrors.filter(
-        (element) => element.name !== name);
-      setValidationError([...newArray, { name: name, isError: true, message: 'Price outside boundaries (1 and 5000)' }]);
+      setError(name, 'Price outside boundaries (1 to 5000)');
       isValid = false;
     }
 
     else if (value.length <= 0) {
-      console.log('required');
-
-      const newArray: validationObject[] = validationErrors.filter(
-        (element) => element.name !== name);
-      setValidationError([...newArray, { name: name, isError: true, message: 'Field required' }]);
+      setError(name, 'Field required');
       isValid = false;
     }
 
-    else {
-      console.log('remove:', validationErrors.filter ((element) => element.name !== name));
-
-      setValidationError(validationErrors.filter (
+    else if (validationErrors.length > 0) {
+      setValidationErrors(validationErrors.filter (
         (element) => element.name !== name));
     }
 
     return (isValid);
   };
 
+  const isError = (name: string):boolean => {
+    return validationErrors.find((element) => element.name === name) ? true : false;
+  }
+
+  const errorMessage = (name: string): string | undefined => {
+    return validationErrors.find((element) => element.name === name)?.message;
+  }
+
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    console.log('target name: ', event.target.name, ' length: ', event.target.value.length, ' value: ', event.target.value);        // Debug.
-    console.log('validationErrors (handleChange): ', validationErrors);
-
-    const isValid:boolean = validationLogic(event.target.name, event.target.value);
-    console.log('isValid: ', isValid);
-
+    validationLogic(event.target.name, event.target.value);
     setSelectedProduct({
       ...selectedProduct,
       [event.target.name]: event.target.value 
@@ -165,15 +156,15 @@ const useStyles = makeStyles((theme: Theme) =>
     {<form onSubmit={handleSubmit} style={{display: "flex", flexDirection: "row"}}>
       <div style={{display: "flex", flexDirection: "column"}}>
         {selectedProduct.id > 0 && <TextField type="number" label="Id" value={selectedProduct.id} onChange={handleChange} />}
-        <TextField error={validationErrors.find((element) => element.name === 'name')?.isError} helperText={validationErrors.find((element) => element.name === 'name')?.message} type="text" name="name" label="Name" value={selectedProduct.name} onChange={handleChange} />
-        <TextField error={validationErrors.find((element) => element.name === 'year')?.isError} helperText={validationErrors.find((element) => element.name === 'year')?.message} type="number" name="year" label="Year" value={selectedProduct.year} onChange={handleChange} />
-        <TextField error={validationErrors.find((element) => element.name === 'genre')?.isError} helperText={validationErrors.find((element) => element.name === 'genre')?.message} type="text" name="genre" label="Genre" value={selectedProduct.genre} onChange={handleChange} />
+        <TextField error={isError('name')} helperText={errorMessage('name')} type="text" name="name" label="Name" value={selectedProduct.name} onChange={handleChange} />
+        <TextField error={isError('year')} helperText={errorMessage('year')} type="text" name="year" label="Year" value={selectedProduct.year} onChange={handleChange} />
+        <TextField error={isError('genre')} helperText={errorMessage('genre')} type="text" name="genre" label="Genre" value={selectedProduct.genre} onChange={handleChange} />
       </div>
         <div style={{display: "flex", flexDirection: "column"}}>
-          <TextField error={validationErrors.find((element) => element.name === 'rating')?.isError} helperText={validationErrors.find((element) => element.name === 'rating')?.message} type="text" name="rating" label="Rating" value={selectedProduct.rating} onChange={handleChange} />
-          <TextField error={validationErrors.find((element) => element.name === 'price')?.isError} helperText={validationErrors.find((element) => element.name === 'price')?.message} type="text" name="price" label="Price" value={selectedProduct.price} onChange={handleChange} />
-          <TextField error={validationErrors.find((element) => element.name === 'description')?.isError} helperText={validationErrors.find((element) => element.name === 'description')?.message} type="text" name="description" label="Description" value={selectedProduct.description} onChange={handleChange} />
-          <TextField error={validationErrors.find((element) => element.name === 'imageUrl')?.isError} helperText={validationErrors.find((element) => element.name === 'imageUrl')?.message} type="text" name="imageUrl" label="Image URL" value={selectedProduct.imageUrl} onChange={handleChange} />
+          <TextField error={isError('rating')} helperText={errorMessage('rating')} type="text" name="rating" label="Rating" value={selectedProduct.rating} onChange={handleChange} />
+          <TextField error={isError('price')} helperText={errorMessage('price')} type="text" name="price" label="Price" value={selectedProduct.price} onChange={handleChange} />
+          <TextField error={isError('description')} helperText={errorMessage('description')} type="text" name="description" label="Description" value={selectedProduct.description} onChange={handleChange} />
+          <TextField error={isError('imageUrl')} helperText={errorMessage('imageUrl')} type="text" name="imageUrl" label="Image URL" value={selectedProduct.imageUrl} onChange={handleChange} />
         </div>
         <Button variant="contained" color="primary" type="submit">
           Submit
