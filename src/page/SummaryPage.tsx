@@ -74,6 +74,12 @@ const SummaryPage: React.FC = () => {
         flexDirection: "column",
         alignItems: "center"
       }
+    },
+    max500Text: {
+      "@media (max-width:500px)": {
+        fontSize: 12,
+        paddingRight: 0
+      }
     }
   }));
 
@@ -86,10 +92,10 @@ const SummaryPage: React.FC = () => {
           <TableHead>
             <TableRow>
               <TableCell width="5%" className={`${classes.tableHead} ${classes.max500Cell}`}>Id</TableCell>
-              <TableCell width="50%" className={classes.tableHead}>Produktnamn</TableCell>
-              <TableCell width="10%" className={classes.tableHead}>Styckpris</TableCell>
-              <TableCell width="25%" className={classes.tableHead}>Antal</TableCell>
-              <TableCell width="10%" align="right" className={classes.tableHead}>
+              <TableCell width="50%" className={`${classes.tableHead} ${classes.max500Text}`}>Produktnamn</TableCell>
+              <TableCell width="10%" className={`${classes.tableHead} ${classes.max500Text}`}>Styckpris</TableCell>
+              <TableCell width="25%" className={`${classes.tableHead} ${classes.max500Text}`}>Antal</TableCell>
+              <TableCell width="10%" align="right" className={`${classes.tableHead} ${classes.max500Text}`}>
                 Totalt pris
               </TableCell>
             </TableRow>
@@ -98,10 +104,10 @@ const SummaryPage: React.FC = () => {
             {shoppingCartItems.map((product) => (
               <TableRow key={product.product.id}>
                 <TableCell className={classes.max500Cell} width="5%">{product.product.id}</TableCell>
-                <TableCell width="50%">{product.product.name}</TableCell>
-                <TableCell width="10%">{product.product.price}</TableCell>
-                <TableCell width="25%">{product.quantity}</TableCell>
-                <TableCell width="10%" align="right">
+                <TableCell className={classes.max500Text} width="50%">{product.product.name}</TableCell>
+                <TableCell className={classes.max500Text} width="10%">{product.product.price}</TableCell>
+                <TableCell className={classes.max500Text} width="25%">{product.quantity}</TableCell>
+                <TableCell className={classes.max500Text} width="10%" align="right">
                   {product.product.price * product.quantity}
                 </TableCell>
               </TableRow>
@@ -112,8 +118,8 @@ const SummaryPage: React.FC = () => {
               <TableCell className={classes.max500Cell} width="5%"></TableCell>
               <TableCell width="50%"></TableCell>
               <TableCell width="10%"></TableCell>
-              <TableCell width="25%" className={classes.footerText}>Summa:</TableCell>
-              <TableCell width="10%" align="right" className={classes.footerText}>
+              <TableCell width="25%" className={`${classes.footerText} ${classes.max500Text}`}>Summa:</TableCell>
+              <TableCell width="10%" align="right" className={`${classes.footerText} ${classes.max500Text}`}>
                 {calculateTotal()}
               </TableCell>
             </TableRow>
