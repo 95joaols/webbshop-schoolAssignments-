@@ -108,6 +108,7 @@ const useStyles = makeStyles((theme: Theme) =>
   const { register, handleSubmit, unregister } = useForm<Product>();
 
   const onSubmit: SubmitHandler<Product> = (data) => {
+    console.log(data);
     AddOrUpdateProduct(data);
   };
 
@@ -141,7 +142,9 @@ const useStyles = makeStyles((theme: Theme) =>
     <h1>Edit</h1>
       { <form className={`${classes.row} ${classes.max780Col}`} onSubmit={handleSubmit(onSubmit)}>
           <div className={`${classes.modalCol} ${classes.max780Bott}`}>
-            <TextField disabled type="number" label="Id" defaultValue={selectedProduct.id} {...register("id")} />
+            <fieldset disabled>
+              <TextField type="number" label="Id" defaultValue={selectedProduct.id} {...register("id")} />
+            </fieldset>
             <TextField type="text" label="Name" defaultValue={selectedProduct.name} {...register("name")} />
             <TextField type="number" label="Year" defaultValue={selectedProduct.year} {...register("year")}/>
             <TextField type="text" label="Genre" defaultValue={selectedProduct.genre} {...register("genre")} />
@@ -152,10 +155,10 @@ const useStyles = makeStyles((theme: Theme) =>
             <TextField type="text" label="Description" defaultValue={selectedProduct.description} {...register("description")} />
             <TextField type="url" label="Image URL" defaultValue={selectedProduct.imageUrl} {...register("imageUrl")} />
           </div>
-      </form> }
-      <Button variant="contained" color="primary" type="submit">
+          <Button variant="contained" color="primary" type="submit">
             Submit
           </Button>
+      </form> }
   </div>
   );
 
@@ -164,20 +167,20 @@ const useStyles = makeStyles((theme: Theme) =>
     <h1>Create new</h1>
       { <form className={`${classes.row} ${classes.max780Col}`} onSubmit={handleSubmit(onSubmit)}>
       <div className={`${classes.modalCol} ${classes.max780Bott}`}>
-            <TextField type="text" label="Name" {...register("name")} />
-            <TextField type="number" label="Year" {...register("year")}/>
-            <TextField type="text" label="Genre" {...register("genre")} />
-          </div>
-          <div className={`${classes.modalCol} ${classes.max780Top}`}>
-            <TextField type="number" label="Rating" {...register("rating")} />
-            <TextField type="number" label="Price" {...register("price")} />
-            <TextField type="text" label="Description" {...register("description")} />
-            <TextField type="url" label="Image URL" {...register("imageUrl")} />
-          </div>
-      </form> }
+          <TextField type="text" label="Name" {...register("name")} />
+          <TextField type="number" label="Year" {...register("year")}/>
+          <TextField type="text" label="Genre" {...register("genre")} />
+        </div>
+        <div className={`${classes.modalCol} ${classes.max780Top}`}>
+          <TextField type="number" label="Rating" {...register("rating")} />
+          <TextField type="number" label="Price" {...register("price")} />
+          <TextField type="text" label="Description" {...register("description")} />
+          <TextField type="url" label="Image URL" {...register("imageUrl")} />
+        </div>
       <Button variant="contained" color="primary" type="submit">
-            Submit
-          </Button>
+        Submit
+      </Button>
+      </form> }
   </div>
   );
 
