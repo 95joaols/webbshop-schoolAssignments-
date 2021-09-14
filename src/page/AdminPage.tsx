@@ -117,6 +117,7 @@ const AdminPage: React.FC = () => {
   const { register, handleSubmit, unregister } = useForm<Product>();
 
   const onSubmit: SubmitHandler<Product> = (data) => {
+    console.log(data);
     AddOrUpdateProduct(data);
   };
 
@@ -172,13 +173,14 @@ const AdminPage: React.FC = () => {
           onSubmit={handleSubmit(onSubmit)}
         >
           <div className={`${classes.modalCol} ${classes.max780Bott}`}>
-            <TextField
-              disabled
-              type="number"
-              label="Id"
-              defaultValue={selectedProduct.id}
-              {...register("id")}
-            />
+            <fieldset disabled>
+              <TextField
+                type="number"
+                label="Id"
+                defaultValue={selectedProduct.id}
+                {...register("id")}
+              />
+            </fieldset>
             <TextField
               type="text"
               label="Name"
@@ -224,11 +226,11 @@ const AdminPage: React.FC = () => {
               {...register("imageUrl")}
             />
           </div>
+          <Button variant="contained" color="primary" type="submit">
+            Submit
+          </Button>
         </form>
       }
-      <Button variant="contained" color="primary" type="submit">
-        Submit
-      </Button>
     </div>
   );
 
@@ -255,11 +257,11 @@ const AdminPage: React.FC = () => {
             />
             <TextField type="url" label="Image URL" {...register("imageUrl")} />
           </div>
+          <Button variant="contained" color="primary" type="submit">
+            Submit
+          </Button>
         </form>
       }
-      <Button variant="contained" color="primary" type="submit">
-        Submit
-      </Button>
     </div>
   );
 
