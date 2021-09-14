@@ -14,16 +14,18 @@ export const ShoppingCartContext = createContext<ContextValue>({
 });
 
 const ShoppingCartProvider: FC = (props) => {
+  //Save the shoppingCartItems in a array
   const [shoppingCartItems, setShoppingCartItems] = useState<
     ShoppingCartItem[]
   >([]);
+
 
   const updateShoppingCart = (shoppingCartItems: ShoppingCartItem[]) => {
     setShoppingCartItems(shoppingCartItems);
   };
 
   const addToShoppingCart = (shoppingCartItem: ShoppingCartItem) => {
-    //see if the CartItem exist if it das we are picking the ref out.
+    //see if the CartItem exist if it did we are picking the ref out.
     const CartItem = shoppingCartItems.find(
       (item) => item.product.id === shoppingCartItem.product.id
     );

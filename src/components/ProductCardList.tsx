@@ -20,6 +20,7 @@ export const ProductCardList: React.FC<props> = ({ products }) => {
   return (
     <div className={classes.root}>
       {products.map((product, index) => (
+        //add ErrorBoundary shape of a card
         <ErrorBoundary styleType="card">
           <ProductCard
             key={product.id}
