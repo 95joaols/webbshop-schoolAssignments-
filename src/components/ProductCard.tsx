@@ -39,6 +39,8 @@ interface props {
 
 export const ProductCard: React.FC<props> = ({ product, timeToShow }) => {
   const [show, setShow] = useState(false);
+
+  //set the timer to make it show
   const timerId = setInterval(() => {
     setShow(true);
     clearInterval(timerId);

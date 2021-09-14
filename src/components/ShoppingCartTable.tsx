@@ -56,6 +56,7 @@ const ShoppingCartTable: React.FC<Props> = ({ totalPrice, onSetPrice }) => {
     if (indexToReplace >= 0) {
       shoppingCartItems[indexToReplace] = shoppingCartItem;
     }
+    updateShoppingCart([...shoppingCartItems]);
     calculateTotal();
   }
 
