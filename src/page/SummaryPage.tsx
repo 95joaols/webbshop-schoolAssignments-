@@ -39,7 +39,7 @@ const SummaryPage: React.FC = () => {
       fontWeight: 700,
     },
     footerText: {
-      fontSize: 22,
+      fontSize: 18,
       fontWeight: 700,
       color: "black",
     },
@@ -64,6 +64,17 @@ const SummaryPage: React.FC = () => {
     button: {
       width: "50%",
     },
+    max500Cell: {
+      "@media (max-width:500px)": {
+        display: "none"
+      }
+    },
+    max500Col: {
+      "@media (max-width:500px)": {
+        flexDirection: "column",
+        alignItems: "center"
+      }
+    }
   }));
 
   const classes = useStyles();
@@ -74,11 +85,11 @@ const SummaryPage: React.FC = () => {
         <Table size="small">
           <TableHead>
             <TableRow>
-              <TableCell className={classes.tableHead}>Id</TableCell>
-              <TableCell className={classes.tableHead}>Produktnamn</TableCell>
-              <TableCell className={classes.tableHead}>Styckpris</TableCell>
-              <TableCell className={classes.tableHead}>Antal</TableCell>
-              <TableCell align="right" className={classes.tableHead}>
+              <TableCell width="5%" className={`${classes.tableHead} ${classes.max500Cell}`}>Id</TableCell>
+              <TableCell width="50%" className={classes.tableHead}>Produktnamn</TableCell>
+              <TableCell width="10%" className={classes.tableHead}>Styckpris</TableCell>
+              <TableCell width="25%" className={classes.tableHead}>Antal</TableCell>
+              <TableCell width="10%" align="right" className={classes.tableHead}>
                 Totalt pris
               </TableCell>
             </TableRow>
@@ -86,11 +97,11 @@ const SummaryPage: React.FC = () => {
           <TableBody>
             {shoppingCartItems.map((product) => (
               <TableRow key={product.product.id}>
-                <TableCell>{product.product.id}</TableCell>
-                <TableCell>{product.product.name}</TableCell>
-                <TableCell>{product.product.price}</TableCell>
-                <TableCell>{product.quantity}</TableCell>
-                <TableCell align="right">
+                <TableCell className={classes.max500Cell} width="5%">{product.product.id}</TableCell>
+                <TableCell width="50%">{product.product.name}</TableCell>
+                <TableCell width="10%">{product.product.price}</TableCell>
+                <TableCell width="25%">{product.quantity}</TableCell>
+                <TableCell width="10%" align="right">
                   {product.product.price * product.quantity}
                 </TableCell>
               </TableRow>
@@ -98,11 +109,11 @@ const SummaryPage: React.FC = () => {
           </TableBody>
           <TableFooter>
             <TableRow>
-              <TableCell></TableCell>
-              <TableCell></TableCell>
-              <TableCell></TableCell>
-              <TableCell className={classes.footerText}>Summa:</TableCell>
-              <TableCell align="right" className={classes.footerText}>
+              <TableCell className={classes.max500Cell} width="5%"></TableCell>
+              <TableCell width="50%"></TableCell>
+              <TableCell width="10%"></TableCell>
+              <TableCell width="25%" className={classes.footerText}>Summa:</TableCell>
+              <TableCell width="10%" align="right" className={classes.footerText}>
                 {calculateTotal()}
               </TableCell>
             </TableRow>
@@ -111,7 +122,7 @@ const SummaryPage: React.FC = () => {
       </Container>
       <Container maxWidth="md">
         <Card className={classes.productTable}>
-          <CardContent className={`${classes.cardRow} ${classes.cardEven}`}>
+          <CardContent className={`${classes.cardRow} ${classes.cardEven} ${classes.max500Col}`}>
             <div className={classes.cardColumn}>
               <Typography className={classes.customerDetalis} variant="h5">
                 Leveransadress:
@@ -158,7 +169,7 @@ const SummaryPage: React.FC = () => {
               variant="contained"
               color="primary"
             >
-              Gå tillbaka
+              Tillbaka
             </Button>
           </div>
           <div className={classes.cardRow}>
