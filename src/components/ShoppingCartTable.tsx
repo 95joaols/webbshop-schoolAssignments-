@@ -91,6 +91,7 @@ const ShoppingCartTable: React.FC<Props> = ({ totalPrice, onSetPrice }) => {
       padding: 8,
     },
     priceQuantityCell: {
+      minWidth: 82,
       width: 150,
     },
     link: {
@@ -135,25 +136,25 @@ const ShoppingCartTable: React.FC<Props> = ({ totalPrice, onSetPrice }) => {
           <TableBody>
             {shoppingCartItems.map((item) => (
               <TableRow key={item.product.id}>
-                  <TableCell
-                    className={`${classes.imageCell} ${classes.center}`}
-                    align="left"
-                  >
-                    <img
-                      src={item.product.imageUrl}
-                      className={classes.image}
-                      alt={item.product.name}
-                    ></img>
-                  </TableCell>
-
-                  <TableCell component="th" scope="row">
-                <Link
-                  to={`/product/${item.product.id}`}
-                  className={classes.link}
+                <TableCell
+                  className={`${classes.imageCell} ${classes.center}`}
+                  align="left"
                 >
+                  <img
+                    src={item.product.imageUrl}
+                    className={classes.image}
+                    alt={item.product.name}
+                  ></img>
+                </TableCell>
+
+                <TableCell component="th" scope="row">
+                  <Link
+                    to={`/product/${item.product.id}`}
+                    className={classes.link}
+                  >
                     {item.product.name}
-                </Link>
-                  </TableCell>
+                  </Link>
+                </TableCell>
                 <TableCell className={classes.priceQuantityCell} align="right">
                   {item.product.price}
                 </TableCell>
