@@ -1,48 +1,23 @@
-https://webshopp-react.netlify.app/
+# Webshop med Material-UI
+*Inlämning nummer 4 i kursen Webutveckling*
+*Utförd av Rikard Friberg, Joacim Olsson, Mathias Millberg och Andreas Gunnarsson*
 
-# Getting Started with Create React App
+Uppgiften är en gruppuppgift och går ut på att bygga en webshop med hjälp av React, Typescript och Material-UI. Sidan ska innehålla en startsida, en produktsida, ett utcheckningsflöda samt en admin-sida som frivillig expansion av uppgiften.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Vi valde att satsa på att uppfylla alla krav, både för godkänt och väl godkänt. Vid uppstart skrivs vår lista med hårdkodade produkter till användarens local storage. Vår startsida listar alla dessa produkter och där har man möjlighet att välja önskat antal samt lägga till i kundvagn. Man kan även klicka på produkter för att komma till produktsidan innehållandes mer detaljerad info. Även här kan man lägga till i kundvagn. Högst upp på sidan har vi en appbar med knappar för de olika sidorna och en kundvagnsikon med ett antal, som uppdateras varje gång en produkt läggs till i kundvagnen. Man kan också klicka på ikonen för att få fram en lista över tillagda produkter.
+I kassan får man upp en lista med kundvagnens produkter. Här kan man ändra antal och ta bort om man önskar. Det finns ett formulär med automatisk ifyllnad för köparen att lägga till sina uppgifter i. Klickar man vidare så kommer man till en bekräftelsesida med en sammanfattning på alla produkter och den adress man angivit. Godkänns detta får man upp en bekräftelse på att ordern är lagd samt att sidan återgår till sitt ursprungliga state, redo för en ny order.
+På adminsidan listas alla produkter. Här kan man klicka på en produkt för att redigera dess detaljer, ta bort produkten eller lägga till en ny produkt.
 
-## Available Scripts
+Sidan finns upplagd på https://webshopp-react.netlify.app/ för demo.
 
-In the project directory, you can run:
+---
+För att bygga projektet, kör:
+> `npm install`
 
-### `npm start`
+För att starta projektet, kör:
+> `npm start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+Projektet använder sig av: 
+* [React](https://reactjs.org/)
+* [Material-UI](https://material-ui.com/)
+* [TypeScript](https://www.typescriptlang.org/)
