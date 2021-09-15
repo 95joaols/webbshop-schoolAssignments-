@@ -47,6 +47,11 @@ const useStyles = makeStyles((theme: Theme) =>
       textAlign: "right",
       width: "15%",
     },
+    listitem: {
+      backgroundColor: "#3f51b5",
+      marginTop: "1rem",
+      borderRadius: "1rem",
+    },
     button: {
       width: "fit-content",
       "& :hover": {
@@ -93,46 +98,56 @@ const useStyles = makeStyles((theme: Theme) =>
 const AdminPage: React.FC = () => {
   const classes = useStyles();
 
+  // The default (empty) prodcut, used when creating new and setting the initial state.
   const defaultProduct: Product = {
     id: -1,
-    name: "",
+    name: '',
     year: -1,
-    genre: "",
+    genre: '',
     rating: -1,
     price: -1,
     description: '',
     imageUrl: ''
   };
 
+  // Object used for validation, saves the name of the input field and an error message.
   type validationObject = {
     name: string,
     message: string
   };
 
+  // State used for opening the modal.
   const [ open, setOpen ] = useState(false);
+  // Product that's selected from the list, used in the modal.
   const [ selectedProduct, setSelectedProduct ] = useState<Product>(defaultProduct);
   const { products, deleteProduct, AddOrUpdateProduct } = useContext(ProductContext);
+  // List with all validation errors in the form.
   const [ validationErrors, setValidationErrors ] = useState<validationObject[]>([]);
 
+  // When the modal is opened.
   const handleOpen = (product: Product) => {
     setSelectedProduct(product);
     setOpen(true);
   };
 
+  // When the modal is closed. Clears the list with validationErrors the old ones wont be there when the next one opens.
   const handleOnClose = () => {
     setOpen(false);
     setValidationErrors([]);
   };
 
+  // When pressing the delete button in the list.
   const handleDelete = (id: number) => {
     deleteProduct(id);
   };
 
+  // When pressing the "Add new" button.
   const handleAddNew = () => {
     setSelectedProduct(defaultProduct);
     setOpen(true);
   };
 
+  // When pressing submit. It first does validation. if the form is valid add or update the product then close the form.
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     let isValid:boolean = true;
@@ -149,12 +164,14 @@ const AdminPage: React.FC = () => {
     }
   };
 
+  // Used inside validationLogic() to create a new validationObject and add it to the array of errors.
   const setError = (name: string, message: string) => {
     const newArray: validationObject[] = validationErrors.filter(
       (element) => element.name !== name);
     setValidationErrors([...newArray, { name: name, message: message }]);
   };
 
+  // All the validation logic.
   const validationLogic = (name: string, value: string): boolean => {
     let isValid: boolean = true;
     const urlRegex = new RegExp('^https?://');
@@ -198,14 +215,17 @@ const AdminPage: React.FC = () => {
     return (isValid);
   };
 
+  // Function used in the TextFields of the modal/form to mark it red if validation fails.
   const isError = (name: string):boolean => {
     return validationErrors.find((element) => element.name === name) ? true : false;
   };
 
+  // Function used in the TextFields of the modal/form to print an error message.
   const errorMessage = (name: string): string | undefined => {
     return validationErrors.find((element) => element.name === name)?.message;
   };
 
+  // Function used to handle changes of an input field. First validates and then updates the of the field.
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     validationLogic(event.target.name, event.target.value);
     setSelectedProduct({
@@ -214,6 +234,7 @@ const AdminPage: React.FC = () => {
     })
   };
 
+  // Body used in the modal.
   const modalBody = (
   <div className={`${classes.product} ${classes.modalWidth}`}>
     {selectedProduct.id > 0 ? <h1>Edit</h1> : <h1>Create New</h1>}
@@ -237,6 +258,7 @@ const AdminPage: React.FC = () => {
   </div>
   );
 
+  // The list that's seen when entering the admin page.
   return (
     <div className={classes.root}>
       <Button onClick={handleAddNew} color="primary" variant="contained">
@@ -259,8 +281,8 @@ const AdminPage: React.FC = () => {
             </Typography>
           </div>
         {products.sort((a, b) => a.id - b.id).map((p) => (
-          <div key={p.id} style={{backgroundColor: "#3f51b5", marginTop: "1rem", borderRadius: "1rem"}}>
-            <ListItem button onClick={() => handleOpen(p)}>
+          <div key={p.id} className={classes.listitem}>
+            <ListItem className={classes.product} button onClick={() => handleOpen(p)}>
               <div className={classes.row}>
                 <ListItemText className={classes.title} primary={p.name} />
                 <ListItemText className={classes.year} primary={p.year} />
