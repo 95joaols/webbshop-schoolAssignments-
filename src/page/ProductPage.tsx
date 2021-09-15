@@ -23,7 +23,7 @@ const useStyles = makeStyles({
     marginTop: "1rem",
   },
   img: {
-    width: "20rem",
+    width: "18rem",
     height: "auto",
   },
   content2: {
