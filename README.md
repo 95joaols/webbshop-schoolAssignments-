@@ -1,6 +1,6 @@
 # Webshop med Material-UI
 *Inlämning nummer 4 i kursen Webutveckling*
-*Utförd av Rikard Friberg, Joakim Olsson, Mathias Millberg och Andreas Gunnarsson*
+*Utförd av Rikard Friberg, Joacim Olsson, Mathias Millberg och Andreas Gunnarsson*
 
 Uppgiften är en gruppuppgift och går ut på att bygga en webshop med hjälp av React, Typescript och Material-UI. Sidan ska innehålla en startsida, en produktsida, ett utcheckningsflöda samt en admin-sida som frivillig expansion av uppgiften.
 
