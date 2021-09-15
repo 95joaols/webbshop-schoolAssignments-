@@ -143,9 +143,10 @@ const AdminPage: React.FC = () => {
       }
     }
 
-    if(isValid)
+    if(isValid) {
       AddOrUpdateProduct(selectedProduct);
-    handleOnClose();
+      handleOnClose();
+    }
   };
 
   const setError = (name: string, message: string) => {
