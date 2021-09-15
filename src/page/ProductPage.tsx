@@ -1,15 +1,15 @@
-import React from "react";
 import { RouteComponentProps } from "react-router";
 import { Box, Container, makeStyles } from "@material-ui/core";
 import { AddProductToCart } from "../components/AddProductToCart";
-import { allProducts } from "../entity/Product";
+import { useContext } from "react";
+import { ProductContext } from "../contexts/ProductContext";
 
 const useStyles = makeStyles({
   root: {
     display: "flex",
     alignItems: "center",
     flexDirection: "column",
-    marginTop: 170
+    marginTop: 170,
   },
   content: {
     display: "flex",
@@ -53,7 +53,8 @@ const useStyles = makeStyles({
 interface Props extends RouteComponentProps<{ id: string }> {}
 
 export default function ProductDetail({ match }: Props) {
-  const movie = allProducts.find(
+  const { products } = useContext(ProductContext);
+  const movie = products.find(
     (item) => item.id === +(match.params.id as unknown as number)
   )!;
 
