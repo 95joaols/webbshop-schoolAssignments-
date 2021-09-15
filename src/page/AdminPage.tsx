@@ -102,12 +102,12 @@ const AdminPage: React.FC = () => {
     price: -1,
     description: '',
     imageUrl: ''
-  }
+  };
 
   type validationObject = {
     name: string,
     message: string
-  }
+  };
 
   const [ open, setOpen ] = useState(false);
   const [ selectedProduct, setSelectedProduct ] = useState<Product>(defaultProduct);
@@ -122,7 +122,7 @@ const AdminPage: React.FC = () => {
   const handleOnClose = () => {
     setOpen(false);
     setValidationErrors([]);
-  }
+  };
 
   const handleDelete = (id: number) => {
     deleteProduct(id);
@@ -145,13 +145,14 @@ const AdminPage: React.FC = () => {
 
     if(isValid)
       AddOrUpdateProduct(selectedProduct);
+    handleOnClose();
   };
 
   const setError = (name: string, message: string) => {
     const newArray: validationObject[] = validationErrors.filter(
       (element) => element.name !== name);
     setValidationErrors([...newArray, { name: name, message: message }]);
-  }
+  };
 
   const validationLogic = (name: string, value: string): boolean => {
     let isValid: boolean = true;
@@ -198,11 +199,11 @@ const AdminPage: React.FC = () => {
 
   const isError = (name: string):boolean => {
     return validationErrors.find((element) => element.name === name) ? true : false;
-  }
+  };
 
   const errorMessage = (name: string): string | undefined => {
     return validationErrors.find((element) => element.name === name)?.message;
-  }
+  };
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     validationLogic(event.target.name, event.target.value);
