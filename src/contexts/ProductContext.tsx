@@ -1,5 +1,5 @@
-import { createContext, FC, useEffect, useState } from 'react';
-import { Product, allProducts } from '../entity/Product';
+import { createContext, FC, useEffect, useState } from "react";
+import { Product, allProducts } from "../entity/Product";
 
 interface ContextValue {
   products: Product[];
@@ -14,68 +14,76 @@ export const ProductContext = createContext<ContextValue>({
 });
 
 const ProductProvider: FC = (props) => {
+  //all products in the web
   const [products, setProducts] = useState<Product[]>([]);
   const [lastId, setLastId] = useState<number>(14);
 
+  //Add or Update the product depend of if it has a id or not.
   const AddOrUpdateProduct = (product: Product) => {
-    if (+product.id > 0) {
-      const productWithTypes:Product = {
-        id: +product.id,
-        name: product.name,
-        year: +product.year,
-        genre: product.genre,
-        rating: +product.rating,
-        price: +product.price,
-        description: product.description,
-        imageUrl: product.imageUrl
-      };
-      const newArray: Product[] = products.filter(
-        (element) => element.id !== productWithTypes.id);
-      const newArrayAppend: Product[] = [...newArray, productWithTypes];
-      setProducts(newArrayAppend);
-    }
+    let newArray: Product[];
+    // Product with types, else we'll get one with string where it should not be strings.
+    const productWithTypes:Product = {
+      id: +product.id,
+      name: product.name,
+      year: +product.year,
+      genre: product.genre,
+      rating: +product.rating,
+      price: +product.price,
+      description: product.description,
+      imageUrl: product.imageUrl
+    };
 
-    else {
-      const newId: number = lastId+1;
-      setLastId(newId);
-      const productWithId: Product = {
-        id: newId,
-        name: product.name,
-        year: +product.year,
-        genre: product.genre,
-        rating: +product.rating,
-        price: +product.price,
-        description: product.description,
-        imageUrl: product.imageUrl
-      };
-      const newArray: Product[] = [...products];
-      const newArrayAppend: Product[] = [...newArray, productWithId];
-      setProducts(newArrayAppend);
+    // Edit:
+    if (+product.id > 0) {
+      // Remove the product that have the id of the new product
+      newArray = products.filter((element) => element.id !== productWithTypes.id);
+      // Update the state with the updated product.
+      setProducts([...newArray, productWithTypes]);
+    // New:
+    } else {
+      // Get the new id and set the id.
+      productWithTypes.id = lastId + 1;
+      // Update the hook that saved the last id.
+      setLastId(productWithTypes.id);
+      newArray = [...products];
+      // Update the state with the new product.
+      setProducts([...newArray, productWithTypes]);
     }
   };
 
   const deleteProduct = (id: number) => {
+    //remove the product that have the id.
     setProducts(products.filter((element) => element.id !== id));
   };
 
+  //init the data from the localStorage if it is any
   useEffect(() => {
     (async function () {
       try {
+        //load from localStorage
         const localStorageAllProducts = localStorage.getItem("allProducts");
         const localStorageLastId = localStorage.getItem("lastId");
+
+        //check if we have got any data
         if (localStorageAllProducts && localStorageLastId) {
-          const parasedProducts: Product[] = await JSON.parse(localStorageAllProducts);
+          //parse the Products
+          const parasedProducts: Product[] = await JSON.parse(
+            localStorageAllProducts
+          );
+          //parse the id
           const parsedId: number = await JSON.parse(localStorageLastId);
-          if (parasedProducts.length) {
+
+          //check and set
+          if (parasedProducts.length && parsedId) {
             setProducts(parasedProducts);
             setLastId(parsedId);
-          }
-          else {
+          } else {
+            //set the deffalt data
             setProducts(allProducts);
             setLastId(14);
           }
-        }
-        else {
+        } else {
+          //set the deffalt data
           setProducts(allProducts);
           setLastId(14);
         }
@@ -83,10 +91,15 @@ const ProductProvider: FC = (props) => {
     })();
   }, []);
 
+  //update localStorage when we update products.
   useEffect(() => {
     localStorage.setItem("allProducts", JSON.stringify(products));
+  }, [products]);
+  
+  //update localStorage when we update lastId
+  useEffect(() => {
     localStorage.setItem("lastId", JSON.stringify(lastId));
-  }, [products, lastId]);
+  }, [lastId]);
 
   return (
     <ProductContext.Provider

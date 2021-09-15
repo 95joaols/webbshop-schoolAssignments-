@@ -44,6 +44,13 @@ export const Menu: React.FC = () => {
       display: "flex",
       flexDirection: "row",
       alignItems: "center",
+      position: "absolute",
+      zIndex: 1,
+    },
+    cartPosition: {
+      width: "97%",
+      justifyContent: "flex-end",
+      zIndex: 0
     },
     "@keyframes cinematicInOut": {
       "0%": {
@@ -73,7 +80,7 @@ export const Menu: React.FC = () => {
 
   return (
     <div className={classes.root}>
-      <AppBar position="static">
+      <AppBar position="fixed">
         <Toolbar className={classes.toolbar}>
           <Container maxWidth="md">
           <Box display={{ xs: 'none', md: 'block'}} marginLeft="10rem">
@@ -84,10 +91,9 @@ export const Menu: React.FC = () => {
           </Box>
           </Container>
           <div className={classes.buttoncontainer}>
-            <div className={classes.directionRow}>
+            <div className={`${classes.directionRow}`}>
               <Button
                 className={classes.button}
-                // variant="text"
                 component={Link}
                 to="/"
               >
@@ -95,7 +101,6 @@ export const Menu: React.FC = () => {
               </Button>
               <Button
                 className={classes.button}
-                // variant="outlined"
                 component={Link}
                 to="/shoppingcart"
               >
@@ -103,14 +108,13 @@ export const Menu: React.FC = () => {
               </Button>
               <Button
                 className={classes.button}
-                // variant="outlined"
                 component={Link}
                 to="/admin"
               >
                 Admin
               </Button>
             </div>
-            <div className={classes.directionRow}>
+            <div className={`${classes.directionRow} ${classes.cartPosition}`}>
               <DropDownCart></DropDownCart>
             </div>
           </div>

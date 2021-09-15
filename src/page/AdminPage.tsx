@@ -1,31 +1,93 @@
 import { useState, useContext } from 'react';
 import { Product } from '../entity/Product';
 import { createStyles, Theme, makeStyles } from '@material-ui/core/styles';
-import { List, ListItem, ListItemText, Button, TextField } from '@material-ui/core';
+import { List, ListItem, ListItemText, Button, TextField, Typography, Container } from '@material-ui/core';
 import { ProductContext } from '../contexts/ProductContext';
 import Modal from '@material-ui/core/Modal';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
-      width: '100%',
-      color: 'white',
-      backgroundColor: '#ffffff',
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+      width: "100%",
+      padding: "16px",
+      color: "black",
+      backgroundColor: "#ffffff",
+      marginTop: 170,
     },
-    modal: {
-      display: 'flex',
-      flexDirection: 'column',
-      top: '1%',
-      left: '50%',
-      marginTop: '-100',
-      marginLeft: '-150',
-      position: 'absolute',
-      backgroundColor: '#ffffff',
-      borderRadius: '2rem',
-      boxShadow: theme.shadows[5],
-      padding: theme.spacing(2, 4, 3),
+    product: {
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+      backgroundColor: "white",
+      border: "1px solid",
+      borderRadius: "16px",
     },
-  }),
+    row: {
+      display: "flex",
+      flexDirection: "row",
+      width: "100%",
+    },
+    title: {
+      paddingLeft: "16px",
+      width: "40%",
+    },
+    year: {
+      textAlign: "center",
+      width: "15%",
+    },
+    genre: {
+      textAlign: "center",
+      width: "30%",
+    },
+    price: {
+      paddingRight: "16px",
+      textAlign: "right",
+      width: "15%",
+    },
+    button: {
+      width: "fit-content",
+      "& :hover": {
+        fontWeight: 600,
+      },
+    },
+    fit: {
+      display: "flex",
+      justifyContent: "center",
+      marginTop: "16px",
+      height: "fit-content",
+    },
+    modalCol: {
+      display: "flex",
+      flexDirection: "column",
+      margin: "32px",
+      width: "50%",
+    },
+    modalWidth: {
+      width: "80%",
+      padding: "16px",
+    },
+    max780Top: {
+      "@media (max-width:780px)": {
+        marginTop: 0,
+        width: "100%",
+      },
+    },
+    max780Bott: {
+      "@media (max-width:780px)": {
+        marginBottom: 0,
+        width: "100%",
+      },
+    },
+    max780Col: {
+      "@media (max-width:780px)": {
+        flexDirection: "column",
+        alignItems: "center",
+      },
+    },
+  })
 );
 
 const AdminPage: React.FC = () => {
@@ -33,9 +95,9 @@ const AdminPage: React.FC = () => {
 
   const defaultProduct: Product = {
     id: -1,
-    name: '',
+    name: "",
     year: -1,
-    genre: '',
+    genre: "",
     rating: -1,
     price: -1,
     description: '',
@@ -151,16 +213,16 @@ const AdminPage: React.FC = () => {
   };
 
   const modalBody = (
-  <div className={classes.modal}>
+  <div className={`${classes.product} ${classes.modalWidth}`}>
     {selectedProduct.id > 0 ? <h1>Edit</h1> : <h1>Create New</h1>}
-    {<form onSubmit={handleSubmit} style={{display: "flex", flexDirection: "row"}}>
-      <div style={{display: "flex", flexDirection: "column"}}>
+    {<form onSubmit={handleSubmit} className={`${classes.row} ${classes.max780Col}`}>
+      <div className={`${classes.modalCol} ${classes.max780Bott}`}>
         {selectedProduct.id > 0 && <TextField type="number" label="Id" value={selectedProduct.id} onChange={handleChange} />}
         <TextField error={isError('name')} helperText={errorMessage('name')} type="text" name="name" label="Name" value={selectedProduct.name} onChange={handleChange} />
         <TextField error={isError('year')} helperText={errorMessage('year')} type="text" name="year" label="Year" value={selectedProduct.year} onChange={handleChange} />
         <TextField error={isError('genre')} helperText={errorMessage('genre')} type="text" name="genre" label="Genre" value={selectedProduct.genre} onChange={handleChange} />
       </div>
-        <div style={{display: "flex", flexDirection: "column"}}>
+        <div className={`${classes.modalCol} ${classes.max780Top}`}>
           <TextField error={isError('rating')} helperText={errorMessage('rating')} type="text" name="rating" label="Rating" value={selectedProduct.rating} onChange={handleChange} />
           <TextField error={isError('price')} helperText={errorMessage('price')} type="text" name="price" label="Price" value={selectedProduct.price} onChange={handleChange} />
           <TextField error={isError('description')} helperText={errorMessage('description')} type="text" name="description" label="Description" value={selectedProduct.description} onChange={handleChange} />
@@ -175,21 +237,43 @@ const AdminPage: React.FC = () => {
 
   return (
     <div className={classes.root}>
-      <List component="nav">
-      { products.sort((a, b) => a.id - b.id).map((p) => (
-        <div key={p.id} style={{backgroundColor: "#3f51b5", marginTop: "1rem", borderRadius: "1rem"}}>
-          <ListItem button onClick={() => handleOpen(p)}>
-            <ListItemText primary={p.name} />
-            <ListItemText primary={p.year} />
-            <ListItemText primary={p.genre} />
-            <ListItemText primary={p.price} />
-          </ListItem>
-            <Button onClick={() => handleDelete(p.id)}>Delete</Button>
-        </div>
-      ))}
-        <Button onClick={handleAddNew}>Add new</Button>
-      </List>
-      <Modal open={open} onClose={handleOnClose}>
+      <Button onClick={handleAddNew} color="primary" variant="contained">
+        Add new
+      </Button>
+      <Container maxWidth="md">
+        <List component="nav">
+          <div className={classes.row}>
+            <Typography className={classes.title} variant="h6">
+              Titel
+            </Typography>
+            <Typography className={classes.year} variant="h6">
+              År
+            </Typography>
+            <Typography className={classes.genre} variant="h6">
+              Genre
+            </Typography>
+            <Typography className={classes.price} variant="h6">
+              Pris
+            </Typography>
+          </div>
+        {products.sort((a, b) => a.id - b.id).map((p) => (
+          <div key={p.id} style={{backgroundColor: "#3f51b5", marginTop: "1rem", borderRadius: "1rem"}}>
+            <ListItem button onClick={() => handleOpen(p)}>
+              <div className={classes.row}>
+                <ListItemText className={classes.title} primary={p.name} />
+                <ListItemText className={classes.year} primary={p.year} />
+                <ListItemText className={classes.genre} primary={p.genre} />
+                <ListItemText className={classes.price} primary={p.price} />
+              </div>
+              <Button className={classes.button} variant="outlined" onClick={(e) => { handleDelete(p.id); e.stopPropagation(); }}>
+                Delete
+              </Button>
+            </ListItem>
+          </div>
+        ))}
+        </List>
+      </Container>
+      <Modal open={open} onClose={handleOnClose} className={classes.fit}>
         {modalBody}
       </Modal>
     </div>

@@ -14,6 +14,7 @@ import DeleteForeverOutlinedIcon from "@material-ui/icons/DeleteForeverOutlined"
 import { useEffect, useContext } from "react";
 import { ShoppingCartContext } from "../contexts/ShoppingCartContext";
 import { ShoppingCartItem } from "../entity/ShoppingCartItem";
+import { Link } from "react-router-dom";
 
 interface Props {
   totalPrice: number;
@@ -55,6 +56,7 @@ const ShoppingCartTable: React.FC<Props> = ({ totalPrice, onSetPrice }) => {
     if (indexToReplace >= 0) {
       shoppingCartItems[indexToReplace] = shoppingCartItem;
     }
+    updateShoppingCart([...shoppingCartItems]);
     calculateTotal();
   }
 
@@ -70,7 +72,7 @@ const ShoppingCartTable: React.FC<Props> = ({ totalPrice, onSetPrice }) => {
     tableHead: {
       fontWeight: 700,
     },
-    quantityCell: {
+    center: {
       display: "flex",
       flexDirection: "row",
       alignItems: "center",
@@ -80,6 +82,21 @@ const ShoppingCartTable: React.FC<Props> = ({ totalPrice, onSetPrice }) => {
     },
     errorText: {
       color: "red",
+    },
+    image: {
+      maxHeight: "100px",
+    },
+    imageCell: {
+      width: 50,
+      padding: 8,
+    },
+    priceQuantityCell: {
+      width: 150,
+    },
+    link: {
+      textDecoration: "none",
+      color: "black",
+      display: "flex",
     },
   }));
 
@@ -92,6 +109,9 @@ const ShoppingCartTable: React.FC<Props> = ({ totalPrice, onSetPrice }) => {
           <TableHead>
             <TableRow>
               <TableCell
+                className={`${classes.tableHead} ${classes.imageCell}`}
+              ></TableCell>
+              <TableCell
                 className={classes.tableHead}
                 component="th"
                 scope="row"
@@ -99,15 +119,13 @@ const ShoppingCartTable: React.FC<Props> = ({ totalPrice, onSetPrice }) => {
                 Produktnamn
               </TableCell>
               <TableCell
-                className={classes.tableHead}
-                style={{ width: 150 }}
+                className={`${classes.tableHead} ${classes.priceQuantityCell}`}
                 align="right"
               >
                 Pris
               </TableCell>
               <TableCell
-                className={classes.tableHead}
-                style={{ width: 150 }}
+                className={`${classes.tableHead} ${classes.priceQuantityCell}`}
                 align="right"
               >
                 Antal
@@ -116,15 +134,31 @@ const ShoppingCartTable: React.FC<Props> = ({ totalPrice, onSetPrice }) => {
           </TableHead>
           <TableBody>
             {shoppingCartItems.map((item) => (
-              <TableRow key={item.product.name}>
-                <TableCell component="th" scope="row">
-                  {item.product.name}
-                </TableCell>
-                <TableCell style={{ width: 160 }} align="right">
+              <TableRow key={item.product.id}>
+                  <TableCell
+                    className={`${classes.imageCell} ${classes.center}`}
+                    align="left"
+                  >
+                    <img
+                      src={item.product.imageUrl}
+                      className={classes.image}
+                      alt={item.product.name}
+                    ></img>
+                  </TableCell>
+
+                  <TableCell component="th" scope="row">
+                <Link
+                  to={`/product/${item.product.id}`}
+                  className={classes.link}
+                >
+                    {item.product.name}
+                </Link>
+                  </TableCell>
+                <TableCell className={classes.priceQuantityCell} align="right">
                   {item.product.price}
                 </TableCell>
-                <TableCell style={{ width: 160 }} align="right">
-                  <div className={classes.quantityCell}>
+                <TableCell className={classes.priceQuantityCell} align="right">
+                  <div className={classes.center}>
                     <TextField
                       id="qantity"
                       type="number"
@@ -151,6 +185,9 @@ const ShoppingCartTable: React.FC<Props> = ({ totalPrice, onSetPrice }) => {
           <TableFooter>
             <TableRow>
               <TableCell
+                className={`${classes.tableHead} ${classes.imageCell}`}
+              ></TableCell>
+              <TableCell
                 className={classes.tableHead}
                 component="th"
                 scope="row"
@@ -158,16 +195,14 @@ const ShoppingCartTable: React.FC<Props> = ({ totalPrice, onSetPrice }) => {
                 Totalt pris:
               </TableCell>
               <TableCell
-                className={classes.tableHead}
-                style={{ width: 160 }}
+                className={`${classes.tableHead} ${classes.priceQuantityCell}`}
                 align="right"
               >
                 {totalPrice}
               </TableCell>
               <TableCell
-                className={classes.errorText}
+                className={`${classes.errorText} ${classes.priceQuantityCell}`}
                 align="right"
-                style={{ width: 160 }}
               >
                 {noProductsError}
               </TableCell>

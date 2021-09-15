@@ -1,25 +1,42 @@
-import React, { useContext } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import Menu from '@material-ui/core/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
-import ListItemText from '@material-ui/core/ListItemText';
-import { ShoppingCartContext } from '../contexts/ShoppingCartContext';
-import DropDownCartItem from './DropDownCartItem';
-import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
-import { Badge, IconButton } from '@material-ui/core';
+import React, { useContext, useEffect, useRef } from "react";
+import { makeStyles } from "@material-ui/core/styles";
+import Menu from "@material-ui/core/Menu";
+import MenuItem from "@material-ui/core/MenuItem";
+import ListItemText from "@material-ui/core/ListItemText";
+import { ShoppingCartContext } from "../contexts/ShoppingCartContext";
+import DropDownCartItem from "./DropDownCartItem";
+import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
+import { Badge, IconButton } from "@material-ui/core";
 
 const DropDownCart: React.FC = () => {
   const { shoppingCartItems } = useContext(ShoppingCartContext);
-  const [anchorElement, setAnchorElevation] =
-  React.useState<null | HTMLElement>(null);
+  const [anchorElement, setAnchorElement] = React.useState<null | HTMLElement>(
+    null
+  );
+  const animateNext = useRef(false);
 
-function handleClick(event: React.MouseEvent<HTMLElement>) {
-  setAnchorElevation(event.currentTarget);
-}
+  useEffect(() => {animateNext.current = true})
 
-function handleClose() {
-  setAnchorElevation(null);
-}
+  function animationPreventer() {
+    if (animateNext.current === true ) return classes.badgeAnimation;
+    else return "";
+  }
+
+  function handleClick(event: React.MouseEvent<HTMLElement>) {
+    animateNext.current = false;
+    setAnchorElement(event.currentTarget);
+  }
+
+  function handleClose() {
+    animateNext.current = false;
+    setAnchorElement(null);
+  }
+
+  function badgeCounter() {
+    return shoppingCartItems.reduce((pv, cv) => {
+      return +pv + +cv.quantity;
+    }, 0);
+  }
 
   const useStyles = makeStyles((theme) => ({
     buttonCell: {
@@ -40,24 +57,36 @@ function handleClose() {
       color: "black",
     },
     root: {
-        '&:focus': {
-          backgroundColor: theme.palette.primary.main,
-          '& .MuiListItemIcon-root, & .MuiListItemText-primary': {
-            color: theme.palette.common.white,
-          },
+      "&:focus": {
+        backgroundColor: theme.palette.primary.main,
+        "& .MuiListItemIcon-root, & .MuiListItemText-primary": {
+          color: theme.palette.common.white,
         },
       },
+    },
     icon: {
-      color: "white"
+      color: "white",
     },
     head: {
-      padding: "8px"
-    }
+      padding: "8px",
+    },
+    badgeAnimation: {
+      animation: `$badgeLoad 1s ${theme.transitions.easing.easeInOut} 1`,
+    },
+    "@keyframes badgeLoad": {
+      "0%": {
+        width: 24,
+      },
+      "50%": {
+        width: 100
+      },
+      "100%": {
+        width: 24,
+      },
+    },
   }));
 
   const classes = useStyles();
-
-
 
   return (
     <div>
@@ -66,8 +95,8 @@ function handleClose() {
         aria-haspopup="true"
         onClick={handleClick}
       >
-        <Badge badgeContent={shoppingCartItems.length} color="secondary">
-        <ShoppingCartIcon className={classes.icon}/>
+        <Badge className={animationPreventer()} badgeContent={badgeCounter()} color="secondary">
+          <ShoppingCartIcon className={classes.icon} />
         </Badge>
       </IconButton>
       <Menu
@@ -76,29 +105,37 @@ function handleClose() {
         keepMounted
         open={Boolean(anchorElement)}
         onClose={handleClose}
-    elevation={0}
-    getContentAnchorEl={null}
-    anchorOrigin={{
-      vertical: 'bottom',
-      horizontal: 'center',
-    }}
-    transformOrigin={{
-      vertical: 'top',
-      horizontal: 'center',
-    }}
+        elevation={0}
+        getContentAnchorEl={null}
+        anchorOrigin={{
+          vertical: "bottom",
+          horizontal: "right",
+        }}
+        transformOrigin={{
+          vertical: "top",
+          horizontal: "right",
+        }}
       >
         <MenuItem>
-        <ListItemText className={classes.head} primary="Produkt" />
-        <ListItemText className={`${classes.dropDownQuantity} ${classes.head}`} primary="Antal" />
+          <ListItemText className={classes.head} primary="Produkt" />
+          <ListItemText
+            className={`${classes.dropDownQuantity} ${classes.head}`}
+            primary="Antal"
+          />
         </MenuItem>
-        {
-          shoppingCartItems.map((product) => {
-            return <DropDownCartItem imageUrl={product.product.imageUrl} quantity={product.quantity} title={product.product.name}/>
-          })
-        }
+        {shoppingCartItems.map(({ product, quantity }) => {
+          return (
+            <DropDownCartItem
+              id={product.id}
+              imageUrl={product.imageUrl}
+              quantity={quantity}
+              title={product.name}
+            />
+          );
+        })}
       </Menu>
     </div>
   );
-}
+};
 
 export default DropDownCart;

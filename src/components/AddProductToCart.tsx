@@ -36,7 +36,7 @@ export const AddProductToCart: FC<props> = ({ product }) => {
           shrink: true,
         }}
         variant="outlined"
-        value={quantity}
+        value={quantity >> 0}
         onChange={changeNr}
         className={classes.input}
       />

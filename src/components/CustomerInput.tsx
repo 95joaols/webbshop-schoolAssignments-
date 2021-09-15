@@ -5,26 +5,23 @@ import TextField from "@material-ui/core/TextField";
 import { Container } from "@material-ui/core";
 import { useContext } from "react";
 import { CustomerContext } from "../contexts/CustomerContext";
-import {
-  CustomerValidation,
-  customerErrors,
-} from "../entity/CustomerValidation";
+import { CustomerValidation } from "../entity/CustomerValidation";
 
-interface Props {
-  onSetCustomer: () => void;
-}
-
-const CustomerInput: React.FC<Props> = ({onSetCustomer}) => {
-  const { customer, updateCustomer } = useContext(CustomerContext);
+const CustomerInput: React.FC = () => {
+  const { customer, updateCustomer, validationErrors, setValidationErrors } =
+    useContext(CustomerContext);
 
   function addCustomerProperty(
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) {
+    setValidationErrors({
+      ...validationErrors,
+      [e.target.name]: CustomerValidation(e.target.name, e.target.value),
+    });
     updateCustomer({
       ...customer,
       [e.target.name]: e.target.value,
     });
-    onSetCustomer();
   }
 
   return (
@@ -41,12 +38,11 @@ const CustomerInput: React.FC<Props> = ({onSetCustomer}) => {
             label="Förnamn"
             value={customer.firstName}
             onChange={(e) => {
-              CustomerValidation("firstName", e.target.value);
               addCustomerProperty(e);
             }}
             fullWidth
             autoComplete="shipping given-name"
-            error={customerErrors.firstName}
+            error={validationErrors.firstName}
           />
         </Grid>
         <Grid item xs={12} sm={6}>
@@ -57,12 +53,11 @@ const CustomerInput: React.FC<Props> = ({onSetCustomer}) => {
             label="Efternamn"
             value={customer.lastName}
             onChange={(e) => {
-              CustomerValidation("lastName", e.target.value);
               addCustomerProperty(e);
             }}
             fullWidth
             autoComplete="shipping family-name"
-            error={customerErrors.lastName}
+            error={validationErrors.lastName}
           />
         </Grid>
         <Grid item xs={12}>
@@ -73,12 +68,11 @@ const CustomerInput: React.FC<Props> = ({onSetCustomer}) => {
             label="Adress"
             value={customer.address}
             onChange={(e) => {
-              CustomerValidation("address", e.target.value);
               addCustomerProperty(e);
             }}
             fullWidth
             autoComplete="shipping address-line1"
-            error={customerErrors.address}
+            error={validationErrors.address}
           />
         </Grid>
         <Grid item xs={12} sm={6}>
@@ -89,12 +83,11 @@ const CustomerInput: React.FC<Props> = ({onSetCustomer}) => {
             label="Postnummer"
             value={customer.zip}
             onChange={(e) => {
-              CustomerValidation("zip", e.target.value);
               addCustomerProperty(e);
             }}
             fullWidth
             autoComplete="shipping postal-code"
-            error={customerErrors.zip}
+            error={validationErrors.zip}
           />
         </Grid>
         <Grid item xs={12} sm={6}>
@@ -105,15 +98,14 @@ const CustomerInput: React.FC<Props> = ({onSetCustomer}) => {
             label="Stad"
             value={customer.city}
             onChange={(e) => {
-              CustomerValidation("city", e.target.value);
               addCustomerProperty(e);
             }}
             fullWidth
             autoComplete="shipping address-level2"
-            error={customerErrors.city}
+            error={validationErrors.city}
           />
         </Grid>
-        <Grid item xs={12}>
+        <Grid item xs={12} sm={6}>
           <TextField
             required
             id="country"
@@ -121,12 +113,41 @@ const CustomerInput: React.FC<Props> = ({onSetCustomer}) => {
             label="Land"
             value={customer.country}
             onChange={(e) => {
-              CustomerValidation("country", e.target.value);
               addCustomerProperty(e);
             }}
             fullWidth
             autoComplete="shipping country"
-            error={customerErrors.country}
+            error={validationErrors.country}
+          />
+        </Grid>
+        <Grid item xs={12} sm={6}>
+          <TextField
+            required
+            id="phoneNumber"
+            name="phoneNumber"
+            label="Telefonnummer"
+            value={customer.phoneNumber}
+            onChange={(e) => {
+              addCustomerProperty(e);
+            }}
+            fullWidth
+            autoComplete="shipping phone"
+            error={validationErrors.phoneNumber}
+          />
+        </Grid>
+        <Grid item xs={12}>
+          <TextField
+            required
+            id="email"
+            name="email"
+            label="Epost"
+            value={customer.email}
+            onChange={(e) => {
+              addCustomerProperty(e);
+            }}
+            fullWidth
+            autoComplete="shipping email"
+            error={validationErrors.email}
           />
         </Grid>
       </Grid>
