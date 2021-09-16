@@ -101,6 +101,11 @@ const DropDownCart: React.FC = () => {
       </IconButton>
       <Menu
         id="customized-menu"
+        PaperProps={{
+          style: { 
+            border: "1px solid black"
+          }
+        }}
         anchorEl={anchorElement}
         keepMounted
         open={Boolean(anchorElement)}
@@ -116,7 +121,7 @@ const DropDownCart: React.FC = () => {
           horizontal: "right",
         }}
       >
-        <MenuItem>
+        <MenuItem disabled>
           <ListItemText className={classes.head} primary="Produkt" />
           <ListItemText
             className={`${classes.dropDownQuantity} ${classes.head}`}
