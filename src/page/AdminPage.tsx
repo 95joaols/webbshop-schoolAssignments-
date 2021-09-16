@@ -25,6 +25,11 @@ const useStyles = makeStyles((theme: Theme) =>
       border: "1px solid",
       borderRadius: "16px",
     },
+    image: {
+      width: "9rem",
+      border: "1px solid",
+      borderRadius:"0.25rem"
+    },
     row: {
       display: "flex",
       flexDirection: "row",
@@ -240,7 +245,7 @@ const AdminPage: React.FC = () => {
     {selectedProduct.id > 0 ? <h1>Edit</h1> : <h1>Create New</h1>}
     {<form onSubmit={handleSubmit} className={`${classes.row} ${classes.max780Col}`}>
       <div className={`${classes.modalCol} ${classes.max780Bott}`}>
-        {selectedProduct.id > 0 && <TextField type="number" label="Id" value={selectedProduct.id} onChange={handleChange} />}
+        {selectedProduct.id > 0 && <TextField type="text" label="Id" value={selectedProduct.id} disabled />}
         <TextField error={isError('name')} helperText={errorMessage('name')} type="text" name="name" label="Name" value={selectedProduct.name} onChange={handleChange} />
         <TextField error={isError('year')} helperText={errorMessage('year')} type="text" name="year" label="Year" value={selectedProduct.year} onChange={handleChange} />
         <TextField error={isError('genre')} helperText={errorMessage('genre')} type="text" name="genre" label="Genre" value={selectedProduct.genre} onChange={handleChange} />
@@ -250,6 +255,7 @@ const AdminPage: React.FC = () => {
           <TextField error={isError('price')} helperText={errorMessage('price')} type="text" name="price" label="Price" value={selectedProduct.price} onChange={handleChange} />
           <TextField error={isError('description')} helperText={errorMessage('description')} type="text" name="description" label="Description" value={selectedProduct.description} onChange={handleChange} />
           <TextField error={isError('imageUrl')} helperText={errorMessage('imageUrl')} type="text" name="imageUrl" label="Image URL" value={selectedProduct.imageUrl} onChange={handleChange} />
+          {!isError('imageUrl') && <img src={selectedProduct.imageUrl} alt={selectedProduct.name} className={classes.image} />}
         </div>
         <Button variant="contained" color="primary" type="submit">
           Submit
