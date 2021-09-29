@@ -13,6 +13,7 @@ import { ShoppingCartContext } from "../contexts/ShoppingCartContext";
 import { CustomerContext } from "../contexts/CustomerContext";
 import { Customer } from "../entity/Customer";
 import { customerErrors } from "../entity/CustomerValidation";
+import { Typography } from "@material-ui/core";
 
 const Transition = React.forwardRef(function Transition(
   props: TransitionProps & { children?: React.ReactElement<any, any> },
@@ -47,6 +48,12 @@ const ConfirmationDialog: React.FC = () => {
     button: {
       width: "100%",
     },
+    max500Text: {
+      "@media (max-width:500px)": {
+        fontSize: 12,
+        paddingRight: 0
+      }
+    }
   }));
 
   const classes = useStyles();
@@ -59,7 +66,7 @@ const ConfirmationDialog: React.FC = () => {
         color="primary"
         onClick={handleClickOpen}
       >
-        Bekräfta
+        <Typography className={classes.max500Text}>Bekräfta</Typography>
       </Button>
       <Dialog
         open={open}
