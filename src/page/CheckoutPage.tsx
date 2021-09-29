@@ -12,17 +12,17 @@ import { CustomerContext } from "../contexts/CustomerContext";
 const CheckoutPage: React.FC = () => {
   const [disabled, setDisabled] = useState<boolean>(true);
   const [totalPrice, setTotalPrice] = useState<number>(0);
-  const { validationErrors } = useContext(CustomerContext);
+  const { validationErrors, customer } = useContext(CustomerContext);
 
   useEffect(() => {
-    disableIfError();
-  });
-
-  function disableIfError() {
-    if (Object.values(validationErrors).includes(true) || totalPrice === 0) {
+  if (totalPrice === 0) {
+    setDisabled(true)
+  } else if (Object.values(validationErrors).includes(true)) {
       setDisabled(true);
-    } else setDisabled(false);
-  }
+  } else if (Object.keys(customer).length !== Object.keys(validationErrors).length) {
+    setDisabled(true);
+  } else setDisabled(false);
+  }, [validationErrors, totalPrice, customer])
 
   const useStyles = makeStyles((theme) => ({
     root: {
@@ -53,7 +53,6 @@ const CheckoutPage: React.FC = () => {
           totalPrice={totalPrice}
           onSetPrice={(price) => {
             setTotalPrice(price);
-            disableIfError();
           }}
         />
       </ErrorBoundary>
