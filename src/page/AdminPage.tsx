@@ -11,11 +11,8 @@ const useStyles = makeStyles((theme: Theme) =>
       display: "flex",
       flexDirection: "column",
       alignItems: "center",
-      width: "100%",
-      padding: "16px",
-      color: "black",
       backgroundColor: "#ffffff",
-      marginTop: 170,
+      marginTop: 170
     },
     product: {
       display: "flex",
@@ -23,7 +20,7 @@ const useStyles = makeStyles((theme: Theme) =>
       alignItems: "center",
       backgroundColor: "white",
       border: "1px solid",
-      borderRadius: "16px",
+      borderRadius: "1rem"
     },
     image: {
       width: "9rem",
@@ -33,68 +30,68 @@ const useStyles = makeStyles((theme: Theme) =>
     row: {
       display: "flex",
       flexDirection: "row",
-      width: "100%",
+      width: "100%"
     },
     title: {
-      paddingLeft: "16px",
-      width: "40%",
+      paddingLeft: ".5rem",
+      width: "40%"
     },
     year: {
       textAlign: "center",
-      width: "15%",
+      width: "15%"
     },
     genre: {
       textAlign: "center",
-      width: "30%",
+      width: "30%"
     },
     price: {
-      paddingRight: "16px",
+      paddingRight: ".5rem",
       textAlign: "right",
-      width: "15%",
+      width: "15%"
     },
     listitem: {
       backgroundColor: "#3f51b5",
-      marginTop: "1rem",
-      borderRadius: "1rem",
+      marginTop: ".5rem",
+      borderRadius: "1rem"
     },
     button: {
       width: "fit-content",
       "& :hover": {
-        fontWeight: 600,
+        fontWeight: 600
       },
     },
     fit: {
       display: "flex",
       justifyContent: "center",
       marginTop: "16px",
-      height: "fit-content",
+      height: "fit-content"
     },
     modalCol: {
       display: "flex",
       flexDirection: "column",
       margin: "32px",
-      width: "50%",
+      width: "50%"
     },
     modalWidth: {
       width: "80%",
-      padding: "16px",
+      padding: "16px"
     },
     max780Top: {
       "@media (max-width:780px)": {
         marginTop: 0,
-        width: "100%",
+        width: "100%"
       },
     },
     max780Bott: {
       "@media (max-width:780px)": {
         marginBottom: 0,
-        width: "100%",
+        width: "100%"
       },
     },
     max780Col: {
       "@media (max-width:780px)": {
         flexDirection: "column",
-        alignItems: "center",
+        alignItems: "center"
       },
     },
   })
