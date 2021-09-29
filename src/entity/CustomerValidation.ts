@@ -1,24 +1,24 @@
 import { CustomerErrors } from "./CustomerErrors";
 
 export let customerErrors: CustomerErrors = {
-  firstName: true,
-  lastName: true,
-  address: true,
-  zip: true,
-  city: true,
-  country: true,
-  phoneNumber: true,
-  email: true,
+  firstName: false,
+  lastName: false,
+  address: false,
+  zip: false,
+  city: false,
+  country: false,
+  phoneNumber: false,
+  email: false,
 };
 
 export const CustomerValidation = (parameter: string, value: string) => {
   switch (parameter) {
     case "firstName": {
-      if (!value || value.length === 0) return true;
+      if (!value || value.length === 0 || !value.match(/^[a-zA-Z]+$/)) return true;
       else return false;
     }
     case "lastName": {
-      if (!value || value.length === 0) return true;
+      if (!value || value.length === 0 || !value.match(/^[a-zA-Z]+$/)) return true;
       else return false;
     }
     case "address": {
