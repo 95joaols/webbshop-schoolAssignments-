@@ -175,7 +175,7 @@ const SummaryPage: React.FC = () => {
               variant="contained"
               color="primary"
             >
-              Tillbaka
+              <Typography className={classes.max500Text}>Tillbaka</Typography>
             </Button>
           </div>
           <div className={classes.cardRow}>
